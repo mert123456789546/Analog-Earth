@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NSA Proje - Dünya Haritası</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <button id="menuBtn" aria-label="Menu">
+      <img src="images/logo.jpeg" alt="☰">
+    </button>
+    <div>
+      <h1>Click &amp; Drag Map</h1>
+      <p class="hint">Photo 1 is from Earth, 2 is from Mars/Moon</p>
+    </div>
+  </header>
+
+  <div id="wrap">
+    <svg id="map" viewBox="0 0 1000 500" preserveAspectRatio="none"></svg>
+    <div id="selection"></div>
+    <div id="popup" hidden></div>
+  </div>
+
+  <!-- Yan panel -->
+  <div id="overlay"></div>
+  <aside id="panel">
+    <div class="panel-head">
+      <span>Menu</span>
+      <button id="panelClose" class="x-btn" aria-label="Close">×</button>
+    </div>
+    <div id="panelList"></div>
+  </aside>
+
+  <!-- Düğmelere tıklayınca açılan ekran -->
+  <div id="modal">
+    <div class="modal-box">
+      <button id="modalClose" class="x-btn" aria-label="Close">×</button>
+      <h2 id="modalTitle"></h2>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+<script src="d3.min.js"></script>
+<script src="topojson-client.min.js"></script>
+<script src="world.js"></script>
+<script src="points.js"></script>
+<script src="texts.js"></script>
+<script src="script.js"></script>
+<script src="menu.js"></script>
+</body>
+</html>

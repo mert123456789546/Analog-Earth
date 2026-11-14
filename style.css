@@ -1,0 +1,174 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0; padding: 24px; background: #0b1220; color: #e6edf7;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+h1 { margin: 0 0 6px; font-size: 22px; }
+.hint { margin: 0 0 16px; color: #8fa3c0; font-size: 14px; }
+
+/* Harita alanı */
+#wrap {
+  position: relative; width: 100%; max-width: 1400px; margin: 0 auto;
+  aspect-ratio: 2 / 1; user-select: none; cursor: crosshair;
+  border: 1px solid #22304a; border-radius: 8px; overflow: hidden;
+}
+#map { width: 100%; height: 100%; display: block; }
+.sphere  { fill: #10213a; }
+.country { fill: #1d3557; stroke: #2e4a73; stroke-width: 0.4; }
+
+/* ---------- NOKTALAR ---------- */
+
+/* Varsayılan: seçilmemiş noktalar tamamen görünmez ve tıklanamaz */
+.point {
+  fill: #ffd54a;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Seçim alanındaki noktalar: görünür, parlar, tıklanabilir */
+.point.active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  cursor: pointer;
+  filter: drop-shadow(0 0 4px #ffd54a) drop-shadow(0 0 8px #ffb300);
+  animation: glow 1.8s ease-in-out infinite;
+}
+
+/* Üzerine gelince daha güçlü parlama */
+.point.active:hover {
+  fill: #fff3b0;
+  filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 14px #ffd54a) drop-shadow(0 0 24px #ff9800);
+  animation: pulse .7s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.25); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1.3); }
+  50%      { transform: scale(1.9); }
+}
+
+/* ---------- SEÇİM DİKDÖRTGENİ ---------- */
+#selection {
+  position: absolute; display: none; pointer-events: none;
+  border: 1.5px dashed #5cc8ff; background: rgba(92, 200, 255, .12);
+}
+
+/* ---------- AÇIKLAMA KUTUSU ---------- */
+#popup {
+  position: absolute; max-width: 260px; padding: 10px 14px; z-index: 5;
+  background: #fff8dc; color: #1b1b1b; border-radius: 8px; cursor: default;
+  box-shadow: 0 6px 24px rgba(0,0,0,.5); font-size: 14px; line-height: 1.4;
+}
+#popup[hidden] { display: none; }
+#popup strong { display: block; margin-bottom: 4px; }
+
+#popup { width: 260px; }
+
+.slider {
+  position: relative; height: 140px; overflow: hidden;
+  border-radius: 6px; margin-bottom: 8px;
+  touch-action: pan-y;          /* dokunmatikte yatay kaydırmayı bize bırak */
+  cursor: grab;
+}
+.track { display: flex; height: 100%; }
+.track img {
+  flex: 0 0 100%; width: 100%; height: 100%;
+  object-fit: cover; user-select: none;
+}
+
+.nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; border: 0; border-radius: 50%;
+  background: rgba(0,0,0,.5); color: #fff; font-size: 18px; line-height: 1;
+  cursor: pointer; padding: 0;
+}
+.nav:hover { background: rgba(0,0,0,.75); }
+.nav.prev { left: 6px; }
+.nav.next { right: 6px; }
+
+.dots {
+  position: absolute; bottom: 6px; left: 0; right: 0;
+  display: flex; justify-content: center; gap: 5px; pointer-events: none;
+}
+.dots i {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,.5);
+}
+.dots i.on { background: #fff; }
+
+/* ---------- ÜST BAŞLIK + MENÜ DÜĞMESİ ---------- */
+.top { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.top .hint { margin: 0; }
+
+#menuBtn {
+  width: 44px; height: 44px; padding: 0; flex: none;
+  border: 1px solid #2e4a73; border-radius: 10px; background: #10213a;
+  color: #e6edf7; font-size: 22px; cursor: pointer; overflow: hidden;
+  display: grid; place-items: center;
+}
+#menuBtn:hover { border-color: #5cc8ff; }
+#menuBtn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------- KARARTMA + YAN PANEL ---------- */
+#overlay {
+  position: fixed; inset: 0; z-index: 50;
+  background: rgba(0, 0, 0, .78);
+  opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+#panel {
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
+  width: 280px; max-width: 85vw;
+  background: #0f1a2e; border-right: 1px solid #22304a;
+  display: flex; flex-direction: column;
+  transform: translateX(-100%); transition: transform .25s;
+}
+body.panel-open #overlay { opacity: 1; pointer-events: auto; }
+body.panel-open #panel   { transform: none; }
+
+.panel-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 16px; font-weight: 600; border-bottom: 1px solid #22304a;
+}
+.x-btn {
+  background: none; border: 0; color: #8fa3c0;
+  font-size: 26px; line-height: 1; cursor: pointer;
+}
+.x-btn:hover { color: #fff; }
+
+#panelList {
+  overflow-y: auto; padding: 12px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.menu-item {
+  text-align: left; padding: 11px 14px;
+  border: 1px solid #2e4a73; border-radius: 8px;
+  background: #142238; color: #e6edf7;
+  font: inherit; font-size: 14px; cursor: pointer;
+}
+.menu-item:hover { background: #1d3557; border-color: #5cc8ff; }
+.menu-item.howto { background: #1d3557; border-color: #5cc8ff; font-weight: 600; }
+
+/* ---------- AÇILAN EKRAN (MODAL) ---------- */
+#modal {
+  position: fixed; inset: 0; z-index: 100;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, .55); padding: 20px;
+}
+#modal.open { display: flex; }
+.modal-box {
+  position: relative; width: 100%; max-width: 560px; max-height: 85vh;
+  overflow-y: auto; padding: 24px;
+  background: #142238; border: 1px solid #2e4a73; border-radius: 12px;
+}
+.modal-box .x-btn { position: absolute; top: 10px; right: 14px; }
+.modal-box h2 { margin: 0 30px 14px 0; font-size: 20px; }
+#modalBody img {
+  display: block; width: 100%; border-radius: 8px; margin-bottom: 12px;
+}
+#modalBody p { margin: 0; line-height: 1.6; white-space: pre-line; }
