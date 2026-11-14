@@ -10,15 +10,23 @@ const path = d3.geoPath(projection);
 
 svg.append("path").datum({ type: "Sphere" }).attr("class", "sphere").attr("d", path);
 
+const unmatched = [];
 svg.append("g").selectAll("path")
   .data(topojson.feature(WORLD, WORLD.objects.countries).features)
-  .join("path").attr("class", "country").attr("d", path);
+  .join("path")
+  .attr("class", d => {
+    const continent = CONTINENT_OF[d.properties.name];
+    if (!continent) unmatched.push(d.properties.name);
+    return "country" + (continent ? " " + continent : "");
+  })
+  .attr("d", path);
 
+if (unmatched.length) console.log("Kıtası belirlenmemiş ülkeler:", unmatched);
 // Noktaları çiz (SVG koordinatları)
 POINTS.forEach(p => { [p.x, p.y] = projection([p.lon, p.lat]); });
 const dots = svg.selectAll(".point").data(POINTS).join("circle")
-  .attr("class", "point").attr("cx", d => d.x).attr("cy", d => d.y).attr("r", 4);
-
+  .attr("class", d => "point" + (d.continent ? " " + d.continent : ""))
+  .attr("cx", d => d.x).attr("cy", d => d.y).attr("r", 4);
 // Fare konumu -> SVG koordinatı
 function toSvg(e) {
   const r = svg.node().getBoundingClientRect();

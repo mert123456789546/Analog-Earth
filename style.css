@@ -19,28 +19,37 @@ h1 { margin: 0 0 6px; font-size: 22px; }
 
 /* ---------- NOKTALAR ---------- */
 
+/* Her kıtanın parlama rengi (--glow) ve üzerine gelince açılan tonu (--glow-hi) */
+.point.africa        { --glow: #ffc933; --glow-hi: #ffe596; }
+.point.europe        { --glow: #7fc4ff; --glow-hi: #cfe9ff; }
+.point.asia          { --glow: #3dff9a; --glow-hi: #b4ffd8; }
+.point.north-america { --glow: #ff5fa8; --glow-hi: #ffc2de; }
+.point.south-america { --glow: #ff6b3d; --glow-hi: #ffc0a8; }
+.point.oceania       { --glow: #28e6e0; --glow-hi: #a8f7f4; }
+.point.antarctica    { --glow: #d6ecff; --glow-hi: #ffffff; }
+
 /* Varsayılan: seçilmemiş noktalar tamamen görünmez ve tıklanamaz */
 .point {
-  fill: #ffd54a;
+  fill: var(--glow, #ffd54a);
   opacity: 0 !important;
   pointer-events: none !important;
   transform-box: fill-box;
   transform-origin: center;
 }
 
-/* Seçim alanındaki noktalar: görünür, parlar, tıklanabilir */
+/* Seçim alanındaki noktalar: görünür, kıta renginde parlar, tıklanabilir */
 .point.active {
   opacity: 1 !important;
   pointer-events: auto !important;
   cursor: pointer;
-  filter: drop-shadow(0 0 4px #ffd54a) drop-shadow(0 0 8px #ffb300);
+  filter: drop-shadow(0 0 4px var(--glow, #ffd54a)) drop-shadow(0 0 8px var(--glow, #ffb300));
   animation: glow 1.8s ease-in-out infinite;
 }
 
-/* Üzerine gelince daha güçlü parlama */
+/* Üzerine gelince daha açık ve güçlü parlama */
 .point.active:hover {
-  fill: #fff3b0;
-  filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 14px #ffd54a) drop-shadow(0 0 24px #ff9800);
+  fill: var(--glow-hi, #fff3b0);
+  filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 14px var(--glow, #ffd54a)) drop-shadow(0 0 24px var(--glow, #ff9800));
   animation: pulse .7s ease-in-out infinite;
 }
 
@@ -188,3 +197,38 @@ body.panel-open #panel   { transform: none; }
   line-height: 1.5; white-space: pre-line;
 }
 .dict-item:last-child { border-bottom: 0; }
+
+/* ---------- KITA RENKLERİ ---------- */
+.country.africa        { fill: #7a5c2e; }
+.country.europe        { fill: #4b5fa8; }
+.country.asia          { fill: #3f7d5a; }
+.country.north-america { fill: #8a4a6a; }
+.country.south-america { fill: #a1553b; }
+.country.oceania       { fill: #2f7f86; }
+.country.antarctica    { fill: #6b7f99; }
+.menu-item.africa        { color: #e0b36a; }
+.menu-item.europe        { color: #8ea2ff; }
+.menu-item.asia          { color: #6fd39a; }
+.menu-item.north-america { color: #e58db8; }
+.menu-item.south-america { color: #f0906f; }
+.menu-item.oceania       { color: #5cc8d0; }
+.menu-item.antarctica    { color: #a9bdd6; }
+
+/* ---------- PANELDE KITA BAŞLIKLARI ---------- */
+.continent-title {
+  margin: 20px 4px 2px;
+  padding-bottom: 6px;
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  border-bottom: 1px solid rgba(255, 255, 255, .14);
+}
+
+.continent-title.africa        { color: #e0b36a; }
+.continent-title.europe        { color: #8ea2ff; }
+.continent-title.asia          { color: #6fd39a; }
+.continent-title.north-america { color: #e58db8; }
+.continent-title.south-america { color: #f0906f; }
+.continent-title.oceania       { color: #5cc8d0; }
+.continent-title.antarctica    { color: #a9bdd6; }

@@ -7,27 +7,59 @@ const modalClose = document.getElementById("modalClose");
 const modalTitle = document.getElementById("modalTitle");
 const modalBody  = document.getElementById("modalBody");
 
-// Panel düğmeleri: How to Use, Dictionary, points.js'teki noktalar, EXTRA
-const entries = [
-  { label: HOWTO.title, text: HOWTO.text, images: HOWTO.images, howto: true },
-  { label: "Dictionary", dictionary: true },
-  ...POINTS.map(p => {
-    const t = TEXTS[p.name] || {};
-    return { label: p.name, text: t.text, images: t.images };
-  }),
-  ...EXTRA
-];
+// Kıtaların panelde görünme sırası ve başlıkta yazacak adları
+const CONTINENT_ORDER = ["north-america", "south-america", "europe", "africa", "asia", "oceania", "antarctica"];
+const CONTINENT_NAMES = {
+  "north-america": "North America",
+  "south-america": "South America",
+  "europe": "Europe",
+  "africa": "Africa",
+  "asia": "Asia",
+  "oceania": "Oceania",
+  "antarctica": "Antarctica"
+};
 
-entries.forEach(item => {
+function addButton(item) {
   const b = document.createElement("button");
-  b.className = "menu-item" + (item.howto ? " howto" : "");
+  b.className = "menu-item"
+    + (item.howto ? " howto" : "")
+    + (item.continent ? " " + item.continent : "");
   b.textContent = item.label;
   b.addEventListener("click", () => {
     if (item.dictionary) openDictionary(item.label);
     else openModal(item.label, item.text || "Yazı", item.images || []);
   });
   panelList.appendChild(b);
+}
+
+function addHeading(continent) {
+  const h = document.createElement("div");
+  h.className = "continent-title " + continent;
+  h.textContent = CONTINENT_NAMES[continent];
+  panelList.appendChild(h);
+}
+
+function pointItem(p) {
+  const t = TEXTS[p.name] || {};
+  return { label: p.name, text: t.text, images: t.images, continent: p.continent };
+}
+
+// 1) En üstte How to Use, Dictionary ve EXTRA düğmeleri (Source gibi)
+addButton({ label: HOWTO.title, text: HOWTO.text, images: HOWTO.images, howto: true });
+addButton({ label: "Dictionary", dictionary: true });
+EXTRA.forEach(addButton);
+
+// 2) Kıtalar: önce başlık, altında o kıtadaki noktalar
+CONTINENT_ORDER.forEach(c => {
+  const group = POINTS.filter(p => p.continent === c);
+  if (!group.length) return;
+  addHeading(c);
+  group.forEach(p => addButton(pointItem(p)));
 });
+
+// 3) Kıtası yazılmamış ya da listede olmayan noktalar (başlıksız)
+POINTS.filter(p => !CONTINENT_ORDER.includes(p.continent))
+  .forEach(p => addButton(pointItem(p)));
 
 function openPanel() {
   hidePopup();
@@ -73,11 +105,11 @@ function loadDictionary() {
       })
       .then(text => {
         text = text.replace(/^\uFEFF/, "").trim();
-        let blocks = text.split(/\r?\n\s*\r?\n/);          // boş satırla ayrılmış maddeler
-        if (blocks.length === 1) blocks = text.split(/\r?\n/);  // yoksa her satır bir madde
+        let blocks = text.split(/\r?\n\s*\r?\n/);
+        if (blocks.length === 1) blocks = text.split(/\r?\n/);
         return blocks.map(b => b.trim()).filter(Boolean);
       });
-    dictPromise.catch(() => { dictPromise = null; });       // hata olursa tekrar denenebilsin
+    dictPromise.catch(() => { dictPromise = null; });
   }
   return dictPromise;
 }
