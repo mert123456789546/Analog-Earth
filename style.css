@@ -172,3 +172,19 @@ body.panel-open #panel   { transform: none; }
   display: block; width: 100%; border-radius: 8px; margin-bottom: 12px;
 }
 #modalBody p { margin: 0; line-height: 1.6; white-space: pre-line; }
+
+/* ---------- SÖZLÜK ---------- */
+#dictSearch {
+  width: 100%; padding: 10px 12px; margin-bottom: 12px;
+  border: 1px solid #2e4a73; border-radius: 8px;
+  background: #0f1a2e; color: #e6edf7; font: inherit; font-size: 14px;
+}
+#dictSearch:focus { outline: none; border-color: #5cc8ff; }
+
+#dictList { max-height: 55vh; overflow-y: auto; }
+
+.dict-item {
+  padding: 10px 2px; border-bottom: 1px solid #22304a;
+  line-height: 1.5; white-space: pre-line;
+}
+.dict-item:last-child { border-bottom: 0; }

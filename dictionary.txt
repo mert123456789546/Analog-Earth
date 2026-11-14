@@ -1,0 +1,61 @@
+Abiotic Process:  Natural phenomena that occur entirely through physical and chemical factors, without the influence of living organisms.
+
+Aeolian Process:  All wind-driven activities involving the erosion of landforms, the transport of sand or dust, and their deposition.
+
+Alluvial Fan:  A landform created when streams descending from mountainous areas reach flatter terrain with a reduced slope and deposit the gravel, sand, and silt they carry in a fan-shaped pattern.
+
+Analogue Site:  A testing site on Earth that closely resembles the surface conditions of other celestial bodies, such as the Moon or Mars, in terms of its geological, climatic, or chemical properties.
+
+Basalt / Basaltic:  A dark-coloured volcanic rock rich in iron and magnesium, formed when lava produced by volcanic eruptions cools rapidly at the surface.
+
+Caldera:  A large volcanic basin or depression formed when an underground magma chamber empties following a major volcanic eruption, causing its roof to collapse.
+
+Cinder Cone:  A steep-sided, cone-shaped volcanic hill formed when fragments of lava (pyroclasts) ejected during volcanic eruptions accumulate around a volcanic vent.
+
+Diatomaceous Sediment:  A fine-grained rock or soil layer formed by the accumulation of silica shells from microscopic single-celled algae (diatoms) that once lived on ancient lake or seabeds.
+
+Evaporite:  A sedimentary layer composed of minerals such as salt (halite), gypsum, and sulfates, left behind when shallow lake or seawater evaporates under intense sunlight and arid conditions.
+
+Halite:  A sodium chloride (NaCl) mineral, also known as rock salt, that accumulates in white crusts on the beds of dried-up salt lakes.
+
+Hydrothermal Alteration:  The process by which hot groundwater or steam reacts chemically with surrounding rocks, changing their mineral composition.
+
+Hyaloclastite:  A volcanic rock formed when hot basaltic lava comes into sudden contact with water or ice, breaking apart into glassy fragments.
+
+Hyperarid:  An extremely dry climatic region where annual evaporation greatly exceeds precipitation and vegetation is almost entirely absent.
+
+Hypersaline:  Describes water or a basin environment containing dissolved salt concentrations much higher than those of seawater.
+
+Impact Crater:  A circular depression formed when a meteorite or asteroid strikes the surface of a planet at high velocity.
+
+Intermontane Basin:  A low-lying depression or plain completely surrounded by high mountain ranges.
+
+Katabatic Wind:  A cold wind produced when air cooled over high plateaus or glaciers becomes denser and flows downhill into valleys under the influence of gravity, sometimes reaching very high speeds.
+
+Lava Tube:  A natural underground tunnel or cave formed when the outer surface of a flowing basaltic lava stream cools and hardens into a crust while the hot lava inside continues to flow and eventually drains away.
+
+Maria (Lunar Seas):  Dark, extensive basaltic plains on the Moon's surface, formed by the solidification of ancient, massive volcanic lava flows.
+
+Morphology / Geomorphology:  Morphology refers to the external appearance and structure of landforms or planetary surfaces, while geomorphology is the scientific study of these forms and the physical processes that shape them.
+
+Paleolake:  An ancient lake that existed in the geological past but has since completely dried up due to climate change or tectonic movements.
+
+Palagonite:  A yellowish or rust-coloured mineral mixture formed through the chemical interaction (alteration) of basaltic volcanic glass with water.
+
+Permafrost:  A layer of soil or rock that remains continuously frozen at or below 0°C for at least two consecutive years.
+
+Playa:  A dry lakebed located in the lowest part of an arid desert basin, which temporarily fills with water during rainy periods and leaves behind a flat clay or salt layer when it dries out.
+
+Pyroclastic Material:  A general term for volcanic ash, cinders, pumice, and rock fragments ejected into the atmosphere during volcanic eruptions.
+
+Shield Volcano:  A broad, gently sloping volcano with a wide base, formed by successive flows of highly fluid lava spreading over large areas.
+
+Skylight:  A circular opening that provides access to the interior of an underground lava tube, formed when part of its roof collapses.
+
+Spectroscopy:  A method of remotely identifying the minerals and chemical elements that make up a surface by analysing the electromagnetic radiation (light) it absorbs or reflects.
+
+Stratovolcano:  A tall, steep-sided, cone-shaped volcano formed by successive layers of lava flows, ash, and pyroclastic material.
+
+Stratigraphy:  A branch of geology that studies the ages, arrangement, and sequence of formation of rock and sediment layers.
+
+Yardang:  An aerodynamic ridge-and-groove landform extending parallel to the prevailing wind direction, formed when wind-driven sand particles continuously erode softer sedimentary rocks.
