@@ -1,5 +1,5 @@
 /*
- NASA ANALOG ASSISTANT (Groq AI Integrated - Multilingual)
+ NASA ANALOG ASSISTANT (Groq AI Integrated - Map & Site Guide)
  Team Philosophers (Filozofların Takımı)
  NASA Space Apps Challenge 2026
 */
@@ -16,30 +16,14 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           mode: "chat",
-          message: question,
-          languageInstruction: "Detect the exact language of the user's message and reply naturally, scientifically, and concisely in that EXACT SAME language."
+          message: question
         })
       });
 
       if (!res.ok) throw new Error("API did not respond (HTTP " + res.status + ")");
 
       const data = await res.json();
-
-      // Eğer Worker doğrudan sohbet yanıtı döndürdüyse onu kullan
-      if (data.reply) {
-        return data.reply;
-      }
-
-      // Eğer Worker JSON analiz objesi döndürdüyse, chatbot içinde şık bir sohbet metnine dönüştür
-      if (data.summary) {
-        let formatted = `${data.locationName ? "📍 " + data.locationName + "\n\n" : ""}${data.summary}`;
-        if (data.criteria && data.criteria.nasaFit && data.criteria.nasaFit !== "-") {
-          formatted += `\n\n🚀 NASA Fit: ${data.criteria.nasaFit}`;
-        }
-        return formatted;
-      }
-
-      return "Sorry, I could not generate a response right now.";
+      return data.reply || "Sorry, I could not generate a response right now.";
     } catch (err) {
       console.warn("Groq connection error:", err);
       return "Connection failed. Please check your internet connection or Cloudflare Worker settings.";
@@ -183,7 +167,7 @@
 
     const button = document.createElement("button");
     button.className = "nasa-buton";
-    button.innerHTML = "◀";
+    button.innerHTML = "◀ NASA Guide AI";
     button.setAttribute("aria-label", "Open/Close NASA Assistant");
 
     const panel = document.createElement("section");
@@ -191,12 +175,12 @@
 
     panel.innerHTML = `
       <div class="nasa-baslik">
-        <span>NASA Analog Assistant (AI)</span>
+        <span>🚀 NASA Site &amp; Map Guide</span>
         <button class="nasa-kapat" aria-label="Close">×</button>
       </div>
       <div class="nasa-mesajlar" aria-live="polite"></div>
       <form class="nasa-form">
-        <input class="nasa-input" type="text" placeholder="Ask in any language (Atacama, Moon base...)" aria-label="Your message">
+        <input class="nasa-input" type="text" placeholder="Ask about map, sites, or features..." aria-label="Your message">
         <button class="nasa-gonder" type="submit">Send</button>
       </form>
       <div class="nasa-alt">
@@ -220,7 +204,7 @@
     }
 
     appendMessage(
-      "Hello! 🚀\n\nI am Team Philosophers' AI-powered NASA Analog Assistant. Ask me anything about Moon & Mars analog sites in any language — I will respond in your language!",
+      "Hello! 🚀\n\nI am your AI guide for both the analysis web app and the `map.html` world map view. Ask me how to use the map, switch themes, inspect analog sites, or ask any planetary science questions in any language!",
       "bot"
     );
 
