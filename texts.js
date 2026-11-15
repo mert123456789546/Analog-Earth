@@ -27,5 +27,5 @@ const TEXTS = {
 // Haritada nokta olmayan, sadece panelde duran ekstra düğmeler (istersen boş bırak)
 const EXTRA = [
   // { label: "Credits", text: "Kaynaklar.", images: [] }
-  {label: "Source", text: "Yazı", images: [] }
+  {label: "Source", file: "sources.txt", images: [] }
 ];
