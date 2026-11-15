@@ -479,3 +479,22 @@ body.light .point.antarctica    { --glow: #2f5f90; --glow-hi: #7fb3e6; }
 
 body.light #menuBtn .logo-dark  { display: none; }
 body.light #menuBtn .logo-light { display: block; }
+
+/* ---------- A PROJESİNE DÖN (SOL ALT ÇARPI) ---------- */
+#closeMap {
+  position: fixed; left: 16px; bottom: 16px; z-index: 30;
+  width: 52px; height: 52px;
+  display: grid; place-items: center;
+  border-radius: 14px;
+  background: rgba(45, 45, 48, .62);
+  color: #e6dcc3;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-decoration: none;
+}
+#closeMap:hover { background: rgba(230, 220, 195, .18); color: #f1e8d0; }
+#closeMap svg {
+  width: 24px; height: 24px;
+  fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round;
+}
