@@ -34,7 +34,6 @@
     </script>
 
     <style>
-        /* Uzay Teması Arka Plan ve İnce Yıldız/Izgara Dokusu */
         body {
             background-color: #040711;
             background-image: 
@@ -46,7 +45,6 @@
             min-height: 100vh;
         }
 
-        /* Giriş kutusu alt çizgi animasyonu */
         .inline-location-input {
             background: rgba(17, 25, 54, 0.7);
             border-bottom: 2px solid #38bdf8;
@@ -59,7 +57,6 @@
             box-shadow: 0 8px 25px -5px rgba(56, 189, 248, 0.25);
         }
 
-        /* Yumuşak açılış animasyonu */
         @keyframes fadeSlideUp {
             from {
                 opacity: 0;
@@ -77,12 +74,11 @@
 </head>
 <body class="text-slate-100 font-sans antialiased flex flex-col justify-between selection:bg-sky-500/30 selection:text-sky-200">
 
-    <!-- Üst Bilgi Çubuğu (Mission Control Header) -->
+    <!-- Üst Bilgi Çubuğu -->
     <header class="w-full border-b border-slate-800/80 bg-space-950/80 backdrop-blur-md sticky top-0 z-30">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20">
-                    <!-- Uzay / Gezegen SVG İkonu -->
                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="7"></circle>
                         <path d="M3.6 15c-1.1-.8-1.6-1.7-1.4-2.5.5-1.8 5.2-2 10.6-.4s9.3 4.3 8.8 6.1c-.2.8-1.1 1.3-2.5 1.5"></path>
@@ -95,13 +91,13 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <button id="toggleDbDrawerBtn" type="button" class="text-xs sm:text-sm font-medium px-3.5 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition flex items-center gap-2">
+                <button id="toggleDbDrawerBtn" type="button" class="text-xs sm:text-sm font-medium px-3.5 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition flex items-center gap-2 cursor-pointer">
                     <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
                         <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
                         <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
                     </svg>
-                    <span>Veritabanı (<span id="dbCountBadge">0</span> Kayıt)</span>
+                    <span>Veritabanı &amp; Portallar (<span id="dbCountBadge">0</span> Kayıt)</span>
                 </button>
             </div>
         </div>
@@ -111,14 +107,13 @@
     <main class="flex-grow flex flex-col items-center justify-center px-4 sm:px-6 py-10 sm:py-16">
         <div class="w-full max-w-4xl mx-auto flex flex-col items-center">
 
-            <!-- Ana Soru Formu (İstenen Ortadaki Tasarım) -->
+            <!-- Ana Soru Formu -->
             <section class="w-full bg-space-900/75 border border-slate-800/90 rounded-3xl p-6 sm:p-12 shadow-2xl backdrop-blur-xl text-center">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-mono mb-6">
                     <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-                    <span>AY &amp; MARS ÜS UYGUNLUK ALGORİTMASI v2.6</span>
+                    <span>AY &amp; MARS ÜS UYGUNLUK ALGORİTMASI v2.6 • KALICI VERİTABANI</span>
                 </div>
 
-                <!-- Merkezdeki Cümle ve Boşluk -->
                 <form id="evaluateForm" class="flex flex-col items-center">
                     <div class="w-full flex flex-col md:flex-row items-center justify-center gap-3 sm:gap-4 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white leading-snug">
                         <div class="relative w-full sm:w-80 md:w-96">
@@ -137,11 +132,11 @@
                     <!-- Hızlı Örnek Seçim Çipleri -->
                     <div class="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-400">
                         <span class="mr-1 text-slate-500">Hızlı Test:</span>
-                        <button type="button" data-sample="Atacama Çölü" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition">Atacama Çölü</button>
-                        <button type="button" data-sample="İzmir" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition">İzmir</button>
-                        <button type="button" data-sample="Ay Güney Kutbu" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition">Ay Güney Kutbu</button>
-                        <button type="button" data-sample="Devon Adası" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition">Devon Adası</button>
-                        <button type="button" data-sample="Mauna Loa" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition">Mauna Loa</button>
+                        <button type="button" data-sample="Atacama Çölü" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Atacama Çölü</button>
+                        <button type="button" data-sample="İzmir" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">İzmir</button>
+                        <button type="button" data-sample="Ay Güney Kutbu" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Ay Güney Kutbu</button>
+                        <button type="button" data-sample="Devon Adası" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Devon Adası</button>
+                        <button type="button" data-sample="Mauna Loa" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Mauna Loa</button>
                     </div>
 
                     <!-- "Öğren" Düğmesi -->
@@ -158,14 +153,13 @@
                 </form>
             </section>
 
-            <!-- Uyarı / Mesaj Kutusu (alert() yerine kullanılır) -->
+            <!-- Uyarı / Mesaj Kutusu -->
             <div id="toastMessage" class="hidden w-full mt-4 p-4 rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-200 text-sm text-center"></div>
 
             <!-- Algoritma Sonuç Kartı -->
             <section id="resultContainer" class="hidden w-full mt-8 animate-result">
                 <div id="resultCard" class="rounded-3xl border bg-space-900/90 backdrop-blur-xl p-6 sm:p-10 shadow-2xl">
                     
-                    <!-- Sonuç Üst Başlık & Karar Rozeti -->
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
                         <div>
                             <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
@@ -176,45 +170,56 @@
                             <h2 id="resultLocationTitle" class="text-2xl sm:text-3xl font-extrabold text-white"></h2>
                         </div>
 
-                        <div id="verdictBadge" class="self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg">
-                            <!-- Dinamik Evet / Hayır Rozeti -->
-                        </div>
+                        <div id="verdictBadge" class="self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg"></div>
                     </div>
 
-                    <!-- Uzun ve Açıklayıcı Bilimsel Değerlendirme Metni -->
-                    <div class="mt-6 space-y-4 text-slate-200 leading-relaxed text-base sm:text-lg" id="resultDetailedExplanation">
-                        <!-- Dinamik paragraflar buraya yerleştirilecek -->
-                    </div>
+                    <div class="mt-6 space-y-4 text-slate-200 leading-relaxed text-base sm:text-lg" id="resultDetailedExplanation"></div>
 
-                    <!-- NASA Space Apps Kriterleri Kırılımı (4 Teknik Kart) -->
+                    <!-- NASA Space Apps Kriterleri Kırılımı -->
                     <div class="mt-8 pt-6 border-t border-slate-800/90">
                         <h3 class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-4">NASA Space Apps Kriter Bazlı Teknik Değerlendirme</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="criteriaGrid">
-                            <!-- Dinamik kriter kartları -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="criteriaGrid"></div>
+                    </div>
+
+                    <!-- Doğrulama & Uzaktan Algılama Veri Portalları -->
+                    <div class="mt-6 pt-5 border-t border-slate-800/70">
+                        <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
+                            <span class="font-mono text-sky-400/90">ÖNERİLEN AÇIK VERİ &amp; UYDU ANALİZ PORTALLARI:</span>
+                            <div class="flex flex-wrap gap-2">
+                                <a href="https://search.earthdata.nasa.gov/" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition">NASA Earthdata</a>
+                                <a href="https://worldview.earthdata.nasa.gov/index.html" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition">NASA Worldview</a>
+                                <a href="https://pds.nasa.gov/" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition">NASA PDS</a>
+                                <a href="https://dataspace.copernicus.eu/" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition">Copernicus</a>
+                                <a href="https://opensciencedata.esa.int/" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition">ESA Open Data</a>
+                                <a href="https://gportal.jaxa.jp/gpr/index/index" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition">JAXA G-Portal</a>
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </section>
 
-            <!-- Açılır/Kapanır Veritabanı Görüntüleme ve Yeni Kayıt Ekleme Paneli -->
+            <!-- Açılır/Kapanır Veritabanı ve Bilimsel Kaynak Portalları Paneli -->
             <section id="databaseDrawer" class="hidden w-full mt-8 bg-space-900/95 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-800">
                     <div>
-                        <h3 class="text-lg font-bold text-white">Aktif Bilgi Veritabanı &amp; Hızlı Veri Ekleme</h3>
+                        <h3 class="text-lg font-bold text-white">Kalıcı Konum Veritabanı &amp; Açık Veri Portalları</h3>
                         <p class="text-xs sm:text-sm text-slate-400 mt-1">
-                            Kodun en altındaki <code class="text-sky-400 font-mono">DATABASE</code> dizisine doğrudan ekleme yapabilir veya aşağıdaki formu kullanarak anında yeni konum tanımlayabilirsiniz.
+                            Eklediğiniz yeni kayıtlar tarayıcı belleğinde (<code class="text-sky-400 font-mono">localStorage</code>) kalıcı saklanır ve site kapatılıp açıldığında silinmez.
                         </p>
                     </div>
-                    <button id="closeDbDrawerBtn" type="button" class="self-end sm:self-center px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300">Kapat ✕</button>
+                    <div class="flex items-center gap-2 self-end sm:self-center">
+                        <button id="resetDbBtn" type="button" class="px-3 py-1.5 rounded-xl bg-rose-950/70 hover:bg-rose-900/70 border border-rose-800/60 text-xs text-rose-200 cursor-pointer">Varsayılanlara Sıfırla</button>
+                        <button id="closeDbDrawerBtn" type="button" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 cursor-pointer">Kapat ✕</button>
+                    </div>
                 </div>
 
-                <!-- Arayüzden Hızlı Yeni Kayıt Ekleme Formu -->
+                <!-- Yeni Kayıt Ekleme Formu -->
                 <form id="addRecordForm" class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-space-950/70 p-5 rounded-2xl border border-slate-800/80">
-                    <div class="sm:col-span-2 text-xs font-mono uppercase tracking-wider text-sky-400">Yeni Konum Verisi Ekle</div>
+                    <div class="sm:col-span-2 text-xs font-mono uppercase tracking-wider text-sky-400">Kalıcı Veritabanına Yeni Konum Ekle</div>
                     
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">Konum Adı (Örn: Kapadokya, Gale Krateri)</label>
+                        <label class="block text-xs text-slate-400 mb-1">Konum Adı (Örn: Salar de Uyuni, Tuz Gölü)</label>
                         <input type="text" id="newLocName" required placeholder="Konum adı..." class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
                     </div>
 
@@ -228,22 +233,22 @@
 
                     <div>
                         <label class="block text-xs text-slate-400 mb-1">Hedef Görev Türü</label>
-                        <input type="text" id="newLocTarget" placeholder="Örn: Mars Yüzey Analoğu / Ay Üssü" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
+                        <input type="text" id="newLocTarget" placeholder="Örn: Mars Evaporit / Ay Regolit Analoğu" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
                     </div>
 
                     <div>
                         <label class="block text-xs text-slate-400 mb-1">Anahtar Kelimeler (Virgülle ayırın)</label>
-                        <input type="text" id="newLocKeywords" placeholder="örnek, volkanik, krater" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
+                        <input type="text" id="newLocKeywords" placeholder="örnek, tuz düzlüğü, krater" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
                     </div>
 
                     <div class="sm:col-span-2">
-                        <label class="block text-xs text-slate-400 mb-1">Detaylı Bilimsel Açıklama (Neden uygun veya neden uygun değil?)</label>
-                        <textarea id="newLocSummary" rows="3" required placeholder="Konumun jeolojik yapısı, iklim koşulları, radyasyon/izolasyon durumu ve NASA kriterlerine göre detaylı analizini yazın..." class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none"></textarea>
+                        <label class="block text-xs text-slate-400 mb-1">Detaylı Bilimsel Açıklama</label>
+                        <textarea id="newLocSummary" rows="3" required placeholder="Konumun jeolojik yapısı, iklim koşulları, radyasyon/izolasyon durumu ve NASA kriterlerine göre analizini yazın..." class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none"></textarea>
                     </div>
 
                     <div class="sm:col-span-2 flex justify-end">
-                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition">
-                            + Veritabanına Kaydet
+                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition cursor-pointer">
+                            + Kalıcı Olarak Kaydet &amp; Analiz Et
                         </button>
                     </div>
                 </form>
@@ -251,474 +256,121 @@
                 <!-- Mevcut Kayıtların Listesi -->
                 <div class="mt-6">
                     <h4 class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3">Yüklü Konum Kayıtları</h4>
-                    <div id="dbListContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-72 overflow-y-auto pr-1">
-                        <!-- JS ile doldurulacak -->
-                    </div>
+                    <div id="dbListContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-72 overflow-y-auto pr-1"></div>
+                </div>
+
+                <!-- 11 Bilimsel Veri Portalı Referans Listesi -->
+                <div class="mt-8 pt-6 border-t border-slate-800">
+                    <h4 class="text-xs font-mono uppercase tracking-wider text-sky-400 mb-3">Entegre Gezegen &amp; Uzaktan Algılama Veri Portalları (11 Kaynak)</h4>
+                    <div id="portalListContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
                 </div>
             </section>
 
         </div>
     </main>
 
-    <!-- Alt Bilgi ve Kaynakça -->
-    <footer class="w-full border-t border-slate-800/80 bg-space-950/90 py-6 px-4 sm:px-6 text-xs text-slate-400">
-        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="text-center sm:text-left">
-                <p class="font-medium text-slate-300">Kaynakça &amp; Bilimsel Referans Çerçevesi:</p>
-                <p class="mt-1">
-                    NASA Space Apps Challenge — 
-                    <a href="https://www.spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline underline-offset-4 break-all">
-                        spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/
-                    </a>
-                </p>
+    <!-- Alt Bilgi ve Bilimsel Kaynakça -->
+    <footer class="w-full border-t border-slate-800/80 bg-space-950/90 py-8 px-4 sm:px-6 text-xs text-slate-400">
+        <div class="max-w-5xl mx-auto space-y-5">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-800/70">
+                <div>
+                    <p class="font-medium text-slate-300">Ana Yarışma Çerçevesi:</p>
+                    <p class="mt-1">
+                        NASA Space Apps Challenge 2026 — 
+                        <a href="https://www.spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline underline-offset-4 break-all">
+                            spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/
+                        </a>
+                    </p>
+                </div>
+                <div class="text-left sm:text-right text-slate-500 font-mono">
+                    Değerlendirme Parametreleri: Regolit/Jeoloji • Su Buzu • Radyasyon • İzolasyon
+                </div>
             </div>
-            <div class="text-center sm:text-right text-slate-500 font-mono">
-                Değerlendirme Parametreleri: Regolit/Jeoloji • Su Buzu • Radyasyon • İzolasyon
+
+            <div>
+                <p class="font-mono uppercase tracking-wider text-slate-300 mb-2.5">Açık Bilim, Gezegen Verileri &amp; SAR Uzaktan Algılama Kaynakçası:</p>
+                <div id="footerPortalsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2 text-[11px]"></div>
             </div>
         </div>
     </footer>
 
-    <!-- ===================================================================== -->
-    <!-- ALGORİTMA MOTORU VE EN SONDA YER ALAN VERİTABANI (DATABASE) BÖLÜMÜ    -->
-    <!-- ===================================================================== -->
     <script>
-        /**
-         * Türkçe karakter duyarlı normalizasyon fonksiyonu.
-         * Kullanıcının girdiği metin ile veritabanındaki kayıtları doğru eşleştirmek için kullanılır.
-         */
-        function normalizeText(str) {
-            if (!str) return "";
-            return str
-                .toLocaleLowerCase('tr-TR')
-                .trim()
-                .replace(/\s+/g, ' ')
-                .replace(/uzay araştırmalarına uygun mu\??/gi, '')
-                .trim();
-        }
-
-        // ---------- YER DOĞRULAMA (OpenStreetMap / Nominatim) ----------
-        const placeCache = new Map();
-        const OFFWORLD = ["mars", "moon", "ay", "venüs", "merkür", "jüpiter", "satürn", "europa", "titan", "phobos", "deimos", "olympus"];
-
-        // Yazıda gök cismi adı geçiyorsa Dünya'da arama yapmanın anlamı yok
-        function isOffWorld(q) {
-            return q.split(/[\s,.'’\-]+/).filter(Boolean).some(t => OFFWORLD.includes(t));
-        }
-
-        async function placeExists(query) {
-            const key = query.toLocaleLowerCase('tr-TR');
-            if (placeCache.has(key)) return placeCache.get(key);   // aynı yeri tekrar sorma
-            const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=tr&q='
-                      + encodeURIComponent(query);
-            const res = await fetch(url);
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            const data = await res.json();
-            const exists = Array.isArray(data) && data.length > 0;
-            placeCache.set(key, exists);
-            return exists;
-        }
-
-        /**
-         * Veritabanı Arama ve Kriter Değerlendirme Algoritması
-         * 1. Önce kullanıcı tarafından en sona eklenen/tanımlanan DATABASE dizisinde tam veya kısmi eşleşme arar.
-         * 2. Veritabanında kayıt yoksa, yerin Dünya üzerinde var olup olmadığını OpenStreetMap'ten doğrular.
-         * 3. Yer varsa NASA Space Apps 2026 kriterlerine (çöl, kutup, krater, volkan, şehir vb.)
-         *    dayalı akıllı çıkarım algoritmasını çalıştırır.
-         */
-// ---------- YAPAY ZEKÂ (Groq, Cloudflare Worker üzerinden) ----------
-const AI_ENDPOINT = "https://nsa-ai.dincermertozer.workers.dev/";
-const aiCache = new Map();
-const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-async function generateWithAI(place) {
-    const key = place.toLocaleLowerCase('tr-TR');
-    if (aiCache.has(key)) return aiCache.get(key);       // aynı yeri tekrar sorma
-    const res = await fetch(AI_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ place })
-    });
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    const d = await res.json();
-    const out = {
-        suitable: d.suitable === true,
-        paragraphs: d.paragraphs.map(esc),
-        criteria: {
-            geology: esc(d.criteria.geology),
-            climate: esc(d.criteria.climate),
-            isolation: esc(d.criteria.isolation),
-            nasaFit: esc(d.criteria.nasaFit)
-        }
-    };
-    aiCache.set(key, out);
-    return out;
-}
-
-        async function analyzeLocation(rawInput) {
-            const cleanedQuery = normalizeText(rawInput);
-
-            // 1. Adım: DATABASE içinde doğrudan veya anahtar kelime bazlı eşleşme ara
-            let exactMatch = DATABASE.find(item => {
-                const normName = normalizeText(item.name);
-                if (normName === cleanedQuery) return true;
-                if (item.keywords && item.keywords.some(kw => normalizeText(kw) === cleanedQuery)) return true;
-                return false;
-            });
-
-            if (!exactMatch) {
-                exactMatch = DATABASE.find(item => {
-                    const normName = normalizeText(item.name);
-                    if (normName.includes(cleanedQuery) || cleanedQuery.includes(normName)) return true;
-                    if (item.keywords && item.keywords.some(kw => {
-                        const nKw = normalizeText(kw);
-                        return nKw.length > 2 && (cleanedQuery.includes(nKw) || nKw.includes(cleanedQuery));
-                    })) return true;
-                    return false;
-                });
+        // =========================================================================
+        // 1. BİLİMSEL VERİ PORTALLARI KATALOĞU (11 KAYNAK)
+        // =========================================================================
+        const SCIENTIFIC_PORTALS = [
+            {
+                title: "NASA Earthdata Search",
+                agency: "NASA",
+                category: "Dünya Gözlem & Uydu Veri Arama",
+                url: "https://search.earthdata.nasa.gov/"
+            },
+            {
+                title: "NASA Worldview",
+                agency: "NASA",
+                category: "Gerçek Zamanlı Uydu Görüntüleme & İklim Katmanları",
+                url: "https://worldview.earthdata.nasa.gov/index.html"
+            },
+            {
+                title: "NASA Planetary Data System (PDS)",
+                agency: "NASA",
+                category: "Gezegen Görevleri Arşivi (Ay, Mars ve Derin Uzay)",
+                url: "https://pds.nasa.gov/"
+            },
+            {
+                title: "PDS Geosciences Node — LRO Missions",
+                agency: "NASA / WUSTL",
+                category: "Lunar Reconnaissance Orbiter (Ay Yüzey & Topografya)",
+                url: "https://pds-geosciences.wustl.edu/missions/lro/"
+            },
+            {
+                title: "PDS Geosciences Node — LRO Diviner",
+                agency: "NASA / WUSTL",
+                category: "Ay Yüzey Sıcaklığı & Termal Radyometre Verileri",
+                url: "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm"
+            },
+            {
+                title: "RADARSAT Constellation Mission (RCM)",
+                agency: "CSA (Kanada Uzay Ajansı)",
+                category: "C-Bandı Sentetik Açıklıklı Radar (SAR) Veri Seti",
+                url: "https://donnees-data.asc-csa.gc.ca/en/dataset/rcm"
+            },
+            {
+                title: "RADARSAT-1 Open Dataset",
+                agency: "CSA (Kanada Uzay Ajansı)",
+                category: "Tarihsel SAR Yüzey Pürüzlülüğü & Buzul Verileri",
+                url: "https://donnees-data.asc-csa.gc.ca/en/dataset/radarsat1"
+            },
+            {
+                title: "CSA Synthetic Aperture Radar (SAR) Tutorial",
+                agency: "CSA (GitHub)",
+                category: "SAR Görüntü İşleme & Jeomorfolojik Analiz Rehberi",
+                url: "https://github.com/asc-csa/Synthetic_Aperture_Radar_Tutorial"
+            },
+            {
+                title: "Copernicus Data Space Ecosystem",
+                agency: "ESA / Avrupa Komisyonu",
+                category: "Sentinel-1 (SAR) & Sentinel-2 Multispektral Veriler",
+                url: "https://dataspace.copernicus.eu/"
+            },
+            {
+                title: "ESA Open Science Data Catalogue",
+                agency: "ESA (Avrupa Uzay Ajansı)",
+                category: "Açık Bilim Gezegen & Yer Gözlem Katalogları",
+                url: "https://opensciencedata.esa.int/"
+            },
+            {
+                title: "JAXA G-Portal (Globe Portal System)",
+                agency: "JAXA (Japonya Uzay Ajansı)",
+                category: "ALOS-2 PALSAR-2 Radar & Uydu Veri Dağıtım Sistemi",
+                url: "https://gportal.jaxa.jp/gpr/index/index"
             }
-
-            if (exactMatch) {
-                return {
-                    source: "VERİTABANI KAYDI (NASA SPACE APPS KAYNAKÇASI)",
-                    locationName: exactMatch.name,
-                    suitable: exactMatch.suitable,
-                    targetBody: exactMatch.targetBody || "Ay & Mars Araştırmaları",
-                    paragraphs: exactMatch.paragraphs,
-                    criteria: exactMatch.criteria
-                };
-            }
-
-            // 2. Adım: Dünya üzerinde böyle bir yer var mı?
-            if (!isOffWorld(cleanedQuery)) {
-                try {
-                    if (!(await placeExists(rawInput.trim()))) {
-                        return { notFound: true, locationName: rawInput.trim() };
-                    }
-                } catch (err) {
-                    // İnternet yok ya da servis meşgul: doğrulamadan eski algoritmayla devam et
-                    console.warn("Yer doğrulaması yapılamadı:", err);
-                }
-            }
-
-            // 3. Adım: Yapay zekâ değerlendirmesi; olmazsa eski algoritma
-            const fallback = runHeuristicFallback(rawInput.trim(), cleanedQuery);
-            try {
-                const ai = await generateWithAI(rawInput.trim());
-                return {
-                    source: "YAPAY ZEKÂ ÖN DEĞERLENDİRMESİ (GROQ)",
-                    locationName: rawInput.trim(),
-                    suitable: ai.suitable,
-                    targetBody: "Yapay Zekâ Destekli Analog Saha Analizi",
-                    paragraphs: ai.paragraphs,
-                    criteria: ai.criteria
-                };
-            } catch (err) {
-                console.warn("Yapay zekâ yanıtı alınamadı, eski algoritma kullanılıyor:", err);
-                return fallback;
-            }
-        }
-
-        /**
-         * Veritabanında henüz bulunmayan bir konum girildiğinde çevresel ipuçlarına ve
-         * NASA Space Apps 2026 (Permanent Moon Base Locations and Mars) parametrelerine göre değerlendirme yapar.
-         */
-        function runHeuristicFallback(displayLocation, q) {
-            // Olumlu analog ipuçları (çöl, krater, volkan, buzul, antarktika, ay, mars, kutup, lav tüpü vb.)
-            const positiveSignals = ["çöl", "krater", "volkan", "lav", "kutup", "buzul", "tundra", "permafrost", "ay ", "mars", "kanyon", "plato", "tuz gölü", "obruk", "bazalt"];
-            // Olumsuz kentsel/nemli ipuçları (şehir, merkez, orman, sahil, metropol, ilçe vb.)
-            const negativeSignals = ["şehir", "metropol", "orman", "sahil", "belediye", "ilçe", "mahalle", "merkez", "liman", "ovası", "boğaz"];
-
-            const hasPositive = positiveSignals.some(sig => q.includes(sig));
-            const hasNegative = negativeSignals.some(sig => q.includes(sig));
-
-            if (hasPositive && !hasNegative) {
-                return {
-                    source: "ALGORİTMİK KRİTER ÇIKARIMI (ÖN ANALİZ)",
-                    locationName: displayLocation,
-                    suitable: true,
-                    targetBody: "Potansiyel Gezegen Analog Sahası",
-                    paragraphs: [
-                        `Evet. "${displayLocation}" bölgesi, barındırdığı ekstrem jeomorfolojik ve çevresel karakteristikler nedeniyle uzay araştırmaları ve gezegen yüzeyi analog simülasyonları için yüksek potansiyel taşımaktadır. NASA Space Apps 2026 Permanent Moon Base & Mars kriterlerine göre; bitki örtüsünden arınmış mineralojik yüzeyler, volkanik bazalt oluşumları, çarpma kraterleri veya aşırı kurak/soğuk iklim kuşakları Ay ve Mars yüzey koşullarını test etmek için kritik öneme sahiptir.`,
-                        `Bu tür sahalarda gezegen gezginlerinin (rover) otonom navigasyon algoritmaları, regolit delme ve numune toplama mekanizmaları ile astronotların kapalı habitat psikolojisi ve EVA (araç dışı etkinlik) kıyafetleri gerçekçi koşullar altında sınanabilmektedir.`,
-                        `Not: Bu konum henüz kodun sonundaki özel veritabanı listesine sabit bir kayıt olarak eklenmemiştir. Bölgeye ait spesifik saha verilerini (enlem-boylam, mineral analizi, radyasyon ölçümü) sayfanın en altındaki DATABASE dizisine ekleyerek kalıcı ve özelleştirilmiş raporlar üretebilirsiniz.`
-                    ],
-                    criteria: {
-                        geology: "Yüksek Potansiyel — Volkanik, krater veya kurak mineral yapılar Ay/Mars regoliti ile yapısal benzerlik gösterir.",
-                        climate: "Ekstrem / Düşük Nem — Biyolojik girişimin düşük olması astrobiyolojik sensör kalibrasyonunu kolaylaştırır.",
-                        isolation: "Uygun Saha Koşulları — Kentsel altyapıdan uzaklık, gerçekçi iletişim gecikmesi ve izolasyon testlerine izin verir.",
-                        nasaFit: "Rover mobilite testleri, jeolojik haritalama ve habitat simülasyonları için önerilir."
-                    }
-                };
-            }
-
-            return {
-                source: "ALGORİTMİK KRİTER ÇIKARIMI (ÖN ANALİZ)",
-                locationName: displayLocation,
-                suitable: false,
-                targetBody: "Standart Karasal / Kentsel Bölge",
-                paragraphs: [
-                    `Hayır. Çünkü "${displayLocation}" bölgesi, NASA Space Apps 2026 Ay ve Mars Üssü Konumlandırma kriterleri açısından değerlendirildiğinde uzay araştırmaları ve gezegen yüzeyi analog görevleri için uygun koşulları karşılamamaktadır. Yoğun insan yerleşimi, gelişmiş kentsel altyapı, elektromanyetik ve ışık kirliliği ile aktif biyosfer (bitki örtüsü ve yüksek nem oranı), Ay'ın vakumlu/tozlu yüzeyini veya Mars'ın dondurucu, düşük basınçlı ve radyasyon yüklü çöl ortamını simüle etmeyi imkânsız kılar.`,
-                    `NASA'nın analog saha seçim standartlarına göre bir bölgenin uzay araştırmalarına uygun sayılabilmesi için aşırı kuraklık, kutup soğuğu, bazaltik volkanizma, çarpma krateri jeolojisi veya kalıcı gölge/güneş ışığı gibi ekstrem fiziksel özelliklere sahip olması gerekir. "${displayLocation}" gibi karasal yaşam için elverişli veya kentsel bölgeler bu ekstrem sınır değerlerin dışında kalmaktadır.`,
-                    `Eğer bu bölgeye ait özel bir bilimsel veri setiniz varsa, sayfanın en altındaki DATABASE bölümüne bu konumu ekleyerek algoritmanın sizin veritabanınızdaki gerekçelerle yanıt vermesini sağlayabilirsiniz.`
-                ],
-                criteria: {
-                    geology: "Uygun Değil — Kentsel zemin, tarım toprağı veya bitki örtüsü gezegen regoliti simülasyonunu engeller.",
-                    climate: "Ilıman / Nemli Biyosfer — Yüksek nem ve atmosferik koşullar Mars/Ay ekstremitesinden çok uzaktır.",
-                    isolation: "Düşük İzolasyon — Yoğun nüfus, radyo frekans gürültüsü ve ışık kirliliği bilimsel ölçümleri bozar.",
-                    nasaFit: "Analog saha görevleri yerine yalnızca kapalı laboratuvar veya veri merkezi çalışmaları için kullanılabilir."
-                }
-            };
-        }
+        ];
 
         // =========================================================================
-        // ARAYÜZ KONTROLÜ VE ETKİLEŞİM YÖNETİMİ
+        // 2. VARSAYILAN TEMEL KONUM VERİTABANI (9 ORİJİNAL KAYIT)
         // =========================================================================
-        document.addEventListener('DOMContentLoaded', () => {
-            const evaluateForm = document.getElementById('evaluateForm');
-            const locationInput = document.getElementById('locationInput');
-            const resultContainer = document.getElementById('resultContainer');
-            const resultCard = document.getElementById('resultCard');
-            const resultSourceTag = document.getElementById('resultSourceTag');
-            const resultTargetBody = document.getElementById('resultTargetBody');
-            const resultLocationTitle = document.getElementById('resultLocationTitle');
-            const verdictBadge = document.getElementById('verdictBadge');
-            const resultDetailedExplanation = document.getElementById('resultDetailedExplanation');
-            const criteriaGrid = document.getElementById('criteriaGrid');
-            const toastMessage = document.getElementById('toastMessage');
-
-            // Veritabanı paneli elemanları
-            const toggleDbDrawerBtn = document.getElementById('toggleDbDrawerBtn');
-            const closeDbDrawerBtn = document.getElementById('closeDbDrawerBtn');
-            const databaseDrawer = document.getElementById('databaseDrawer');
-            const dbCountBadge = document.getElementById('dbCountBadge');
-            const dbListContainer = document.getElementById('dbListContainer');
-            const addRecordForm = document.getElementById('addRecordForm');
-
-            function showToast(msg) {
-                toastMessage.textContent = msg;
-                toastMessage.classList.remove('hidden');
-                setTimeout(() => {
-                    toastMessage.classList.add('hidden');
-                }, 4000);
-            }
-
-            function renderDatabaseList() {
-                dbCountBadge.textContent = DATABASE.length;
-                dbListContainer.innerHTML = '';
-
-                DATABASE.forEach((item) => {
-                    const card = document.createElement('button');
-                    card.type = 'button';
-                    card.className = 'text-left p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 transition flex flex-col justify-between gap-2';
-                    card.innerHTML = `
-                        <div class="flex items-center justify-between gap-2 w-full">
-                            <span class="font-semibold text-sm text-slate-100 truncate">${item.name}</span>
-                            <span class="px-2 py-0.5 rounded-md text-[11px] font-bold ${item.suitable ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">
-                                ${item.suitable ? 'EVET' : 'HAYIR'}
-                            </span>
-                        </div>
-                        <span class="text-[11px] text-slate-400 truncate w-full">${item.targetBody}</span>
-                    `;
-                    card.addEventListener('click', () => {
-                        locationInput.value = item.name;
-                        executeAnalysis(item.name);
-                        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    });
-                    dbListContainer.appendChild(card);
-                });
-            }
-
-            // ---------- Arama durumu ve "yer bulunamadı" kartı ----------
-            let analysisSeq = 0;
-            const learnBtn = document.getElementById('learnBtn');
-            const learnBtnLabel = learnBtn.querySelector('span');
-
-            function setLoading(on) {
-                learnBtn.disabled = on;
-                learnBtn.classList.toggle('opacity-60', on);
-                learnBtn.classList.toggle('cursor-wait', on);
-                learnBtnLabel.textContent = on ? 'Aranıyor...' : 'Öğren';
-            }
-
-            function showNotFound(name) {
-                resultCard.className = "rounded-3xl border border-amber-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl shadow-amber-950/30";
-                verdictBadge.className = "self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg bg-amber-500/20 text-amber-200 border border-amber-500/40";
-                verdictBadge.innerHTML = `
-                    <svg class="w-6 h-6 text-amber-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.3 3.9L2.4 17.5a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path>
-                    </svg>
-                    <span>YER BULUNAMADI</span>
-                `;
-                resultSourceTag.textContent = "YER DOĞRULAMA";
-                resultTargetBody.textContent = "DÜNYA ÜZERİNDE EŞLEŞME YOK";
-                resultLocationTitle.textContent = `“${name}”`;
-
-                const p = document.createElement('p');
-                p.className = "text-slate-200/95 leading-relaxed";
-                p.textContent = `Böyle bir yer yok. “${name}” adıyla Dünya üzerinde kayıtlı bir konum bulamadım. Yazımı kontrol edip tekrar deneyebilir ya da yukarıdaki hızlı test örneklerinden birini seçebilirsin.`;
-                resultDetailedExplanation.innerHTML = '';
-                resultDetailedExplanation.appendChild(p);
-
-                criteriaGrid.parentElement.classList.add('hidden');   // kriter bölümü gizlensin
-
-                resultContainer.classList.remove('hidden');
-                resultContainer.classList.remove('animate-result');
-                void resultContainer.offsetWidth;
-                resultContainer.classList.add('animate-result');
-            }
-
-            async function executeAnalysis(query) {
-                if (!query || !query.trim()) {
-                    showToast("Lütfen öğrenmek istediğiniz yerin adını yukarıdaki boşluğa yazın (Örn: Atacama Çölü veya İzmir).");
-                    locationInput.focus();
-                    return;
-                }
-
-                const mySeq = ++analysisSeq;
-                setLoading(true);
-                let analysis;
-                try {
-                    analysis = await analyzeLocation(query);
-                } finally {
-                    if (mySeq === analysisSeq) setLoading(false);
-                }
-                if (mySeq !== analysisSeq) return;   // daha yeni bir arama başladıysa bunu bırak
-
-                if (analysis.notFound) {
-                    showNotFound(analysis.locationName);
-                    return;
-                }
-                criteriaGrid.parentElement.classList.remove('hidden');
-
-                // Kart kenarlık ve tema rengi
-                if (analysis.suitable) {
-                    resultCard.className = "rounded-3xl border border-emerald-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl shadow-emerald-950/30";
-                    verdictBadge.className = "self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-                    verdictBadge.innerHTML = `
-                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <span>EVET — UYGUNDUR</span>
-                    `;
-                } else {
-                    resultCard.className = "rounded-3xl border border-rose-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl shadow-rose-950/30";
-                    verdictBadge.className = "self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg bg-rose-500/20 text-rose-300 border border-rose-500/40";
-                    verdictBadge.innerHTML = `
-                        <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                        <span>HAYIR — UYGUN DEĞİLDİR</span>
-                    `;
-                }
-
-                resultSourceTag.textContent = analysis.source;
-                resultTargetBody.textContent = analysis.targetBody;
-                resultLocationTitle.textContent = `${analysis.locationName} — Uzay Araştırmaları Analizi`;
-
-                // Paragrafları doldur
-                resultDetailedExplanation.innerHTML = analysis.paragraphs
-                    .map(p => `<p class="text-slate-200/95 leading-relaxed">${p}</p>`)
-                    .join('');
-
-                // Kriter kartlarını doldur
-                const criteriaItems = [
-                    { label: "Jeoloji & Regolit Benzerliği", text: analysis.criteria.geology },
-                    { label: "İklim, Atmosfer & Su Buzu", text: analysis.criteria.climate },
-                    { label: "İzolasyon & Çevresel Kirlilik", text: analysis.criteria.isolation },
-                    { label: "NASA Space Apps Görev Uygunluğu", text: analysis.criteria.nasaFit }
-                ];
-
-                criteriaGrid.innerHTML = criteriaItems.map(c => `
-                    <div class="p-4 rounded-2xl bg-space-950/80 border border-slate-800/90">
-                        <div class="text-xs font-mono font-semibold text-sky-400 mb-1.5">${c.label}</div>
-                        <p class="text-sm text-slate-300 leading-relaxed">${c.text}</p>
-                    </div>
-                `).join('');
-
-                // Animasyonu yeniden tetikle
-                resultContainer.classList.remove('hidden');
-                resultContainer.classList.remove('animate-result');
-                void resultContainer.offsetWidth;
-                resultContainer.classList.add('animate-result');
-            }
-
-            // Form gönderimi ("Öğren" butonu)
-            evaluateForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                executeAnalysis(locationInput.value);
-            });
-
-            // Hızlı örnek butonları
-            document.querySelectorAll('.sample-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const sample = btn.getAttribute('data-sample');
-                    locationInput.value = sample;
-                    executeAnalysis(sample);
-                });
-            });
-
-            // Veritabanı çekmecesini aç/kapat
-            toggleDbDrawerBtn.addEventListener('click', () => {
-                databaseDrawer.classList.toggle('hidden');
-                if (!databaseDrawer.classList.contains('hidden')) {
-                    databaseDrawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }
-            });
-
-            closeDbDrawerBtn.addEventListener('click', () => {
-                databaseDrawer.classList.add('hidden');
-            });
-
-            // Arayüzden yeni veritabanı kaydı ekleme
-            addRecordForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const name = document.getElementById('newLocName').value.trim();
-                const suitable = document.getElementById('newLocSuitable').value === 'true';
-                const targetBody = document.getElementById('newLocTarget').value.trim() || "Özel Veritabanı Kaydı";
-                const rawKeywords = document.getElementById('newLocKeywords').value;
-                const summary = document.getElementById('newLocSummary').value.trim();
-
-                if (!name || !summary) return;
-
-                const keywords = rawKeywords
-                    .split(',')
-                    .map(k => k.trim())
-                    .filter(Boolean);
-
-                DATABASE.push({
-                    name: name,
-                    keywords: keywords.length ? keywords : [name.toLowerCase()],
-                    suitable: suitable,
-                    targetBody: targetBody,
-                    paragraphs: [
-                        `${suitable ? 'Evet.' : 'Hayır.'} ${summary}`,
-                        `Bu değerlendirme, kullanıcı tarafından veritabanına eklenen özel saha verileri ve NASA Space Apps 2026 Ay & Mars üs konumlandırma metodolojisi doğrultusunda oluşturulmuştur.`
-                    ],
-                    criteria: {
-                        geology: suitable ? "Veritabanı kaydına göre gezegen yüzeyi testlerine uygun jeolojik yapı." : "Gezegen yüzeyi analog standartlarını karşılamayan zemin yapısı.",
-                        climate: suitable ? "Hedef görev profili için elverişli atmosferik ve çevresel koşullar." : "Uzay araştırması simülasyonları için uygun olmayan iklim koşulları.",
-                        isolation: suitable ? "Saha testleri için yeterli izolasyon seviyesi." : "Dış etkenlere ve çevresel girişime açık bölge.",
-                        nasaFit: `${targetBody} kapsamında tanımlanmış özel kayıt.`
-                    }
-                });
-
-                renderDatabaseList();
-                addRecordForm.reset();
-                locationInput.value = name;
-                executeAnalysis(name);
-                showToast(`"${name}" veritabanına başarıyla eklendi ve analiz edildi.`);
-            });
-
-            // Başlangıçta veritabanı sayacını ve listesini oluştur
-            renderDatabaseList();
-        });
-
-        // =========================================================================
-        // METNİN EN SONUNDA YER ALAN VERİTABANI (DATABASE) BLOĞU
-        // Kendi veritabanlarınızı ve yeni konum bilgilerinizi doğrudan bu dizinin
-        // en sonuna (veya içine) aynı formatta yapıştırarak ekleyebilirsiniz.
-        // =========================================================================
-        const DATABASE = [
+        const DEFAULT_DATABASE = [
             {
                 name: "Atacama Çölü",
                 keywords: ["atacama", "atacama çölü", "şili çölü", "yungay"],
@@ -872,6 +524,441 @@ async function generateWithAI(place) {
                 }
             }
         ];
+
+        // =========================================================================
+        // 3. KALICI DEPOLAMA (LOCALSTORAGE) YÖNETİMİ
+        // =========================================================================
+        const STORAGE_KEY = 'nasa_space_apps_2026_database_v1';
+
+        function loadDatabase() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        return parsed;
+                    }
+                }
+            } catch (e) {
+                console.warn("Yerel veritabanı okunamadı, varsayılanlara dönülüyor:", e);
+            }
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_DATABASE));
+            return [...DEFAULT_DATABASE];
+        }
+
+        function saveDatabase(db) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+            } catch (e) {
+                console.error("Veritabanı tarayıcıya kaydedilemedi:", e);
+            }
+        }
+
+        let DATABASE = loadDatabase();
+
+        // =========================================================================
+        // 4. NORMALİZASYON, DOĞRULAMA VE YEREL ALGORİTMA MOTORU (YAPAY ZEKÂSIZ)
+        // =========================================================================
+        function normalizeText(str) {
+            if (!str) return "";
+            return str
+                .toLocaleLowerCase('tr-TR')
+                .trim()
+                .replace(/\s+/g, ' ')
+                .replace(/uzay araştırmalarına uygun mu\??/gi, '')
+                .trim();
+        }
+
+        const placeCache = new Map();
+        const OFFWORLD = ["mars", "moon", "ay", "venüs", "merkür", "jüpiter", "satürn", "europa", "titan", "phobos", "deimos", "olympus"];
+
+        function isOffWorld(q) {
+            return q.split(/[\s,.'’\-]+/).filter(Boolean).some(t => OFFWORLD.includes(t));
+        }
+
+        async function placeExists(query) {
+            const key = query.toLocaleLowerCase('tr-TR');
+            if (placeCache.has(key)) return placeCache.get(key);
+            const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=tr&q='
+                      + encodeURIComponent(query);
+            const res = await fetch(url);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+            const exists = Array.isArray(data) && data.length > 0;
+            placeCache.set(key, exists);
+            return exists;
+        }
+
+        async function analyzeLocation(rawInput) {
+            const cleanedQuery = normalizeText(rawInput);
+
+            // 1. Adım: Kalıcı DATABASE içinde tam veya anahtar kelime eşleşmesi ara
+            let exactMatch = DATABASE.find(item => {
+                const normName = normalizeText(item.name);
+                if (normName === cleanedQuery) return true;
+                if (item.keywords && item.keywords.some(kw => normalizeText(kw) === cleanedQuery)) return true;
+                return false;
+            });
+
+            if (!exactMatch) {
+                exactMatch = DATABASE.find(item => {
+                    const normName = normalizeText(item.name);
+                    if (normName.includes(cleanedQuery) || cleanedQuery.includes(normName)) return true;
+                    if (item.keywords && item.keywords.some(kw => {
+                        const nKw = normalizeText(kw);
+                        return nKw.length > 2 && (cleanedQuery.includes(nKw) || nKw.includes(cleanedQuery));
+                    })) return true;
+                    return false;
+                });
+            }
+
+            if (exactMatch) {
+                return {
+                    source: exactMatch.userAdded ? "KALICI KULLANICI VERİTABANI KAYDI" : "VERİTABANI KAYDI (NASA SPACE APPS KAYNAKÇASI)",
+                    locationName: exactMatch.name,
+                    suitable: exactMatch.suitable,
+                    targetBody: exactMatch.targetBody || "Ay & Mars Araştırmaları",
+                    paragraphs: exactMatch.paragraphs,
+                    criteria: exactMatch.criteria
+                };
+            }
+
+            // 2. Adım: Dünya üzerinde böyle bir yer var mı?
+            if (!isOffWorld(cleanedQuery)) {
+                try {
+                    if (!(await placeExists(rawInput.trim()))) {
+                        return { notFound: true, locationName: rawInput.trim() };
+                    }
+                } catch (err) {
+                    console.warn("Yer doğrulaması yapılamadı:", err);
+                }
+            }
+
+            // 3. Adım: Kriter tabanlı yerel çıkarım algoritması
+            return runHeuristicAnalysis(rawInput.trim(), cleanedQuery);
+        }
+
+        function runHeuristicAnalysis(displayLocation, q) {
+            const positiveSignals = ["çöl", "krater", "volkan", "lav", "kutup", "buzul", "tundra", "permafrost", "ay ", "mars", "kanyon", "plato", "tuz gölü", "obruk", "bazalt", "salar"];
+            const negativeSignals = ["şehir", "metropol", "orman", "sahil", "belediye", "ilçe", "mahalle", "merkez", "liman", "ovası", "boğaz"];
+
+            const hasPositive = positiveSignals.some(sig => q.includes(sig));
+            const hasNegative = negativeSignals.some(sig => q.includes(sig));
+
+            if (hasPositive && !hasNegative) {
+                return {
+                    source: "ALGORİTMİK KRİTER ÇIKARIMI",
+                    locationName: displayLocation,
+                    suitable: true,
+                    targetBody: "Potansiyel Gezegen Analog Sahası",
+                    paragraphs: [
+                        `Evet. "${displayLocation}" bölgesi, barındırdığı ekstrem jeomorfolojik ve çevresel karakteristikler nedeniyle uzay araştırmaları ve gezegen yüzeyi analog simülasyonları için yüksek potansiyel taşımaktadır.`,
+                        `NASA Earthdata, Copernicus Sentinel-1 SAR ve NASA PDS veri setleri üzerinden yapılacak uzaktan algılama doğrulamaları ile bölgenin regolit ve yüzey pürüzlülüğü detaylı olarak haritalanabilir. Dilerseniz üst menüdeki Veritabanı panelinden bu konumu kalıcı olarak ekleyerek özel bilimsel notlarınızı kaydedebilirsiniz.`
+                    ],
+                    criteria: {
+                        geology: "Yüksek Potansiyel — Volkanik, krater veya kurak mineral yapılar Ay/Mars regoliti ile yapısal benzerlik gösterir.",
+                        climate: "Ekstrem / Düşük Nem — Biyolojik girişimin düşük olması astrobiyolojik sensör kalibrasyonunu kolaylaştırır.",
+                        isolation: "Uygun Saha Koşulları — Kentsel altyapıdan uzaklık, gerçekçi iletişim gecikmesi ve izolasyon testlerine izin verir.",
+                        nasaFit: "Rover mobilite testleri, SAR yüzey analizi ve habitat simülasyonları için önerilir."
+                    }
+                };
+            }
+
+            return {
+                source: "ALGORİTMİK KRİTER ÇIKARIMI",
+                locationName: displayLocation,
+                suitable: false,
+                targetBody: "Standart Karasal / Kentsel Bölge",
+                paragraphs: [
+                    `Hayır. Çünkü "${displayLocation}" bölgesi, NASA Space Apps 2026 Ay ve Mars Üssü Konumlandırma kriterleri açısından değerlendirildiğinde uzay araştırmaları ve gezegen yüzeyi analog görevleri için uygun koşulları karşılamamaktadır.`,
+                    `Eğer bu bölgeye ait özel bir saha veriniz varsa üst menüdeki Veritabanı panelinden kalıcı olarak ekleyerek sistemin bu konumu kendi verilerinizle tanımasını sağlayabilirsiniz.`
+                ],
+                criteria: {
+                    geology: "Uygun Değil — Kentsel zemin, tarım toprağı veya bitki örtüsü gezegen regoliti simülasyonunu engeller.",
+                    climate: "Ilıman / Nemli Biyosfer — Yüksek nem ve atmosferik koşullar Mars/Ay ekstremitesinden çok uzaktır.",
+                    isolation: "Düşük İzolasyon — Yoğun nüfus, radyo frekans gürültüsü ve ışık kirliliği bilimsel ölçümleri bozar.",
+                    nasaFit: "Analog saha görevleri yerine yalnızca kapalı laboratuvar veya veri merkezi çalışmaları için kullanılabilir."
+                }
+            };
+        }
+
+        // =========================================================================
+        // 5. ARAYÜZ KONTROLÜ VE ETKİLEŞİM YÖNETİMİ
+        // =========================================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const evaluateForm = document.getElementById('evaluateForm');
+            const locationInput = document.getElementById('locationInput');
+            const resultContainer = document.getElementById('resultContainer');
+            const resultCard = document.getElementById('resultCard');
+            const resultSourceTag = document.getElementById('resultSourceTag');
+            const resultTargetBody = document.getElementById('resultTargetBody');
+            const resultLocationTitle = document.getElementById('resultLocationTitle');
+            const verdictBadge = document.getElementById('verdictBadge');
+            const resultDetailedExplanation = document.getElementById('resultDetailedExplanation');
+            const criteriaGrid = document.getElementById('criteriaGrid');
+            const toastMessage = document.getElementById('toastMessage');
+
+            const toggleDbDrawerBtn = document.getElementById('toggleDbDrawerBtn');
+            const closeDbDrawerBtn = document.getElementById('closeDbDrawerBtn');
+            const resetDbBtn = document.getElementById('resetDbBtn');
+            const databaseDrawer = document.getElementById('databaseDrawer');
+            const dbCountBadge = document.getElementById('dbCountBadge');
+            const dbListContainer = document.getElementById('dbListContainer');
+            const portalListContainer = document.getElementById('portalListContainer');
+            const footerPortalsGrid = document.getElementById('footerPortalsGrid');
+            const addRecordForm = document.getElementById('addRecordForm');
+
+            function showToast(msg) {
+                toastMessage.textContent = msg;
+                toastMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    toastMessage.classList.add('hidden');
+                }, 4000);
+            }
+
+            function renderPortals() {
+                portalListContainer.innerHTML = SCIENTIFIC_PORTALS.map(p => `
+                    <a href="${p.url}" target="_blank" rel="noopener noreferrer" 
+                       class="p-3 rounded-xl bg-slate-950/90 hover:bg-slate-800/90 border border-slate-800/90 transition flex items-start justify-between gap-2 group">
+                        <div>
+                            <div class="text-xs font-semibold text-sky-300 group-hover:text-sky-200">${p.title}</div>
+                            <div class="text-[11px] text-slate-400 mt-0.5">${p.category}</div>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 shrink-0">${p.agency}</span>
+                    </a>
+                `).join('');
+
+                footerPortalsGrid.innerHTML = SCIENTIFIC_PORTALS.map(p => `
+                    <div class="truncate">
+                        <span class="text-slate-500 font-mono">[${p.agency}]</span>
+                        <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="text-sky-400/90 hover:text-sky-300 hover:underline ml-1">
+                            ${p.title}
+                        </a>
+                    </div>
+                `).join('');
+            }
+
+            function renderDatabaseList() {
+                dbCountBadge.textContent = DATABASE.length;
+                dbListContainer.innerHTML = '';
+
+                DATABASE.forEach((item) => {
+                    const card = document.createElement('button');
+                    card.type = 'button';
+                    card.className = 'text-left p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 transition flex flex-col justify-between gap-2 cursor-pointer';
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between gap-2 w-full">
+                            <span class="font-semibold text-sm text-slate-100 truncate">${item.name}</span>
+                            <span class="px-2 py-0.5 rounded-md text-[11px] font-bold ${item.suitable ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">
+                                ${item.suitable ? 'EVET' : 'HAYIR'}
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 w-full">
+                            <span class="text-[11px] text-slate-400 truncate">${item.targetBody}</span>
+                            ${item.userAdded ? '<span class="text-[10px] font-mono text-sky-400 shrink-0">ÖZEL KAYIT</span>' : ''}
+                        </div>
+                    `;
+                    card.addEventListener('click', () => {
+                        locationInput.value = item.name;
+                        executeAnalysis(item.name);
+                        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    });
+                    dbListContainer.appendChild(card);
+                });
+            }
+
+            let analysisSeq = 0;
+            const learnBtn = document.getElementById('learnBtn');
+            const learnBtnLabel = learnBtn.querySelector('span');
+
+            function setLoading(on) {
+                learnBtn.disabled = on;
+                learnBtn.classList.toggle('opacity-60', on);
+                learnBtn.classList.toggle('cursor-wait', on);
+                learnBtnLabel.textContent = on ? 'Analiz Ediliyor...' : 'Öğren';
+            }
+
+            function showNotFound(name) {
+                resultCard.className = "rounded-3xl border border-amber-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl shadow-amber-950/30";
+                verdictBadge.className = "self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg bg-amber-500/20 text-amber-200 border border-amber-500/40";
+                verdictBadge.innerHTML = `
+                    <svg class="w-6 h-6 text-amber-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.3 3.9L2.4 17.5a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path>
+                    </svg>
+                    <span>YER BULUNAMADI</span>
+                `;
+                resultSourceTag.textContent = "YER DOĞRULAMA";
+                resultTargetBody.textContent = "DÜNYA ÜZERİNDE EŞLEŞME YOK";
+                resultLocationTitle.textContent = `“${name}”`;
+
+                const p = document.createElement('p');
+                p.className = "text-slate-200/95 leading-relaxed";
+                p.textContent = `Böyle bir yer yok. “${name}” adıyla Dünya üzerinde kayıtlı bir konum bulamadım. Yazımı kontrol edip tekrar deneyebilir ya da yukarıdaki hızlı test örneklerinden birini seçebilirsin.`;
+                resultDetailedExplanation.innerHTML = '';
+                resultDetailedExplanation.appendChild(p);
+
+                criteriaGrid.parentElement.classList.add('hidden');
+
+                resultContainer.classList.remove('hidden');
+                resultContainer.classList.remove('animate-result');
+                void resultContainer.offsetWidth;
+                resultContainer.classList.add('animate-result');
+            }
+
+            async function executeAnalysis(query) {
+                if (!query || !query.trim()) {
+                    showToast("Lütfen öğrenmek istediğiniz yerin adını yukarıdaki boşluğa yazın (Örn: Atacama Çölü veya İzmir).");
+                    locationInput.focus();
+                    return;
+                }
+
+                const mySeq = ++analysisSeq;
+                setLoading(true);
+                let analysis;
+                try {
+                    analysis = await analyzeLocation(query);
+                } finally {
+                    if (mySeq === analysisSeq) setLoading(false);
+                }
+                if (mySeq !== analysisSeq) return;
+
+                if (analysis.notFound) {
+                    showNotFound(analysis.locationName);
+                    return;
+                }
+                criteriaGrid.parentElement.classList.remove('hidden');
+
+                if (analysis.suitable) {
+                    resultCard.className = "rounded-3xl border border-emerald-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl shadow-emerald-950/30";
+                    verdictBadge.className = "self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+                    verdictBadge.innerHTML = `
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>EVET — UYGUNDUR</span>
+                    `;
+                } else {
+                    resultCard.className = "rounded-3xl border border-rose-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl shadow-rose-950/30";
+                    verdictBadge.className = "self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg bg-rose-500/20 text-rose-300 border border-rose-500/40";
+                    verdictBadge.innerHTML = `
+                        <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        <span>HAYIR — UYGUN DEĞİLDİR</span>
+                    `;
+                }
+
+                resultSourceTag.textContent = analysis.source;
+                resultTargetBody.textContent = analysis.targetBody;
+                resultLocationTitle.textContent = `${analysis.locationName} — Uzay Araştırmaları Analizi`;
+
+                resultDetailedExplanation.innerHTML = analysis.paragraphs
+                    .map(p => `<p class="text-slate-200/95 leading-relaxed">${p}</p>`)
+                    .join('');
+
+                const criteriaItems = [
+                    { label: "Jeoloji & Regolit Benzerliği", text: analysis.criteria.geology },
+                    { label: "İklim, Atmosfer & Su Buzu", text: analysis.criteria.climate },
+                    { label: "İzolasyon & Çevresel Kirlilik", text: analysis.criteria.isolation },
+                    { label: "NASA Space Apps Görev Uygunluğu", text: analysis.criteria.nasaFit }
+                ];
+
+                criteriaGrid.innerHTML = criteriaItems.map(c => `
+                    <div class="p-4 rounded-2xl bg-space-950/80 border border-slate-800/90">
+                        <div class="text-xs font-mono font-semibold text-sky-400 mb-1.5">${c.label}</div>
+                        <p class="text-sm text-slate-300 leading-relaxed">${c.text}</p>
+                    </div>
+                `).join('');
+
+                resultContainer.classList.remove('hidden');
+                resultContainer.classList.remove('animate-result');
+                void resultContainer.offsetWidth;
+                resultContainer.classList.add('animate-result');
+            }
+
+            evaluateForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                executeAnalysis(locationInput.value);
+            });
+
+            document.querySelectorAll('.sample-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const sample = btn.getAttribute('data-sample');
+                    locationInput.value = sample;
+                    executeAnalysis(sample);
+                });
+            });
+
+            toggleDbDrawerBtn.addEventListener('click', () => {
+                databaseDrawer.classList.toggle('hidden');
+                if (!databaseDrawer.classList.contains('hidden')) {
+                    databaseDrawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+
+            closeDbDrawerBtn.addEventListener('click', () => {
+                databaseDrawer.classList.add('hidden');
+            });
+
+            resetDbBtn.addEventListener('click', () => {
+                DATABASE = [...DEFAULT_DATABASE];
+                saveDatabase(DATABASE);
+                renderDatabaseList();
+                showToast("Veritabanı başlangıçtaki 9 temel kayda sıfırlandı.");
+            });
+
+            // Arayüzden kalıcı yeni veritabanı kaydı ekleme
+            addRecordForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('newLocName').value.trim();
+                const suitable = document.getElementById('newLocSuitable').value === 'true';
+                const targetBody = document.getElementById('newLocTarget').value.trim() || "Özel Veritabanı Kaydı";
+                const rawKeywords = document.getElementById('newLocKeywords').value;
+                const summary = document.getElementById('newLocSummary').value.trim();
+
+                if (!name || !summary) return;
+
+                const keywords = rawKeywords
+                    .split(',')
+                    .map(k => k.trim())
+                    .filter(Boolean);
+
+                const newEntry = {
+                    name: name,
+                    keywords: keywords.length ? keywords : [name.toLowerCase()],
+                    suitable: suitable,
+                    targetBody: targetBody,
+                    userAdded: true,
+                    paragraphs: [
+                        `${suitable ? 'Evet.' : 'Hayır.'} ${summary}`,
+                        `Bu değerlendirme, kullanıcı tarafından kalıcı veritabanına eklenen özel saha verileri ve NASA/CSA/ESA/JAXA açık veri portalları referans alınarak oluşturulmuştur.`
+                    ],
+                    criteria: {
+                        geology: suitable ? "Kalıcı veritabanı kaydına göre gezegen yüzeyi testlerine uygun jeolojik yapı." : "Gezegen yüzeyi analog standartlarını karşılamayan zemin yapısı.",
+                        climate: suitable ? "Hedef görev profili için elverişli atmosferik ve çevresel koşullar." : "Uzay araştırması simülasyonları için uygun olmayan iklim koşulları.",
+                        isolation: suitable ? "Saha testleri için yeterli izolasyon seviyesi." : "Dış etkenlere ve çevresel girişime açık bölge.",
+                        nasaFit: `${targetBody} kapsamında tanımlanmış kalıcı özel kayıt.`
+                    }
+                };
+
+                const existingIdx = DATABASE.findIndex(item => normalizeText(item.name) === normalizeText(name));
+                if (existingIdx > -1) {
+                    DATABASE[existingIdx] = newEntry;
+                } else {
+                    DATABASE.push(newEntry);
+                }
+
+                saveDatabase(DATABASE);
+                renderDatabaseList();
+                addRecordForm.reset();
+                locationInput.value = name;
+                executeAnalysis(name);
+                showToast(`"${name}" kalıcı olarak kaydedildi.`);
+            });
+
+            renderPortals();
+            renderDatabaseList();
+        });
     </script>
 
     <!-- Harita projesine geçiş düğmesi -->
