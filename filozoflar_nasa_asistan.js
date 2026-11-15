@@ -1,6 +1,6 @@
 /*
- NASA ANALOG ASİSTAN (Groq AI Entegreli)
- Filozofların Takımı
+ NASA ANALOG ASSISTANT (Groq AI Integrated - Multilingual)
+ Team Philosophers (Filozofların Takımı)
  NASA Space Apps Challenge 2026
 */
 
@@ -9,25 +9,44 @@
 
   const CHAT_ENDPOINT = "https://nsa-ai.dincermertozer.workers.dev/";
 
-  async function cevapVer(soru) {
+  async function askAssistant(question) {
     try {
       const res = await fetch(CHAT_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: soru })
+        body: JSON.stringify({
+          mode: "chat",
+          message: question,
+          languageInstruction: "Detect the exact language of the user's message and reply naturally, scientifically, and concisely in that EXACT SAME language."
+        })
       });
 
-      if (!res.ok) throw new Error("API yanıt vermedi");
-      
+      if (!res.ok) throw new Error("API did not respond (HTTP " + res.status + ")");
+
       const data = await res.json();
-      return data.reply || "Üzgünüm, şu anda yanıt oluşturamıyorum.";
+
+      // Eğer Worker doğrudan sohbet yanıtı döndürdüyse onu kullan
+      if (data.reply) {
+        return data.reply;
+      }
+
+      // Eğer Worker JSON analiz objesi döndürdüyse, chatbot içinde şık bir sohbet metnine dönüştür
+      if (data.summary) {
+        let formatted = `${data.locationName ? "📍 " + data.locationName + "\n\n" : ""}${data.summary}`;
+        if (data.criteria && data.criteria.nasaFit && data.criteria.nasaFit !== "-") {
+          formatted += `\n\n🚀 NASA Fit: ${data.criteria.nasaFit}`;
+        }
+        return formatted;
+      }
+
+      return "Sorry, I could not generate a response right now.";
     } catch (err) {
-      console.warn("Groq bağlantı hatası:", err);
-      return "Bağlantı kurulamadı. Lütfen internet bağlantınızı veya Cloudflare Worker ayarlarınızı kontrol edin.";
+      console.warn("Groq connection error:", err);
+      return "Connection failed. Please check your internet connection or Cloudflare Worker settings.";
     }
   }
 
-  function baslat() {
+  function initAssistant() {
     const root = document.createElement("div");
     root.id = "filozoflar-nasa-asistan-root";
     document.body.appendChild(root);
@@ -164,48 +183,51 @@
 
     const button = document.createElement("button");
     button.className = "nasa-buton";
-    button.innerHTML = "◀ NASA Asistan";
-    button.setAttribute("aria-label", "NASA Asistanını Aç/Kapat");
+    button.innerHTML = "◀ NASA Assistant";
+    button.setAttribute("aria-label", "Open/Close NASA Assistant");
 
     const panel = document.createElement("section");
     panel.className = "nasa-panel";
 
     panel.innerHTML = `
       <div class="nasa-baslik">
-        <span>🚀 NASA Analog Asistan (AI)</span>
-        <button class="nasa-kapat" aria-label="Kapat">×</button>
+        <span>🚀 NASA Analog Assistant (AI)</span>
+        <button class="nasa-kapat" aria-label="Close">×</button>
       </div>
       <div class="nasa-mesajlar" aria-live="polite"></div>
       <form class="nasa-form">
-        <input class="nasa-input" type="text" placeholder="Atacama veya Ay üssü hakkında sor..." aria-label="Mesajınız">
-        <button class="nasa-gonder" type="submit">Gönder</button>
+        <input class="nasa-input" type="text" placeholder="Ask in any language (Atacama, Moon base...)" aria-label="Your message">
+        <button class="nasa-gonder" type="submit">Send</button>
       </form>
       <div class="nasa-alt">
-        Filozofların Takımı • Space Apps 2026
+        Team Philosophers • NASA Space Apps 2026
       </div>
     `;
 
     shadow.append(button, panel);
 
-    const mesajlar = panel.querySelector(".nasa-mesajlar");
+    const messagesContainer = panel.querySelector(".nasa-mesajlar");
     const form = panel.querySelector(".nasa-form");
     const input = panel.querySelector(".nasa-input");
 
-    function mesajEkle(metin, kim) {
-      const mesaj = document.createElement("div");
-      mesaj.className = "nasa-mesaj " + (kim === "bot" ? "nasa-bot" : "nasa-kullanici");
-      mesaj.textContent = metin;
-      mesajlar.appendChild(mesaj);
-      mesajlar.scrollTop = mesajlar.scrollHeight;
-      return mesaj;
+    function appendMessage(text, sender) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "nasa-mesaj " + (sender === "bot" ? "nasa-bot" : "nasa-kullanici");
+      msgDiv.textContent = text;
+      messagesContainer.appendChild(msgDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      return msgDiv;
     }
 
-    mesajEkle("Merhaba! 🚀\n\nBen Filozofların Takımı'nın yapay zekâ destekli NASA Analog Asistanıyım. Ay ve Mars analog sahaları hakkında bana dilediğin soruyu sorabilirsin.", "bot");
+    appendMessage(
+      "Hello! 🚀\n\nI am Team Philosophers' AI-powered NASA Analog Assistant. Ask me anything about Moon & Mars analog sites in any language — I will respond in your language!",
+      "bot"
+    );
 
     button.addEventListener("click", () => {
-      const acik = panel.classList.toggle("acik");
-      button.setAttribute("aria-expanded", String(acik));
-      if (acik) input.focus();
+      const isOpen = panel.classList.toggle("acik");
+      button.setAttribute("aria-expanded", String(isOpen));
+      if (isOpen) input.focus();
     });
 
     panel.querySelector(".nasa-kapat").addEventListener("click", () => {
@@ -215,21 +237,21 @@
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const soru = input.value.trim();
-      if (!soru) return;
+      const question = input.value.trim();
+      if (!question) return;
 
-      mesajEkle(soru, "kullanici");
+      appendMessage(question, "user");
       input.value = "";
 
-      const yukleniyorMesaji = mesajEkle("Düşünüyor...", "bot");
-      const yanıt = await cevapVer(soru);
-      yukleniyorMesaji.textContent = yanıt;
+      const loadingMessage = appendMessage("Thinking...", "bot");
+      const reply = await askAssistant(question);
+      loadingMessage.textContent = reply;
     });
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", baslat);
+    document.addEventListener("DOMContentLoaded", initAssistant);
   } else {
-    baslat();
+    initAssistant();
   }
 })();
