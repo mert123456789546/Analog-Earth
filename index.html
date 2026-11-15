@@ -296,13 +296,36 @@
                 .trim();
         }
 
+        // ---------- YER DOĞRULAMA (OpenStreetMap / Nominatim) ----------
+        const placeCache = new Map();
+        const OFFWORLD = ["mars", "moon", "ay", "venüs", "merkür", "jüpiter", "satürn", "europa", "titan", "phobos", "deimos", "olympus"];
+
+        // Yazıda gök cismi adı geçiyorsa Dünya'da arama yapmanın anlamı yok
+        function isOffWorld(q) {
+            return q.split(/[\s,.'’\-]+/).filter(Boolean).some(t => OFFWORLD.includes(t));
+        }
+
+        async function placeExists(query) {
+            const key = query.toLocaleLowerCase('tr-TR');
+            if (placeCache.has(key)) return placeCache.get(key);   // aynı yeri tekrar sorma
+            const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=tr&q='
+                      + encodeURIComponent(query);
+            const res = await fetch(url);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+            const exists = Array.isArray(data) && data.length > 0;
+            placeCache.set(key, exists);
+            return exists;
+        }
+
         /**
          * Veritabanı Arama ve Kriter Değerlendirme Algoritması
          * 1. Önce kullanıcı tarafından en sona eklenen/tanımlanan DATABASE dizisinde tam veya kısmi eşleşme arar.
-         * 2. Veritabanında doğrudan kayıt yoksa, NASA Space Apps 2026 kriterlerine (çöl, kutup, krater, volkan, şehir vb.)
+         * 2. Veritabanında kayıt yoksa, yerin Dünya üzerinde var olup olmadığını OpenStreetMap'ten doğrular.
+         * 3. Yer varsa NASA Space Apps 2026 kriterlerine (çöl, kutup, krater, volkan, şehir vb.)
          *    dayalı akıllı çıkarım algoritmasını çalıştırır.
          */
-        function analyzeLocation(rawInput) {
+        async function analyzeLocation(rawInput) {
             const cleanedQuery = normalizeText(rawInput);
 
             // 1. Adım: DATABASE içinde doğrudan veya anahtar kelime bazlı eşleşme ara
@@ -336,7 +359,19 @@
                 };
             }
 
-            // 2. Adım: Veritabanında bulunmayan yerler için NASA Kriterleri Tabanlı Akıllı Çıkarım Algoritması
+            // 2. Adım: Dünya üzerinde böyle bir yer var mı?
+            if (!isOffWorld(cleanedQuery)) {
+                try {
+                    if (!(await placeExists(rawInput.trim()))) {
+                        return { notFound: true, locationName: rawInput.trim() };
+                    }
+                } catch (err) {
+                    // İnternet yok ya da servis meşgul: doğrulamadan eski algoritmayla devam et
+                    console.warn("Yer doğrulaması yapılamadı:", err);
+                }
+            }
+
+            // 3. Adım: NASA Kriterleri Tabanlı Akıllı Çıkarım Algoritması
             return runHeuristicFallback(rawInput.trim(), cleanedQuery);
         }
 
@@ -450,14 +485,67 @@
                 });
             }
 
-            function executeAnalysis(query) {
+            // ---------- Arama durumu ve "yer bulunamadı" kartı ----------
+            let analysisSeq = 0;
+            const learnBtn = document.getElementById('learnBtn');
+            const learnBtnLabel = learnBtn.querySelector('span');
+
+            function setLoading(on) {
+                learnBtn.disabled = on;
+                learnBtn.classList.toggle('opacity-60', on);
+                learnBtn.classList.toggle('cursor-wait', on);
+                learnBtnLabel.textContent = on ? 'Aranıyor...' : 'Öğren';
+            }
+
+            function showNotFound(name) {
+                resultCard.className = "rounded-3xl border border-amber-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl shadow-amber-950/30";
+                verdictBadge.className = "self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg bg-amber-500/20 text-amber-200 border border-amber-500/40";
+                verdictBadge.innerHTML = `
+                    <svg class="w-6 h-6 text-amber-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.3 3.9L2.4 17.5a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path>
+                    </svg>
+                    <span>YER BULUNAMADI</span>
+                `;
+                resultSourceTag.textContent = "YER DOĞRULAMA";
+                resultTargetBody.textContent = "DÜNYA ÜZERİNDE EŞLEŞME YOK";
+                resultLocationTitle.textContent = `“${name}”`;
+
+                const p = document.createElement('p');
+                p.className = "text-slate-200/95 leading-relaxed";
+                p.textContent = `Böyle bir yer yok. “${name}” adıyla Dünya üzerinde kayıtlı bir konum bulamadım. Yazımı kontrol edip tekrar deneyebilir ya da yukarıdaki hızlı test örneklerinden birini seçebilirsin.`;
+                resultDetailedExplanation.innerHTML = '';
+                resultDetailedExplanation.appendChild(p);
+
+                criteriaGrid.parentElement.classList.add('hidden');   // kriter bölümü gizlensin
+
+                resultContainer.classList.remove('hidden');
+                resultContainer.classList.remove('animate-result');
+                void resultContainer.offsetWidth;
+                resultContainer.classList.add('animate-result');
+            }
+
+            async function executeAnalysis(query) {
                 if (!query || !query.trim()) {
                     showToast("Lütfen öğrenmek istediğiniz yerin adını yukarıdaki boşluğa yazın (Örn: Atacama Çölü veya İzmir).");
                     locationInput.focus();
                     return;
                 }
 
-                const analysis = analyzeLocation(query);
+                const mySeq = ++analysisSeq;
+                setLoading(true);
+                let analysis;
+                try {
+                    analysis = await analyzeLocation(query);
+                } finally {
+                    if (mySeq === analysisSeq) setLoading(false);
+                }
+                if (mySeq !== analysisSeq) return;   // daha yeni bir arama başladıysa bunu bırak
+
+                if (analysis.notFound) {
+                    showNotFound(analysis.locationName);
+                    return;
+                }
+                criteriaGrid.parentElement.classList.remove('hidden');
 
                 // Kart kenarlık ve tema rengi
                 if (analysis.suitable) {
@@ -742,13 +830,14 @@
             }
         ];
     </script>
-<!-- Harita projesine geçiş düğmesi -->
-<a href="map.html" id="openMap" title="Haritayı aç" aria-label="Haritayı aç"
-   class="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white flex items-center justify-center shadow-xl shadow-sky-500/30 hover:scale-105 active:scale-95 transition">
-  <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-    <path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"></path>
-    <path d="M9 4v13.5M15 6.5V20"></path>
-  </svg>
-</a>
+
+    <!-- Harita projesine geçiş düğmesi -->
+    <a href="map.html" id="openMap" title="Haritayı aç" aria-label="Haritayı aç"
+       class="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white flex items-center justify-center shadow-xl shadow-sky-500/30 hover:scale-105 active:scale-95 transition">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"></path>
+            <path d="M9 4v13.5M15 6.5V20"></path>
+        </svg>
+    </a>
 </body>
 </html>
