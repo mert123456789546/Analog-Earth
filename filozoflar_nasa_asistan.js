@@ -183,7 +183,7 @@
 
     const button = document.createElement("button");
     button.className = "nasa-buton";
-    button.innerHTML = "◀ NASA Assistant";
+    button.innerHTML = "◀";
     button.setAttribute("aria-label", "Open/Close NASA Assistant");
 
     const panel = document.createElement("section");
@@ -191,7 +191,7 @@
 
     panel.innerHTML = `
       <div class="nasa-baslik">
-        <span>🚀 NASA Analog Assistant (AI)</span>
+        <span>NASA Analog Assistant (AI)</span>
         <button class="nasa-kapat" aria-label="Close">×</button>
       </div>
       <div class="nasa-mesajlar" aria-live="polite"></div>
