@@ -325,6 +325,35 @@
          * 3. Yer varsa NASA Space Apps 2026 kriterlerine (çöl, kutup, krater, volkan, şehir vb.)
          *    dayalı akıllı çıkarım algoritmasını çalıştırır.
          */
+// ---------- YAPAY ZEKÂ (Groq, Cloudflare Worker üzerinden) ----------
+const AI_ENDPOINT = "https://nsa-ai.dincermertozer.workers.dev/";
+const aiCache = new Map();
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+async function generateWithAI(place) {
+    const key = place.toLocaleLowerCase('tr-TR');
+    if (aiCache.has(key)) return aiCache.get(key);       // aynı yeri tekrar sorma
+    const res = await fetch(AI_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ place })
+    });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const d = await res.json();
+    const out = {
+        suitable: d.suitable === true,
+        paragraphs: d.paragraphs.map(esc),
+        criteria: {
+            geology: esc(d.criteria.geology),
+            climate: esc(d.criteria.climate),
+            isolation: esc(d.criteria.isolation),
+            nasaFit: esc(d.criteria.nasaFit)
+        }
+    };
+    aiCache.set(key, out);
+    return out;
+}
+
         async function analyzeLocation(rawInput) {
             const cleanedQuery = normalizeText(rawInput);
 
@@ -371,8 +400,22 @@
                 }
             }
 
-            // 3. Adım: NASA Kriterleri Tabanlı Akıllı Çıkarım Algoritması
-            return runHeuristicFallback(rawInput.trim(), cleanedQuery);
+            // 3. Adım: Yapay zekâ değerlendirmesi; olmazsa eski algoritma
+            const fallback = runHeuristicFallback(rawInput.trim(), cleanedQuery);
+            try {
+                const ai = await generateWithAI(rawInput.trim());
+                return {
+                    source: "YAPAY ZEKÂ ÖN DEĞERLENDİRMESİ (GROQ)",
+                    locationName: rawInput.trim(),
+                    suitable: ai.suitable,
+                    targetBody: "Yapay Zekâ Destekli Analog Saha Analizi",
+                    paragraphs: ai.paragraphs,
+                    criteria: ai.criteria
+                };
+            } catch (err) {
+                console.warn("Yapay zekâ yanıtı alınamadı, eski algoritma kullanılıyor:", err);
+                return fallback;
+            }
         }
 
         /**
