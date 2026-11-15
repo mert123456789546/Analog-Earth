@@ -27,6 +27,7 @@ function addButton(item) {
   b.textContent = item.label;
   b.addEventListener("click", () => {
     if (item.dictionary) openDictionary(item.label);
+    else if (item.file) openTextFile(item.label, item.file);
     else openModal(item.label, item.text || "Yazı", item.images || []);
   });
   panelList.appendChild(b);
@@ -92,28 +93,86 @@ function openModal(title, text, images) {
 
 function closeModal() { modal.classList.remove("open"); }
 
-// ---------- SÖZLÜK ----------
-let dictPromise = null;
+// ---------- .TXT DOSYALARINI OKUMA ----------
+const fileCache = {};
 
-// dictionary.txt'yi bir kez okur ve madde listesine çevirir
-function loadDictionary() {
-  if (!dictPromise) {
-    dictPromise = fetch("dictionary.txt")
+// Bir .txt dosyasını bir kez okur ve madde listesine çevirir
+function loadBlocks(file) {
+  if (!fileCache[file]) {
+    fileCache[file] = fetch(file)
       .then(r => {
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.text();
       })
       .then(text => {
         text = text.replace(/^\uFEFF/, "").trim();
-        let blocks = text.split(/\r?\n\s*\r?\n/);
-        if (blocks.length === 1) blocks = text.split(/\r?\n/);
+        let blocks = text.split(/\r?\n\s*\r?\n/);          // boş satırla ayrılmış maddeler
+        if (blocks.length === 1) blocks = text.split(/\r?\n/);  // yoksa her satır bir madde
         return blocks.map(b => b.trim()).filter(Boolean);
       });
-    dictPromise.catch(() => { dictPromise = null; });
+    fileCache[file].catch(() => { delete fileCache[file]; });   // hata olursa tekrar denenebilsin
   }
-  return dictPromise;
+  return fileCache[file];
 }
 
+// Metindeki linkleri tıklanabilir yapar: [Yazı](link) ve çıplak https://... biçimleri
+function linkify(container, text) {
+  const re = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|https?:\/\/[^\s<>"']+/g;
+  let last = 0, m;
+  while ((m = re.exec(text)) !== null) {
+    let label, url, end;
+    if (m[1]) {
+      label = m[1]; url = m[2]; end = m.index + m[0].length;
+    } else {
+      url = m[0];
+      // sondaki noktalama işaretlerini linkten çıkar
+      while (/[.,;:!?]$/.test(url) || (url.endsWith(")") && !url.includes("("))) {
+        url = url.slice(0, -1);
+      }
+      label = url;
+      end = m.index + url.length;
+    }
+    container.appendChild(document.createTextNode(text.slice(last, m.index)));
+    const a = document.createElement("a");
+    a.href = url;
+    a.textContent = label;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    container.appendChild(a);
+    last = end;
+    re.lastIndex = end;
+  }
+  container.appendChild(document.createTextNode(text.slice(last)));
+}
+
+// "file" özelliği olan düğmeler (Source gibi): dosyayı oku, linkleri tıklanabilir göster
+function openTextFile(title, file) {
+  modalTitle.textContent = title;
+  modalBody.innerHTML = "";
+
+  const list = document.createElement("div");
+  list.id = "sourceList";
+  list.textContent = "Loading...";
+  modalBody.appendChild(list);
+  modal.classList.add("open");
+
+  loadBlocks(file)
+    .then(blocks => {
+      list.innerHTML = "";
+      blocks.forEach(b => {
+        const div = document.createElement("div");
+        div.className = "source-item";
+        linkify(div, b);
+        list.appendChild(div);
+      });
+    })
+    .catch(err => {
+      console.error(file + " could not be loaded:", err);
+      list.textContent = "The file could not be loaded.";
+    });
+}
+
+// ---------- SÖZLÜK ----------
 function showEntries(list, blocks, query) {
   const q = query.trim().toLocaleLowerCase("tr");
   const found = blocks.filter(b => b.toLocaleLowerCase("tr").includes(q));
@@ -143,7 +202,7 @@ function openDictionary(title) {
   modalBody.append(search, list);
   modal.classList.add("open");
 
-  loadDictionary()
+  loadBlocks("dictionary.txt")
     .then(blocks => {
       showEntries(list, blocks, "");
       search.addEventListener("input", () => showEntries(list, blocks, search.value));

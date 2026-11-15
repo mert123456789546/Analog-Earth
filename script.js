@@ -130,7 +130,7 @@ window.addEventListener("pointerup", () => {
 // Sol tık: nokta -> açıklama aç; boş yer -> önce açıklama, sonra seçim kapanır
 document.addEventListener("click", e => {
   if (document.body.classList.contains("panel-open")) return;
-  if (e.target.closest && e.target.closest("#controls")) return;
+  if (e.target.closest && e.target.closest("#controls, #themeSwitch")) return;
   if (justDragged) return;
   if (popup.contains(e.target)) return;
   const el = e.target.closest && e.target.closest(".point.active");
@@ -256,7 +256,6 @@ function setFs(on) {
   fsBtn.setAttribute("aria-label", label);
   hidePopup();
 }
-
 fsBtn.addEventListener("click", () => {
   const on = !document.body.classList.contains("fs");
   setFs(on);
@@ -273,4 +272,95 @@ document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) setFs(false);
 });
 
+// Touchpad ve fare tekerleği: kaydır / yakınlaştır
+wrap.addEventListener("wheel", e => {
+  if (popup.contains(e.target)) return;
+  e.preventDefault();
+  const r = svg.node().getBoundingClientRect();
+  if (e.ctrlKey) {                       // pinch ya da Ctrl + tekerlek: imlecin olduğu yere yakınlaştır
+    const mx = view.x + (e.clientX - r.left) * view.w / r.width;
+    const my = view.y + (e.clientY - r.top)  * view.h / r.height;
+    const newW = clamp(view.w / Math.exp(-e.deltaY * 0.01), W / MAX_ZOOM, W);
+    const k = newW / view.w;
+    view.x = mx - (mx - view.x) * k;
+    view.y = my - (my - view.y) * k;
+    view.w = newW;
+  } else {                               // iki parmakla kaydırma: haritayı kaydır
+    view.x += e.deltaX * view.w / r.width;
+    view.y += e.deltaY * view.h / r.height;
+  }
+  applyView();
+}, { passive: false });
 applyView();
+
+// ---------- LIGHT / DARK MODU ----------
+const themeSwitch = document.getElementById("themeSwitch");
+
+function applyTheme(light) {
+  document.body.classList.toggle("light", light);
+  themeSwitch.setAttribute("aria-checked", String(light));
+}
+
+themeSwitch.addEventListener("click", () => {
+  const light = !document.body.classList.contains("light");
+  applyTheme(light);
+  try { localStorage.setItem("theme", light ? "light" : "dark"); } catch (e) {}
+});
+
+let savedTheme = null;
+try { savedTheme = localStorage.getItem("theme"); } catch (e) {}
+applyTheme(savedTheme === "light");
+
+// ---------- KONTROL KUTUSU SÜRÜKLENEBİLİR ----------
+(function () {
+  const box = document.getElementById("controls");
+  let pos = null;              // kullanıcının seçtiği konum
+  let drag = null;
+  let suppressClick = false;
+
+  function place(left, top) {
+    left = clamp(left, 0, Math.max(0, window.innerWidth  - box.offsetWidth));
+    top  = clamp(top,  0, Math.max(0, window.innerHeight - box.offsetHeight));
+    box.style.left = left + "px";
+    box.style.top = top + "px";
+    box.style.right = "auto";
+    box.style.bottom = "auto";
+    pos = { left, top };
+  }
+
+  box.addEventListener("pointerdown", e => {
+    if (e.button !== 0) return;
+    const r = box.getBoundingClientRect();
+    drag = { id: e.pointerId, px: e.clientX, py: e.clientY, left: r.left, top: r.top, started: false };
+  });
+
+  window.addEventListener("pointermove", e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.px, dy = e.clientY - drag.py;
+    if (!drag.started) {
+      if (Math.hypot(dx, dy) < 5) return;     // küçük titremeler sürükleme sayılmaz
+      drag.started = true;
+      box.classList.add("dragging");
+    }
+    place(drag.left + dx, drag.top + dy);
+  });
+
+  function end() {
+    if (!drag) return;
+    if (drag.started) {
+      suppressClick = true;                    // bırakırken düğmeye basılmış sayılmasın
+      setTimeout(() => { suppressClick = false; }, 0);
+      box.classList.remove("dragging");
+    }
+    drag = null;
+  }
+  window.addEventListener("pointerup", end);
+  window.addEventListener("pointercancel", end);
+
+  box.addEventListener("click", e => {
+    if (suppressClick) { e.stopPropagation(); e.preventDefault(); }
+  }, true);
+
+  // Pencere ya da tam ekran boyutu değişince kutu ekran dışında kalmasın
+  window.addEventListener("resize", () => { if (pos) place(pos.left, pos.top); });
+})();

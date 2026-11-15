@@ -1,7 +1,7 @@
 * { box-sizing: border-box; }
 
 body {
-  margin: 0; padding: 24px; background: #0b1220; color: #e6edf7;
+  margin: 0; padding: 24px; background: #151f28; color: #e6edf7;
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 h1 { margin: 0 0 6px; font-size: 22px; }
@@ -316,3 +316,166 @@ body.fs .ic-shrink { display: block; }
 /* Yakınlaştırmada sınır çizgileri kalınlaşmasın, kaydırırken imleç değişsin */
 .country { vector-effect: non-scaling-stroke; }
 #wrap.panning { cursor: grabbing; }
+
+/* ---------- KAYNAKLAR (SOURCE) ---------- */
+#sourceList { max-height: 60vh; overflow-y: auto; }
+
+.source-item {
+  padding: 10px 2px;
+  border-bottom: 1px solid #22304a;
+  line-height: 1.5;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.source-item:last-child { border-bottom: 0; }
+
+.source-item a {
+  color: #8fd0ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.source-item a:hover { color: #ffffff; }
+
+/* ---------- LIGHT / DARK SWITCH ---------- */
+#themeSwitch {
+  position: fixed; top: 16px; right: 16px; z-index: 30;
+  width: 56px; height: 30px; padding: 0;
+  border: 0; border-radius: 15px;
+  background: rgba(45, 45, 48, .62);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: background .2s;
+}
+#themeSwitch[aria-checked="true"] { background: rgba(150, 120, 60, .8); }
+
+#themeSwitch .knob {
+  position: absolute; top: 3px; left: 3px;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: #e6dcc3; color: #2d2d30;
+  display: grid; place-items: center;
+  transition: transform .2s;
+}
+#themeSwitch[aria-checked="true"] .knob { transform: translateX(26px); }
+
+#themeSwitch svg {
+  width: 15px; height: 15px;
+  fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.ic-sun { display: none; }
+#themeSwitch[aria-checked="true"] .ic-sun  { display: block; }
+#themeSwitch[aria-checked="true"] .ic-moon { display: none; }
+
+/* ---------- LIGHT MODE ---------- */
+body { transition: background .25s, color .25s; }
+
+body.light { background: #ffffff; color: #14213d; }
+body.light.fs { background: #dbe9f6; }
+body.light .hint { color: #5b6b82; }
+body.light #wrap { border-color: #b8c6d8; }
+body.light.fs .top { background: rgba(255, 255, 255, .85); border-color: #c3d0e0; }
+body.light #menuBtn { background: #ffffff; border-color: #c3d0e0; color: #14213d; }
+body.light #menuBtn:hover { border-color: #3a7bd5; }
+
+/* Harita */
+body.light .sphere  { fill: #dbe9f6; }
+body.light .country { fill: #c9d6e8; stroke: #9fb3cc; }
+body.light .country.africa        { fill: #e6cf9f; }
+body.light .country.europe        { fill: #b9c6f0; }
+body.light .country.asia          { fill: #b5ddc4; }
+body.light .country.north-america { fill: #efc3d8; }
+body.light .country.south-america { fill: #f2c0ab; }
+body.light .country.oceania       { fill: #aee0e2; }
+body.light .country.antarctica    { fill: #d5e0ec; }
+
+/* Noktalar: açık zeminde görünsün diye daha doygun renkler */
+body.light .point               { --glow: #d98a00; --glow-hi: #ffc04d; }
+body.light .point.africa        { --glow: #d68a00; --glow-hi: #ffb52e; }
+body.light .point.europe        { --glow: #2563eb; --glow-hi: #6f9bff; }
+body.light .point.asia          { --glow: #0f9d58; --glow-hi: #34d17f; }
+body.light .point.north-america { --glow: #d6246e; --glow-hi: #ff5f9e; }
+body.light .point.south-america { --glow: #e04e1f; --glow-hi: #ff8a5c; }
+body.light .point.oceania       { --glow: #0aa5a8; --glow-hi: #3fd6d9; }
+body.light .point.antarctica    { --glow: #4a7fb0; --glow-hi: #7fb3e6; }
+
+/* Seçim dikdörtgeni */
+body.light #selection { border-color: #1d6fd1; background: rgba(29, 111, 209, .12); }
+
+/* Yan panel */
+body.light #panel { background: #ffffff; border-right-color: #c3d0e0; }
+body.light .panel-head { color: #14213d; border-bottom-color: #d5dde9; }
+body.light .x-btn { color: #5b6b82; }
+body.light .x-btn:hover { color: #000000; }
+body.light .menu-item { background: #f1f5fa; border-color: #c3d0e0; color: #14213d; }
+body.light .menu-item:hover { background: #e3ebf5; border-color: #3a7bd5; }
+body.light .menu-item.howto { background: #e3ebf5; border-color: #3a7bd5; }
+
+/* Panelde kıta renkli yazılar ve başlıklar (açık zeminde koyu tonlar) */
+body.light .menu-item.africa,        body.light .continent-title.africa        { color: #8a5a00; }
+body.light .menu-item.europe,        body.light .continent-title.europe        { color: #2d4fc0; }
+body.light .menu-item.asia,          body.light .continent-title.asia          { color: #1b7a49; }
+body.light .menu-item.north-america, body.light .continent-title.north-america { color: #b02a6a; }
+body.light .menu-item.south-america, body.light .continent-title.south-america { color: #b8431a; }
+body.light .menu-item.oceania,       body.light .continent-title.oceania       { color: #0b7f84; }
+body.light .menu-item.antarctica,    body.light .continent-title.antarctica    { color: #4a6a8a; }
+body.light .continent-title { border-bottom-color: rgba(20, 33, 61, .15); }
+
+/* Açılan ekran, sözlük ve kaynaklar */
+body.light .modal-box { background: #ffffff; border-color: #c3d0e0; color: #14213d; }
+body.light #dictSearch { background: #f5f8fc; border-color: #c3d0e0; color: #14213d; }
+body.light #dictSearch:focus { border-color: #3a7bd5; }
+body.light .dict-item, body.light .source-item { border-bottom-color: #d5dde9; }
+body.light .source-item a { color: #1d5fc4; }
+body.light .source-item a:hover { color: #000000; }
+
+/* ---------- LIGHT MODE: DAHA KOYU KITA RENKLERİ ---------- */
+body.light .sphere  { fill: #d3e3f3; }
+body.light .country { fill: #b4c3d6; stroke: rgba(255, 255, 255, .65); }
+body.light .country.africa        { fill: #d9a441; }
+body.light .country.europe        { fill: #6b86e0; }
+body.light .country.asia          { fill: #4fb77c; }
+body.light .country.north-america { fill: #e07aa8; }
+body.light .country.south-america { fill: #e0825c; }
+body.light .country.oceania       { fill: #3fb8bd; }
+body.light .country.antarctica    { fill: #9fb7d1; }
+
+/* Noktalar koyu zeminde de seçilsin: beyaz halka, kıta renginde parlama */
+body.light .point {
+  stroke: #ffffff;
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
+}
+body.light .point.africa        { --glow: #b86e00; --glow-hi: #ffc04d; }
+body.light .point.europe        { --glow: #1e3fbf; --glow-hi: #6f9bff; }
+body.light .point.asia          { --glow: #0b7a41; --glow-hi: #34d17f; }
+body.light .point.north-america { --glow: #b01658; --glow-hi: #ff5f9e; }
+body.light .point.south-america { --glow: #bd3a10; --glow-hi: #ff8a5c; }
+body.light .point.oceania       { --glow: #07797c; --glow-hi: #3fd6d9; }
+body.light .point.antarctica    { --glow: #2f5f90; --glow-hi: #7fb3e6; }
+
+/* ---------- KONTROL KUTUSU SÜRÜKLENEBİLİR ---------- */
+#controls {
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+#controls.dragging { box-shadow: 0 8px 24px rgba(0, 0, 0, .45); }
+#controls.dragging, #controls.dragging * { cursor: grabbing; }
+
+/* Logo düğmesinin çizgisini kaldır */
+#menuBtn,
+#menuBtn:hover,
+#menuBtn:focus,
+#menuBtn:focus-visible {
+  border: 0;
+  outline: none;
+}
+
+/* ---------- MODA GÖRE LOGO ---------- */
+#menuBtn .logo-light { display: none; }
+
+body.light #menuBtn .logo-dark  { display: none; }
+body.light #menuBtn .logo-light { display: block; }
