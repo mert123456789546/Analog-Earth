@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr" class="dark">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uzay Araştırmaları & Analog Saha Analiz Algoritması</title>
+    <title>Space Exploration &amp; Analog Site Analysis Algorithm</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter & JetBrains Mono -->
@@ -74,7 +74,7 @@
 </head>
 <body class="text-slate-100 font-sans antialiased flex flex-col justify-between selection:bg-sky-500/30 selection:text-sky-200">
 
-    <!-- Üst Bilgi Çubuğu -->
+    <!-- Top Header Bar -->
     <header class="w-full border-b border-slate-800/80 bg-space-950/80 backdrop-blur-md sticky top-0 z-30">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-3">
@@ -85,8 +85,8 @@
                     </svg>
                 </div>
                 <div>
-                    <span class="text-xs font-mono uppercase tracking-widest text-sky-400 block">NASA Space Apps 2026 Referanslı</span>
-                    <h1 class="text-sm sm:text-base font-semibold text-slate-100">Gezegen Analog &amp; Üs Konumu Analiz Sistemi (AI)</h1>
+                    <span class="text-xs font-mono uppercase tracking-widest text-sky-400 block">NASA Space Apps 2026 Referenced</span>
+                    <h1 class="text-sm sm:text-base font-semibold text-slate-100">Planetary Analog &amp; Base Location Analysis System (AI)</h1>
                 </div>
             </div>
 
@@ -97,55 +97,56 @@
                         <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
                         <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
                     </svg>
-                    <span>Veritabanı &amp; Portallar (<span id="dbCountBadge">0</span> Kayıt)</span>
+                    <span>Database &amp; Portals (<span id="dbCountBadge">0</span> Records)</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Ana Merkez Alanı -->
+    <!-- Main Center Area -->
     <main class="flex-grow flex flex-col items-center justify-center px-4 sm:px-6 py-10 sm:py-16">
         <div class="w-full max-w-4xl mx-auto flex flex-col items-center">
 
-            <!-- Ana Soru Formu -->
+            <!-- Main Question Form -->
             <section class="w-full bg-space-900/75 border border-slate-800/90 rounded-3xl p-6 sm:p-12 shadow-2xl backdrop-blur-xl text-center">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-mono mb-6">
                     <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-                    <span>GROQ AI &amp; NASA SPACE APPS 2026 ANALİTİK MOTORU</span>
+                    <span>GROQ AI &amp; NASA SPACE APPS 2026 ANALYTICAL ENGINE</span>
                 </div>
 
                 <form id="evaluateForm" class="flex flex-col items-center">
                     <div class="w-full flex flex-col md:flex-row items-center justify-center gap-3 sm:gap-4 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white leading-snug">
+                        <span class="text-slate-100 select-none">Is</span>
                         <div class="relative w-full sm:w-80 md:w-96">
                             <input 
                                 type="text" 
                                 id="locationInput" 
                                 autocomplete="off"
-                                placeholder="Atacama Çölü, İzmir..." 
-                                aria-label="Araştırılacak yer adı"
+                                placeholder="Atacama Desert, Izmir..." 
+                                aria-label="Location name to evaluate"
                                 class="inline-location-input w-full text-center text-sky-300 placeholder-slate-500/80 font-bold px-4 py-2.5 rounded-t-xl text-xl sm:text-2xl md:text-3xl"
                             />
                         </div>
-                        <span class="text-slate-100 select-none">uzay araştırmalarına uygun mu?</span>
+                        <span class="text-slate-100 select-none">suitable for space research?</span>
                     </div>
 
-                    <!-- Hızlı Örnek Seçim Çipleri -->
+                    <!-- Quick Sample Selection Chips -->
                     <div class="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-400">
-                        <span class="mr-1 text-slate-500">Hızlı Test:</span>
-                        <button type="button" data-sample="Atacama Çölü" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Atacama Çölü</button>
-                        <button type="button" data-sample="İzmir" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">İzmir</button>
-                        <button type="button" data-sample="Ay Güney Kutbu" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Ay Güney Kutbu</button>
-                        <button type="button" data-sample="Devon Adası" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Devon Adası</button>
+                        <span class="mr-1 text-slate-500">Quick Test:</span>
+                        <button type="button" data-sample="Atacama Desert" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Atacama Desert</button>
+                        <button type="button" data-sample="Izmir" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Izmir</button>
+                        <button type="button" data-sample="Lunar South Pole" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Lunar South Pole</button>
+                        <button type="button" data-sample="Devon Island" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Devon Island</button>
                         <button type="button" data-sample="Mauna Loa" class="sample-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer">Mauna Loa</button>
                     </div>
 
-                    <!-- "Öğren" Düğmesi -->
+                    <!-- "Learn" Button -->
                     <button 
                         type="submit" 
                         id="learnBtn"
                         class="mt-8 px-10 py-4 rounded-2xl bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-lg tracking-wide shadow-xl shadow-blue-600/25 hover:shadow-blue-500/40 active:scale-[0.98] transition-all flex items-center gap-3 cursor-pointer"
                     >
-                        <span>Öğren</span>
+                        <span>Analyze</span>
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
@@ -153,19 +154,19 @@
                 </form>
             </section>
 
-            <!-- Uyarı / Mesaj Kutusu -->
+            <!-- Toast / Alert Box -->
             <div id="toastMessage" class="hidden w-full mt-4 p-4 rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-200 text-sm text-center"></div>
 
-            <!-- Algoritma Sonuç Kartı -->
+            <!-- Algorithm Result Card -->
             <section id="resultContainer" class="hidden w-full mt-8 animate-result">
                 <div id="resultCard" class="rounded-3xl border bg-space-900/90 backdrop-blur-xl p-6 sm:p-10 shadow-2xl">
                     
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
                         <div>
                             <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
-                                <span id="resultSourceTag">YAPAY ZEKÂ ANALİZ RAPORU</span>
+                                <span id="resultSourceTag">AI ANALYSIS REPORT</span>
                                 <span>•</span>
-                                <span id="resultTargetBody">MARS &amp; AY ANALOG</span>
+                                <span id="resultTargetBody">MARS &amp; LUNAR ANALOG</span>
                             </div>
                             <h2 id="resultLocationTitle" class="text-2xl sm:text-3xl font-extrabold text-white"></h2>
                         </div>
@@ -173,25 +174,25 @@
                         <div id="verdictBadge" class="self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg"></div>
                     </div>
 
-                    <!-- Detaylı Yapay Zekâ Açıklaması -->
+                    <!-- Detailed AI Explanation -->
                     <div class="mt-6 space-y-4 text-slate-200 leading-relaxed text-base sm:text-lg" id="resultDetailedExplanation"></div>
 
-                    <!-- Görev Riskleri / Eksiklikler Bölümü -->
+                    <!-- Mission Risks / Deficiencies Section -->
                     <div id="risksSection" class="mt-6 p-5 rounded-2xl bg-space-950/80 border border-slate-800/90 hidden">
-                        <div class="text-xs font-mono uppercase tracking-wider text-amber-400 mb-2">Görev Riskleri &amp; Temel Eksiklikler</div>
-                        <p id="resultRisksText" class="text-sm text-slate-300 leading-relaxed"></p>
+                        <div class="text-xs font-mono uppercase tracking-wider text-amber-400 mb-2">Mission Risks &amp; Key Deficiencies</div>
+                        <p id="resultRisksText" class="text-sm text-slate-300 leading-relaxed whitespace-pre-line"></p>
                     </div>
 
-                    <!-- NASA Space Apps Kriterleri Kırılımı -->
+                    <!-- NASA Space Apps Criteria Breakdown -->
                     <div class="mt-8 pt-6 border-t border-slate-800/90">
-                        <h3 class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-4">NASA Space Apps Kriter Bazlı Teknik Değerlendirme</h3>
+                        <h3 class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-4">NASA Space Apps Criteria-Based Technical Evaluation</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="criteriaGrid"></div>
                     </div>
 
-                    <!-- Doğrulama & Uzaktan Algılama Veri Portalları -->
+                    <!-- Verification & Remote Sensing Data Portals -->
                     <div class="mt-6 pt-5 border-t border-slate-800/70">
                         <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
-                            <span class="font-mono text-sky-400/90">ÖNERİLEN AÇIK VERİ &amp; UYDU ANALİZ PORTALLARI:</span>
+                            <span class="font-mono text-sky-400/90">RECOMMENDED OPEN DATA &amp; SATELLITE ANALYSIS PORTALS:</span>
                             <div class="flex flex-wrap gap-2">
                                 <a href="https://search.earthdata.nasa.gov/" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition">NASA Earthdata</a>
                                 <a href="https://worldview.earthdata.nasa.gov/index.html" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition">NASA Worldview</a>
@@ -206,69 +207,69 @@
                 </div>
             </section>
 
-            <!-- Açılır/Kapanır Veritabanı ve Bilimsel Kaynak Portalları Paneli -->
+            <!-- Collapsible Database & Scientific Resource Portals Panel -->
             <section id="databaseDrawer" class="hidden w-full mt-8 bg-space-900/95 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-800">
                     <div>
-                        <h3 class="text-lg font-bold text-white">Kalıcı Konum Veritabanı &amp; Açık Veri Portalları</h3>
+                        <h3 class="text-lg font-bold text-white">Persistent Location Database &amp; Open Data Portals</h3>
                         <p class="text-xs sm:text-sm text-slate-400 mt-1">
-                            Eklediğiniz yeni kayıtlar tarayıcı belleğinde (<code class="text-sky-400 font-mono">localStorage</code>) kalıcı saklanır ve yapay zekâ bu veritabanını referans alır.
+                            New records you add are permanently saved in your browser (<code class="text-sky-400 font-mono">localStorage</code>) and used by the AI as reference context.
                         </p>
                     </div>
                     <div class="flex items-center gap-2 self-end sm:self-center">
-                        <button id="resetDbBtn" type="button" class="px-3 py-1.5 rounded-xl bg-rose-950/70 hover:bg-rose-900/70 border border-rose-800/60 text-xs text-rose-200 cursor-pointer">Varsayılanlara Sıfırla</button>
-                        <button id="closeDbDrawerBtn" type="button" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 cursor-pointer">Kapat ✕</button>
+                        <button id="resetDbBtn" type="button" class="px-3 py-1.5 rounded-xl bg-rose-950/70 hover:bg-rose-900/70 border border-rose-800/60 text-xs text-rose-200 cursor-pointer">Reset to Defaults</button>
+                        <button id="closeDbDrawerBtn" type="button" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 cursor-pointer">Close ✕</button>
                     </div>
                 </div>
 
-                <!-- Yeni Kayıt Ekleme Formu -->
+                <!-- Add New Record Form -->
                 <form id="addRecordForm" class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-space-950/70 p-5 rounded-2xl border border-slate-800/80">
-                    <div class="sm:col-span-2 text-xs font-mono uppercase tracking-wider text-sky-400">Kalıcı Veritabanına Yeni Konum Ekle</div>
+                    <div class="sm:col-span-2 text-xs font-mono uppercase tracking-wider text-sky-400">Add New Location to Persistent Database</div>
                     
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">Konum Adı (Örn: Salar de Uyuni, Tuz Gölü)</label>
-                        <input type="text" id="newLocName" required placeholder="Konum adı..." class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
+                        <label class="block text-xs text-slate-400 mb-1">Location Name (e.g., Salar de Uyuni, Lake Tuz)</label>
+                        <input type="text" id="newLocName" required placeholder="Location name..." class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
                     </div>
 
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">Uzay Araştırmalarına Uygun mu?</label>
+                        <label class="block text-xs text-slate-400 mb-1">Suitable for Space Research?</label>
                         <select id="newLocSuitable" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
-                            <option value="true">Evet (Uygun)</option>
-                            <option value="false">Hayır (Uygun Değil)</option>
+                            <option value="true">Yes (Suitable)</option>
+                            <option value="false">No (Not Suitable)</option>
                         </select>
                     </div>
 
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">Hedef Görev Türü</label>
-                        <input type="text" id="newLocTarget" placeholder="Örn: Mars Evaporit / Ay Regolit Analoğu" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
+                        <label class="block text-xs text-slate-400 mb-1">Target Mission Type</label>
+                        <input type="text" id="newLocTarget" placeholder="e.g., Mars Evaporite / Lunar Regolith Analog" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
                     </div>
 
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">Anahtar Kelimeler (Virgülle ayırın)</label>
-                        <input type="text" id="newLocKeywords" placeholder="örnek, tuz düzlüğü, krater" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
+                        <label class="block text-xs text-slate-400 mb-1">Keywords (Comma separated)</label>
+                        <input type="text" id="newLocKeywords" placeholder="example, salt flat, crater" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none">
                     </div>
 
                     <div class="sm:col-span-2">
-                        <label class="block text-xs text-slate-400 mb-1">Detaylı Bilimsel Açıklama</label>
-                        <textarea id="newLocSummary" rows="3" required placeholder="Konumun jeolojik yapısı, iklim koşulları ve NASA kriterlerine göre analizini yazın..." class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none"></textarea>
+                        <label class="block text-xs text-slate-400 mb-1">Detailed Scientific Summary</label>
+                        <textarea id="newLocSummary" rows="3" required placeholder="Describe the geological structure, climate conditions, radiation/isolation status, and analysis according to NASA criteria..." class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none"></textarea>
                     </div>
 
                     <div class="sm:col-span-2 flex justify-end">
                         <button type="submit" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition cursor-pointer">
-                            + Kalıcı Olarak Kaydet &amp; Analiz Et
+                            + Save Permanently &amp; Analyze
                         </button>
                     </div>
                 </form>
 
-                <!-- Mevcut Kayıtların Listesi -->
+                <!-- Existing Records List -->
                 <div class="mt-6">
-                    <h4 class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3">Yüklü Konum Kayıtları (AI Bağlamı)</h4>
+                    <h4 class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3">Loaded Location Records (AI Context)</h4>
                     <div id="dbListContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-72 overflow-y-auto pr-1"></div>
                 </div>
 
-                <!-- 11 Bilimsel Veri Portalı Referans Listesi -->
+                <!-- 11 Scientific Data Portals Reference List -->
                 <div class="mt-8 pt-6 border-t border-slate-800">
-                    <h4 class="text-xs font-mono uppercase tracking-wider text-sky-400 mb-3">Entegre Gezegen &amp; Uzaktan Algılama Veri Portalları (11 Kaynak)</h4>
+                    <h4 class="text-xs font-mono uppercase tracking-wider text-sky-400 mb-3">Integrated Planetary &amp; Remote Sensing Data Portals (11 Sources)</h4>
                     <div id="portalListContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
                 </div>
             </section>
@@ -276,12 +277,12 @@
         </div>
     </main>
 
-    <!-- Alt Bilgi ve Bilimsel Kaynakça -->
+    <!-- Footer & Scientific Bibliography -->
     <footer class="w-full border-t border-slate-800/80 bg-space-950/90 py-8 px-4 sm:px-6 text-xs text-slate-400">
         <div class="max-w-5xl mx-auto space-y-5">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-800/70">
                 <div>
-                    <p class="font-medium text-slate-300">Ana Yarışma Çerçevesi:</p>
+                    <p class="font-medium text-slate-300">Main Challenge Framework:</p>
                     <p class="mt-1">
                         NASA Space Apps Challenge 2026 — 
                         <a href="https://www.spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline underline-offset-4 break-all">
@@ -290,12 +291,12 @@
                     </p>
                 </div>
                 <div class="text-left sm:text-right text-slate-500 font-mono">
-                    Değerlendirme Parametreleri: Regolit/Jeoloji • Su Buzu • Radyasyon • İzolasyon
+                    Evaluation Parameters: Regolith/Geology • Water Ice • Radiation • Isolation
                 </div>
             </div>
 
             <div>
-                <p class="font-mono uppercase tracking-wider text-slate-300 mb-2.5">Açık Bilim, Gezegen Verileri &amp; SAR Uzaktan Algılama Kaynakçası:</p>
+                <p class="font-mono uppercase tracking-wider text-slate-300 mb-2.5">Open Science, Planetary Data &amp; SAR Remote Sensing Bibliography:</p>
                 <div id="footerPortalsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2 text-[11px]"></div>
             </div>
         </div>
@@ -303,41 +304,41 @@
 
     <script>
         // =========================================================================
-        // 1. BİLİMSEL VERİ PORTALLARI KATALOĞU (11 KAYNAK)
+        // 1. SCIENTIFIC DATA PORTALS CATALOG (11 SOURCES)
         // =========================================================================
         const SCIENTIFIC_PORTALS = [
-            { title: "NASA Earthdata Search", agency: "NASA", category: "Dünya Gözlem & Uydu Veri Arama", url: "https://search.earthdata.nasa.gov/" },
-            { title: "NASA Worldview", agency: "NASA", category: "Gerçek Zamanlı Uydu Görüntüleme & İklim Katmanları", url: "https://worldview.earthdata.nasa.gov/index.html" },
-            { title: "NASA Planetary Data System (PDS)", agency: "NASA", category: "Gezegen Görevleri Arşivi (Ay, Mars ve Derin Uzay)", url: "https://pds.nasa.gov/" },
-            { title: "PDS Geosciences Node — LRO Missions", agency: "NASA / WUSTL", category: "Lunar Reconnaissance Orbiter (Ay Yüzey & Topografya)", url: "https://pds-geosciences.wustl.edu/missions/lro/" },
-            { title: "PDS Geosciences Node — LRO Diviner", agency: "NASA / WUSTL", category: "Ay Yüzey Sıcaklığı & Termal Radyometre Verileri", url: "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm" },
-            { title: "RADARSAT Constellation Mission (RCM)", agency: "CSA (Kanada Uzay Ajansı)", category: "C-Bandı Sentetik Açıklıklı Radar (SAR) Veri Seti", url: "https://donnees-data.asc-csa.gc.ca/en/dataset/rcm" },
-            { title: "RADARSAT-1 Open Dataset", agency: "CSA (Kanada Uzay Ajansı)", category: "Tarihsel SAR Yüzey Pürüzlülüğü & Buzul Verileri", url: "https://donnees-data.asc-csa.gc.ca/en/dataset/radarsat1" },
-            { title: "CSA Synthetic Aperture Radar (SAR) Tutorial", agency: "CSA (GitHub)", category: "SAR Görüntü İşleme & Jeomorfolojik Analiz Rehberi", url: "https://github.com/asc-csa/Synthetic_Aperture_Radar_Tutorial" },
-            { title: "Copernicus Data Space Ecosystem", agency: "ESA / Avrupa Komisyonu", category: "Sentinel-1 (SAR) & Sentinel-2 Multispektral Veriler", url: "https://dataspace.copernicus.eu/" },
-            { title: "ESA Open Science Data Catalogue", agency: "ESA (Avrupa Uzay Ajansı)", category: "Açık Bilim Gezegen & Yer Gözlem Katalogları", url: "https://opensciencedata.esa.int/" },
-            { title: "JAXA G-Portal (Globe Portal System)", agency: "JAXA (Japonya Uzay Ajansı)", category: "ALOS-2 PALSAR-2 Radar & Uydu Veri Dağıtım Sistemi", url: "https://gportal.jaxa.jp/gpr/index/index" }
+            { title: "NASA Earthdata Search", agency: "NASA", category: "Earth Observation & Satellite Data Search", url: "https://search.earthdata.nasa.gov/" },
+            { title: "NASA Worldview", agency: "NASA", category: "Real-Time Satellite Imagery & Climate Layers", url: "https://worldview.earthdata.nasa.gov/index.html" },
+            { title: "NASA Planetary Data System (PDS)", agency: "NASA", category: "Planetary Missions Archive (Moon, Mars & Deep Space)", url: "https://pds.nasa.gov/" },
+            { title: "PDS Geosciences Node — LRO Missions", agency: "NASA / WUSTL", category: "Lunar Reconnaissance Orbiter (Lunar Surface & Topography)", url: "https://pds-geosciences.wustl.edu/missions/lro/" },
+            { title: "PDS Geosciences Node — LRO Diviner", agency: "NASA / WUSTL", category: "Lunar Surface Temperature & Thermal Radiometer Data", url: "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm" },
+            { title: "RADARSAT Constellation Mission (RCM)", agency: "CSA (Canadian Space Agency)", category: "C-Band Synthetic Aperture Radar (SAR) Dataset", url: "https://donnees-data.asc-csa.gc.ca/en/dataset/rcm" },
+            { title: "RADARSAT-1 Open Dataset", agency: "CSA (Canadian Space Agency)", category: "Historical SAR Surface Roughness & Glacier Data", url: "https://donnees-data.asc-csa.gc.ca/en/dataset/radarsat1" },
+            { title: "CSA Synthetic Aperture Radar (SAR) Tutorial", agency: "CSA (GitHub)", category: "SAR Image Processing & Geomorphological Analysis Guide", url: "https://github.com/asc-csa/Synthetic_Aperture_Radar_Tutorial" },
+            { title: "Copernicus Data Space Ecosystem", agency: "ESA / European Commission", category: "Sentinel-1 (SAR) & Sentinel-2 Multispectral Data", url: "https://dataspace.copernicus.eu/" },
+            { title: "ESA Open Science Data Catalogue", agency: "ESA (European Space Agency)", category: "Open Science Planetary & Earth Observation Catalogs", url: "https://opensciencedata.esa.int/" },
+            { title: "JAXA G-Portal (Globe Portal System)", agency: "JAXA (Japan Aerospace Exploration Agency)", category: "ALOS-2 PALSAR-2 Radar & Satellite Data Distribution", url: "https://gportal.jaxa.jp/gpr/index/index" }
         ];
 
         // =========================================================================
-        // 2. VARSAYILAN TEMEL KONUM VERİTABANI (9 ORİJİNAL KAYIT)
+        // 2. DEFAULT CORE LOCATION DATABASE (9 ORIGINAL RECORDS)
         // =========================================================================
         const DEFAULT_DATABASE = [
-            { name: "Atacama Çölü", suitable: true, targetBody: "Mars Yüzey & Astrobiyoloji Analoğu", summary: "Hiper-kurak iklim, perklorat tuzları ve UV radyasyonu ile Mars yüzeyi için birinci sınıf analog sahadır." },
-            { name: "İzmir", suitable: false, targetBody: "Kentsel & Ilıman Akdeniz Bölgesi", summary: "Yoğun nüfus, nem ve bitki örtüsü nedeniyle uzay simülasyonuna uygun değildir." },
-            { name: "Ay Güney Kutbu", suitable: true, targetBody: "Kalıcı Ay Üssü Konumu (Artemis Hedefi)", summary: "Ebedi ışık tepeleri ve kalıcı gölge kraterlerindeki su buzu rezervleriyle ideal üs bölgesidir." },
-            { name: "Devon Adası", suitable: true, targetBody: "Ay & Mars Kutup Krater Analoğu", summary: "Haughton çarpma krateri ve permafrost katmanlarıyla kutup kraterlerini taklit eder." },
-            { name: "Mauna Loa", suitable: true, targetBody: "Mars & Ay Volkanik Habitat Analoğu", summary: "Bazaltik lav akıntıları ve lav tüpleri ile volkanik arazileri simüle eder." },
-            { name: "Rio Tinto", suitable: true, targetBody: "Erken Dönem Mars Hidroloji & Astrobiyoloji Analoğu", summary: "Asidik nehir sistemi ve demir-sülfat mineralleriyle antik Mars hidrodinamiğini yansıtır." },
-            { name: "Antarktika", suitable: true, targetBody: "Ay & Mars Ekstrem İzolasyon ve Astrobiyoloji Analoğu", summary: "Kuru vadileri ve mutlak izolasyonu ile derin uzay koşullarını sağlar." },
-            { name: "Mars Jezero Krateri", suitable: true, targetBody: "Mars Doğrudan Keşif ve Gelecek Üs Sahası", summary: "Antik nehir deltası ve kil mineralleriyle astrobiyolojik keşif merkezidir." },
-            { name: "İstanbul", suitable: false, targetBody: "Yoğun Metropol & Denizel Bölge", summary: "Kentsel doku ve yüksek nem uzay şartlarıyla çelişir." }
+            { name: "Atacama Desert", suitable: true, targetBody: "Mars Surface & Astrobiology Analog", summary: "Hyper-arid climate, perchlorate salts, and high UV radiation make it a premier analog site for the Martian surface." },
+            { name: "Izmir", suitable: false, targetBody: "Urban & Temperate Mediterranean Region", summary: "High population density, humidity, and rich vegetation make it unsuitable for planetary surface simulations." },
+            { name: "Lunar South Pole", suitable: true, targetBody: "Permanent Lunar Base Location (Artemis Target)", summary: "Peaks of eternal light adjacent to permanently shadowed craters containing water ice reserves make it an ideal base location." },
+            { name: "Devon Island", suitable: true, targetBody: "Lunar & Mars Polar Crater Analog", summary: "Haughton impact crater and permafrost layers replicate polar impact crater environments." },
+            { name: "Mauna Loa", suitable: true, targetBody: "Mars & Lunar Volcanic Habitat Analog", summary: "Basaltic lava flows and lava tubes simulate volcanic planetary terrains." },
+            { name: "Rio Tinto", suitable: true, targetBody: "Early Mars Hydrology & Astrobiology Analog", summary: "Acidic river system and iron-sulfate minerals mirror ancient Martian aqueous environments." },
+            { name: "Antarctica", suitable: true, targetBody: "Lunar & Mars Extreme Isolation & Astrobiology Analog", summary: "Dry valleys and absolute isolation provide deep-space mission conditions." },
+            { name: "Mars Jezero Crater", suitable: true, targetBody: "Direct Mars Exploration & Future Base Site", summary: "Ancient river delta and clay minerals make it a prime astrobiological discovery and ISRU site." },
+            { name: "Istanbul", suitable: false, targetBody: "Dense Metropolis & Maritime Region", summary: "Dense urban fabric and high humidity contradict extreme planetary surface requirements." }
         ];
 
         // =========================================================================
-        // 3. KALICI DEPOLAMA (LOCALSTORAGE) YÖNETİMİ
+        // 3. PERSISTENT STORAGE (LOCALSTORAGE) MANAGEMENT
         // =========================================================================
-        const STORAGE_KEY = 'nasa_space_apps_2026_database_v1';
+        const STORAGE_KEY = 'nasa_space_apps_2026_database_en_v1';
 
         function loadDatabase() {
             try {
@@ -347,7 +348,7 @@
                     if (Array.isArray(parsed) && parsed.length > 0) return parsed;
                 }
             } catch (e) {
-                console.warn("Yerel veritabanı okunamadı:", e);
+                console.warn("Could not read local database:", e);
             }
             localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_DATABASE));
             return [...DEFAULT_DATABASE];
@@ -360,15 +361,15 @@
         let DATABASE = loadDatabase();
 
         // =========================================================================
-        // 4. CLOUDFLARE WORKER ÜZERİNDEN YAPAY ZEKÂ ANALİZ MOTORU
+        // 4. AI ANALYSIS ENGINE VIA CLOUDFLARE WORKER (LANGUAGE-AGNOSTIC)
         // =========================================================================
         const CHAT_ENDPOINT = "https://nsa-ai.dincermertozer.workers.dev/";
 
         async function analyzeLocationWithAI(locationQuery) {
-            // Veritabanındaki kayıtları yapay zekâya bağlam olarak gönderiyoruz ki kıyas yapabilsin
             const contextPayload = {
                 message: locationQuery,
-                databaseContext: DATABASE
+                databaseContext: DATABASE,
+                languageInstruction: "Detect the language of the user's input query and respond in that EXACT SAME language across all JSON text fields."
             };
 
             const response = await fetch(CHAT_ENDPOINT, {
@@ -378,15 +379,15 @@
             });
 
             if (!response.ok) {
-                throw new Error("Yapay zekâ sunucusuna ulaşılamadı. (HTTP " + response.status + ")");
+                throw new Error("Could not reach the AI server. (HTTP " + response.status + ")");
             }
 
             const data = await response.json();
-            return data; // Cloudflare Worker'dan gelen JSON verisi
+            return data;
         }
 
         // =========================================================================
-        // 5. ARAYÜZ KONTROLÜ VE ETKİLEŞİM YÖNETİMİ
+        // 5. UI CONTROL & INTERACTION MANAGEMENT
         // =========================================================================
         document.addEventListener('DOMContentLoaded', () => {
             const evaluateForm = document.getElementById('evaluateForm');
@@ -451,7 +452,7 @@
                         <div class="flex items-center justify-between gap-2 w-full">
                             <span class="font-semibold text-sm text-slate-100 truncate">${item.name}</span>
                             <span class="px-2 py-0.5 rounded-md text-[11px] font-bold ${item.suitable ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">
-                                ${item.suitable ? 'EVET' : 'HAYIR'}
+                                ${item.suitable ? 'YES' : 'NO'}
                             </span>
                         </div>
                         <div class="flex items-center justify-between gap-2 w-full">
@@ -475,17 +476,17 @@
                 learnBtn.disabled = on;
                 learnBtn.classList.toggle('opacity-60', on);
                 learnBtn.classList.toggle('cursor-wait', on);
-                learnBtnLabel.textContent = on ? 'Yapay Zekâ Analiz Ediyor...' : 'Öğren';
+                learnBtnLabel.textContent = on ? 'AI Analyzing...' : 'Analyze';
             }
 
             function showAIError(errorMsg) {
                 resultCard.className = "rounded-3xl border border-rose-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl";
                 verdictBadge.className = "self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg text-rose-300 bg-rose-500/20 border border-rose-500/40";
-                verdictBadge.innerHTML = `<span>HATA OLUŞTU</span>`;
-                resultSourceTag.textContent = "GROQ AI BAĞLANTI";
-                resultTargetBody.textContent = "SİSTEM HATASI";
-                resultLocationTitle.textContent = "Analiz Gerçekleştirilemedi";
-                resultDetailedExplanation.innerHTML = `<p class="text-rose-200">Yapay zekâ yanıt üretirken bir sorunla karşılaştı: ${errorMsg}</p>`;
+                verdictBadge.innerHTML = `<span>ERROR OCCURRED</span>`;
+                resultSourceTag.textContent = "GROQ AI CONNECTION";
+                resultTargetBody.textContent = "SYSTEM ERROR";
+                resultLocationTitle.textContent = "Analysis Could Not Be Completed";
+                resultDetailedExplanation.innerHTML = `<p class="text-rose-200">An issue occurred while generating the AI response: ${errorMsg}</p>`;
                 risksSection.classList.add('hidden');
                 criteriaGrid.parentElement.classList.add('hidden');
                 resultContainer.classList.remove('hidden');
@@ -493,7 +494,7 @@
 
             async function executeAnalysis(query) {
                 if (!query || !query.trim()) {
-                    showToast("Lütfen analiz edilmesini istediğiniz yerin adını yazın (Örn: Salar de Uyuni, Atacama Çölü).");
+                    showToast("Please enter the name of the location you want to analyze (e.g., Salar de Uyuni, Atacama Desert).");
                     locationInput.focus();
                     return;
                 }
@@ -515,13 +516,11 @@
                 if (mySeq !== analysisSeq) return;
                 setLoading(false);
 
-                // Eğer model metin hata mesajı döndürdüyse
                 if (resultData.reply && typeof resultData.reply === 'string' && !resultData.locationName) {
                     showAIError(resultData.reply);
                     return;
                 }
 
-                // AI Sonuç Kartı Tasarımı
                 criteriaGrid.parentElement.classList.remove('hidden');
 
                 if (resultData.suitable) {
@@ -531,7 +530,7 @@
                         <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span>EVET — UYGUNDUR</span>
+                        <span>YES — SUITABLE</span>
                     `;
                 } else {
                     resultCard.className = "rounded-3xl border border-rose-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl shadow-rose-950/30";
@@ -540,30 +539,29 @@
                         <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
-                        <span>HAYIR — UYGUN DEĞİLDİR</span>
+                        <span>NO — NOT SUITABLE</span>
                     `;
                 }
 
-                resultSourceTag.textContent = "GROQ AI (LLAMA MODEL) ANALİZİ";
-                resultTargetBody.textContent = resultData.targetBody || "Mars & Ay Analog Değerlendirmesi";
-                resultLocationTitle.textContent = `${resultData.locationName || query} — Uzay Araştırmaları Analizi`;
+                resultSourceTag.textContent = "GROQ AI ANALYSIS";
+                resultTargetBody.textContent = resultData.targetBody || "Mars & Lunar Analog Evaluation";
+                resultLocationTitle.textContent = `${resultData.locationName || query} — Space Research Analysis`;
 
-                resultDetailedExplanation.innerHTML = `<p class="text-slate-200/95 leading-relaxed">${resultData.summary || "Açıklama üretilemedi."}</p>`;
+                resultDetailedExplanation.innerHTML = `<p class="text-slate-200/95 leading-relaxed">${resultData.summary || "No explanation generated."}</p>`;
 
-                // Görev Riskleri / Eksiklikler
                 if (resultData.missionRisks || resultData.deficiencies) {
                     risksSection.classList.remove('hidden');
-                    resultRisksText.textContent = `${resultData.deficiencies ? 'Eksiklikler: ' + resultData.deficiencies + ' \n\n' : ''}${resultData.missionRisks ? 'Görev Riskleri: ' + resultData.missionRisks : ''}`;
+                    resultRisksText.textContent = `${resultData.deficiencies ? 'Deficiencies: ' + resultData.deficiencies + '\n\n' : ''}${resultData.missionRisks ? 'Mission Risks: ' + resultData.missionRisks : ''}`;
                 } else {
                     risksSection.classList.add('hidden');
                 }
 
                 const criteria = resultData.criteria || {};
                 const criteriaItems = [
-                    { label: "Jeoloji & Regolit Benzerliği", text: criteria.geology || "Belirtilmedi." },
-                    { label: "İklim, Atmosfer & Su Buzu", text: criteria.climate || "Belirtilmedi." },
-                    { label: "İzolasyon & Çevresel Kirlilik", text: criteria.isolation || "Belirtilmedi." },
-                    { label: "NASA Space Apps Görev Uygunluğu", text: criteria.nasaFit || "Belirtilmedi." }
+                    { label: "Geology & Regolith Similarity", text: criteria.geology || "Not specified." },
+                    { label: "Climate, Atmosphere & Water Ice", text: criteria.climate || "Not specified." },
+                    { label: "Isolation & Environmental Interference", text: criteria.isolation || "Not specified." },
+                    { label: "NASA Space Apps Mission Fit", text: criteria.nasaFit || "Not specified." }
                 ];
 
                 criteriaGrid.innerHTML = criteriaItems.map(c => `
@@ -606,20 +604,20 @@
                 DATABASE = [...DEFAULT_DATABASE];
                 saveDatabase(DATABASE);
                 renderDatabaseList();
-                showToast("Veritabanı varsayılan 9 kayda sıfırlandı.");
+                showToast("Database has been reset to the 9 default records.");
             });
 
             addRecordForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const name = document.getElementById('newLocName').value.trim();
                 const suitable = document.getElementById('newLocSuitable').value === 'true';
-                const targetBody = document.getElementById('newLocTarget').value.trim() || "Özel Veritabanı Kaydı";
+                const targetBody = document.getElementById('newLocTarget').value.trim() || "Custom Database Record";
                 const summary = document.getElementById('newLocSummary').value.trim();
 
                 if (!name || !summary) return;
 
                 const newEntry = { name, suitable, targetBody, summary };
-                const existingIdx = DATABASE.findIndex(item => item.name.toLocaleLowerCase('tr-TR') === name.toLocaleLowerCase('tr-TR'));
+                const existingIdx = DATABASE.findIndex(item => item.name.toLowerCase() === name.toLowerCase());
                 if (existingIdx > -1) DATABASE[existingIdx] = newEntry;
                 else DATABASE.push(newEntry);
 
@@ -628,7 +626,7 @@
                 addRecordForm.reset();
                 locationInput.value = name;
                 executeAnalysis(name);
-                showToast(`"${name}" kalıcı veritabanına eklendi ve yapay zekâ bağlamına işlendi.`);
+                showToast(`"${name}" has been permanently added to the database and AI context.`);
             });
 
             renderPortals();
@@ -636,8 +634,8 @@
         });
     </script>
 
-    <!-- Harita projesine geçiş düğmesi -->
-    <a href="map.html" id="openMap" title="Haritayı aç" aria-label="Haritayı aç"
+    <!-- Switch to Map Project Button -->
+    <a href="map.html" id="openMap" title="Open Map" aria-label="Open Map"
        class="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white flex items-center justify-center shadow-xl shadow-sky-500/30 hover:scale-105 active:scale-95 transition">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"></path>
