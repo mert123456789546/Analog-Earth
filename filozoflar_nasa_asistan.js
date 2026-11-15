@@ -16,7 +16,8 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           mode: "chat",
-          message: question
+          message: question,
+          currentPage: "map" // BURASI EKLENDİ: Artık haritada olduğunu biliyor
         })
       });
 
