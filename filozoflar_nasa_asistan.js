@@ -184,7 +184,7 @@
 
     panel.innerHTML = `
       <div class="nasa-baslik">
-        <span>NASA Analog Asistan (AI)</span>
+        <span>NASA Analog Asistan (AI)</span> 
         <button class="nasa-kapat" aria-label="Kapat">×</button>
       </div>
       <div class="nasa-mesajlar" aria-live="polite"></div>
