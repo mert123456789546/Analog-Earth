@@ -1,8 +1,8 @@
 // Yan paneldeki "How to Use" ekranı
 const HOWTO = {
   title: "How to Use",
-  text: "Yazı",
-  images: []      // örnek: ["images/howto1.jpeg"]
+  text: "Click and hold the left mouse button, then drag to select the area you want to view. Once you have selected an area, click on any glowing points within it to see a summary of how those locations resemble Mars or the Moon. The menu that appears when you click on a glowing point provides the location's name and a visual comparison with Mars or the Moon, along with an explanation of the features that make it similar to either celestial body. In each comparison, the first image is always taken on Earth, while the second is from the Moon or Mars. If you would like to explore a location in greater detail, click on it in the new panel that opens when you click on our logo. This panel provides more detailed information and larger images, with locations organised by region. The percentage displayed next to each location's name indicates how closely it resembles Mars or the Moon.",
+  images: ["images/tutorial.1.jpeg", "images/tutorial.2.jpeg", "images/tutorial.3.jpeg", "images/tutorial.4.jpeg"]      // örnek: ["images/howto1.jpeg"]
 };
 
 // Noktaların ekranları. Soldaki isim, points.js'teki name ile BİREBİR aynı olmalı.
