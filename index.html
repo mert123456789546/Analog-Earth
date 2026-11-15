@@ -86,7 +86,7 @@
                 </div>
                 <div>
                     <span class="text-xs font-mono uppercase tracking-widest text-sky-400 block">NASA Space Apps 2026 Referanslı</span>
-                    <h1 class="text-sm sm:text-base font-semibold text-slate-100">Gezegen Analog &amp; Üs Konumu Analiz Sistemi</h1>
+                    <h1 class="text-sm sm:text-base font-semibold text-slate-100">Gezegen Analog &amp; Üs Konumu Analiz Sistemi (AI)</h1>
                 </div>
             </div>
 
@@ -111,7 +111,7 @@
             <section class="w-full bg-space-900/75 border border-slate-800/90 rounded-3xl p-6 sm:p-12 shadow-2xl backdrop-blur-xl text-center">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-mono mb-6">
                     <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-                    <span>AY &amp; MARS ÜS UYGUNLUK ALGORİTMASI v2.6 • KALICI VERİTABANI</span>
+                    <span>GROQ AI &amp; NASA SPACE APPS 2026 ANALİTİK MOTORU</span>
                 </div>
 
                 <form id="evaluateForm" class="flex flex-col items-center">
@@ -163,7 +163,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
                         <div>
                             <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
-                                <span id="resultSourceTag">VERİTABANI EŞLEŞMESİ</span>
+                                <span id="resultSourceTag">YAPAY ZEKÂ ANALİZ RAPORU</span>
                                 <span>•</span>
                                 <span id="resultTargetBody">MARS &amp; AY ANALOG</span>
                             </div>
@@ -173,7 +173,14 @@
                         <div id="verdictBadge" class="self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg"></div>
                     </div>
 
+                    <!-- Detaylı Yapay Zekâ Açıklaması -->
                     <div class="mt-6 space-y-4 text-slate-200 leading-relaxed text-base sm:text-lg" id="resultDetailedExplanation"></div>
+
+                    <!-- Görev Riskleri / Eksiklikler Bölümü -->
+                    <div id="risksSection" class="mt-6 p-5 rounded-2xl bg-space-950/80 border border-slate-800/90 hidden">
+                        <div class="text-xs font-mono uppercase tracking-wider text-amber-400 mb-2">Görev Riskleri &amp; Temel Eksiklikler</div>
+                        <p id="resultRisksText" class="text-sm text-slate-300 leading-relaxed"></p>
+                    </div>
 
                     <!-- NASA Space Apps Kriterleri Kırılımı -->
                     <div class="mt-8 pt-6 border-t border-slate-800/90">
@@ -205,7 +212,7 @@
                     <div>
                         <h3 class="text-lg font-bold text-white">Kalıcı Konum Veritabanı &amp; Açık Veri Portalları</h3>
                         <p class="text-xs sm:text-sm text-slate-400 mt-1">
-                            Eklediğiniz yeni kayıtlar tarayıcı belleğinde (<code class="text-sky-400 font-mono">localStorage</code>) kalıcı saklanır ve site kapatılıp açıldığında silinmez.
+                            Eklediğiniz yeni kayıtlar tarayıcı belleğinde (<code class="text-sky-400 font-mono">localStorage</code>) kalıcı saklanır ve yapay zekâ bu veritabanını referans alır.
                         </p>
                     </div>
                     <div class="flex items-center gap-2 self-end sm:self-center">
@@ -243,7 +250,7 @@
 
                     <div class="sm:col-span-2">
                         <label class="block text-xs text-slate-400 mb-1">Detaylı Bilimsel Açıklama</label>
-                        <textarea id="newLocSummary" rows="3" required placeholder="Konumun jeolojik yapısı, iklim koşulları, radyasyon/izolasyon durumu ve NASA kriterlerine göre analizini yazın..." class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none"></textarea>
+                        <textarea id="newLocSummary" rows="3" required placeholder="Konumun jeolojik yapısı, iklim koşulları ve NASA kriterlerine göre analizini yazın..." class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-sky-500 focus:outline-none"></textarea>
                     </div>
 
                     <div class="sm:col-span-2 flex justify-end">
@@ -255,7 +262,7 @@
 
                 <!-- Mevcut Kayıtların Listesi -->
                 <div class="mt-6">
-                    <h4 class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3">Yüklü Konum Kayıtları</h4>
+                    <h4 class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3">Yüklü Konum Kayıtları (AI Bağlamı)</h4>
                     <div id="dbListContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-72 overflow-y-auto pr-1"></div>
                 </div>
 
@@ -299,230 +306,32 @@
         // 1. BİLİMSEL VERİ PORTALLARI KATALOĞU (11 KAYNAK)
         // =========================================================================
         const SCIENTIFIC_PORTALS = [
-            {
-                title: "NASA Earthdata Search",
-                agency: "NASA",
-                category: "Dünya Gözlem & Uydu Veri Arama",
-                url: "https://search.earthdata.nasa.gov/"
-            },
-            {
-                title: "NASA Worldview",
-                agency: "NASA",
-                category: "Gerçek Zamanlı Uydu Görüntüleme & İklim Katmanları",
-                url: "https://worldview.earthdata.nasa.gov/index.html"
-            },
-            {
-                title: "NASA Planetary Data System (PDS)",
-                agency: "NASA",
-                category: "Gezegen Görevleri Arşivi (Ay, Mars ve Derin Uzay)",
-                url: "https://pds.nasa.gov/"
-            },
-            {
-                title: "PDS Geosciences Node — LRO Missions",
-                agency: "NASA / WUSTL",
-                category: "Lunar Reconnaissance Orbiter (Ay Yüzey & Topografya)",
-                url: "https://pds-geosciences.wustl.edu/missions/lro/"
-            },
-            {
-                title: "PDS Geosciences Node — LRO Diviner",
-                agency: "NASA / WUSTL",
-                category: "Ay Yüzey Sıcaklığı & Termal Radyometre Verileri",
-                url: "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm"
-            },
-            {
-                title: "RADARSAT Constellation Mission (RCM)",
-                agency: "CSA (Kanada Uzay Ajansı)",
-                category: "C-Bandı Sentetik Açıklıklı Radar (SAR) Veri Seti",
-                url: "https://donnees-data.asc-csa.gc.ca/en/dataset/rcm"
-            },
-            {
-                title: "RADARSAT-1 Open Dataset",
-                agency: "CSA (Kanada Uzay Ajansı)",
-                category: "Tarihsel SAR Yüzey Pürüzlülüğü & Buzul Verileri",
-                url: "https://donnees-data.asc-csa.gc.ca/en/dataset/radarsat1"
-            },
-            {
-                title: "CSA Synthetic Aperture Radar (SAR) Tutorial",
-                agency: "CSA (GitHub)",
-                category: "SAR Görüntü İşleme & Jeomorfolojik Analiz Rehberi",
-                url: "https://github.com/asc-csa/Synthetic_Aperture_Radar_Tutorial"
-            },
-            {
-                title: "Copernicus Data Space Ecosystem",
-                agency: "ESA / Avrupa Komisyonu",
-                category: "Sentinel-1 (SAR) & Sentinel-2 Multispektral Veriler",
-                url: "https://dataspace.copernicus.eu/"
-            },
-            {
-                title: "ESA Open Science Data Catalogue",
-                agency: "ESA (Avrupa Uzay Ajansı)",
-                category: "Açık Bilim Gezegen & Yer Gözlem Katalogları",
-                url: "https://opensciencedata.esa.int/"
-            },
-            {
-                title: "JAXA G-Portal (Globe Portal System)",
-                agency: "JAXA (Japonya Uzay Ajansı)",
-                category: "ALOS-2 PALSAR-2 Radar & Uydu Veri Dağıtım Sistemi",
-                url: "https://gportal.jaxa.jp/gpr/index/index"
-            }
+            { title: "NASA Earthdata Search", agency: "NASA", category: "Dünya Gözlem & Uydu Veri Arama", url: "https://search.earthdata.nasa.gov/" },
+            { title: "NASA Worldview", agency: "NASA", category: "Gerçek Zamanlı Uydu Görüntüleme & İklim Katmanları", url: "https://worldview.earthdata.nasa.gov/index.html" },
+            { title: "NASA Planetary Data System (PDS)", agency: "NASA", category: "Gezegen Görevleri Arşivi (Ay, Mars ve Derin Uzay)", url: "https://pds.nasa.gov/" },
+            { title: "PDS Geosciences Node — LRO Missions", agency: "NASA / WUSTL", category: "Lunar Reconnaissance Orbiter (Ay Yüzey & Topografya)", url: "https://pds-geosciences.wustl.edu/missions/lro/" },
+            { title: "PDS Geosciences Node — LRO Diviner", agency: "NASA / WUSTL", category: "Ay Yüzey Sıcaklığı & Termal Radyometre Verileri", url: "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm" },
+            { title: "RADARSAT Constellation Mission (RCM)", agency: "CSA (Kanada Uzay Ajansı)", category: "C-Bandı Sentetik Açıklıklı Radar (SAR) Veri Seti", url: "https://donnees-data.asc-csa.gc.ca/en/dataset/rcm" },
+            { title: "RADARSAT-1 Open Dataset", agency: "CSA (Kanada Uzay Ajansı)", category: "Tarihsel SAR Yüzey Pürüzlülüğü & Buzul Verileri", url: "https://donnees-data.asc-csa.gc.ca/en/dataset/radarsat1" },
+            { title: "CSA Synthetic Aperture Radar (SAR) Tutorial", agency: "CSA (GitHub)", category: "SAR Görüntü İşleme & Jeomorfolojik Analiz Rehberi", url: "https://github.com/asc-csa/Synthetic_Aperture_Radar_Tutorial" },
+            { title: "Copernicus Data Space Ecosystem", agency: "ESA / Avrupa Komisyonu", category: "Sentinel-1 (SAR) & Sentinel-2 Multispektral Veriler", url: "https://dataspace.copernicus.eu/" },
+            { title: "ESA Open Science Data Catalogue", agency: "ESA (Avrupa Uzay Ajansı)", category: "Açık Bilim Gezegen & Yer Gözlem Katalogları", url: "https://opensciencedata.esa.int/" },
+            { title: "JAXA G-Portal (Globe Portal System)", agency: "JAXA (Japonya Uzay Ajansı)", category: "ALOS-2 PALSAR-2 Radar & Uydu Veri Dağıtım Sistemi", url: "https://gportal.jaxa.jp/gpr/index/index" }
         ];
 
         // =========================================================================
         // 2. VARSAYILAN TEMEL KONUM VERİTABANI (9 ORİJİNAL KAYIT)
         // =========================================================================
         const DEFAULT_DATABASE = [
-            {
-                name: "Atacama Çölü",
-                keywords: ["atacama", "atacama çölü", "şili çölü", "yungay"],
-                suitable: true,
-                targetBody: "Mars Yüzey & Astrobiyoloji Analoğu",
-                paragraphs: [
-                    "Evet. Çünkü Atacama Çölü (Şili), dünyadaki kutup dışı en kurak bölge olması, aşırı yüksek ultraviyole (UV) radyasyon seviyesi, organik madde açısından fakir ve perklorat tuzları içeren toprak kimyası ile Mars yüzeyine (özellikle Jezero ve Gale Kraterleri'ne) olağanüstü derecede benzediği için uzay araştırmalarına son derece uygundur.",
-                    "NASA Space Apps 2026 kaynakçalarında en önemli Mars analog sahalarından biri olarak gösterilen Atacama'da yıllık yağış miktarı bazı bölgelerde milimetrenin altındadır. Topraktaki yüksek oksitleyici bileşikler ve UV bombardımanı, yüzeyde mikrobiyal yaşamın barınmasını neredeyse imkânsız kılar; bu durum Mars'taki yaşam izi (biosignature) tespit cihazlarının kalibrasyonu için eşsiz bir doğal laboratuvar sunar.",
-                    "Ayrıca yoğun kentsel yerleşimden ve bitki örtüsünden tamamen arınmış olan bu coğrafyada NASA ve ESA mühendisleri, gezegen gezginlerinin (rover) otonom sürüş yazılımlarını, derin regolit delme sistemlerini ve astronot yaşam destek ünitelerini gerçek görev koşullarına en yakın ortamda test etmektedir."
-                ],
-                criteria: {
-                    geology: "Perklorat ve sülfat açısından zengin, organik maddece fakir hiper-kurak toprak yapısı Mars regoliti ile birebir örtüşür.",
-                    climate: "Aşırı düşük nem, yüksek günlük sıcaklık farkları ve yoğun UV radyasyonu Mars atmosfer koşullarını simüle eder.",
-                    isolation: "Bitki örtüsünden yoksun ve yerleşimden uzak geniş düzlükler sıfır çevresel girişim sağlar.",
-                    nasaFit: "Mars rover otonomi testleri, yaşam izi sensörleri ve delme sistemleri için birinci sınıf analog sahadır."
-                }
-            },
-            {
-                name: "İzmir",
-                keywords: ["izmir", "izmir türkiye", "ege kıyısı"],
-                suitable: false,
-                targetBody: "Kentsel & Ilıman Akdeniz Bölgesi",
-                paragraphs: [
-                    "Hayır. Çünkü İzmir; yoğun kentsel yapılaşması, yüksek nüfus yoğunluğu, ılıman Akdeniz iklimi, zengin bitki örtüsü ve denizel nem oranı nedeniyle Ay veya Mars'ın ekstrem, steril ve çorak yüzey koşullarını simüle etmeye uygun değildir.",
-                    "NASA Space Apps 2026 Ay ve Mars üs konumlandırma kriterlerine göre uzay araştırmaları için seçilen sahaların; düşük nemli, organik kontaminasyondan uzak, elektromanyetik ve ışık kirliliği bulunmayan, ekstrem jeolojik yapılara (bazaltik kraterler, hiper-kurak çöller veya kutup buzulları) sahip olması gerekir. İzmir ise aktif biyosferi, tarım arazileri, yoğun radyo frekans trafiği ve gelişmiş şehir altyapısı ile gezegen yüzeyi analog testleri için gerekli izolasyon ve ekstremite şartlarını sağlamaz.",
-                    "Bununla birlikte İzmir'deki üniversiteler ve uzay teknolojileri merkezlerinde uydu alt sistemleri, uzay hukuku veya veri analitiği gibi masaüstü/laboratuvar çalışmaları yürütülebilse de, doğrudan gezegen yüzeyi saha simülasyonu ve üs analog görevleri açısından uygun bir saha değildir."
-                ],
-                criteria: {
-                    geology: "Alüvyal kıyı ovaları, tarım toprakları ve yoğun kentsel zemin Ay/Mars regoliti simülasyonuna uygun değildir.",
-                    climate: "Yüksek nem ve ılıman Akdeniz iklimi, dondurucu ve düşük basınçlı uzay ortamlarının tam zıttıdır.",
-                    isolation: "Yoğun şehir ışıkları, elektromanyetik gürültü ve insan faaliyetleri saha sensörlerini ve izolasyon testlerini bozar.",
-                    nasaFit: "Açık saha gezegen analog görevleri için uygun değildir; yalnızca kapalı laboratuvar araştırmaları yapılabilir."
-                }
-            },
-            {
-                name: "Ay Güney Kutbu",
-                keywords: ["ay güney kutbu", "shackleton", "shackleton krateri", "ay kutbu", "south pole"],
-                suitable: true,
-                targetBody: "Kalıcı Ay Üssü Konumu (Artemis Hedefi)",
-                paragraphs: [
-                    "Evet. Çünkü Ay Güney Kutbu (özellikle Shackleton Krateri ve çevresindeki yüksek sırtlar), kalıcı güneş ışığı alan zirveler ile kalıcı gölgede kalan kraterlerin (PSR) hemen yan yana bulunması nedeniyle kalıcı bir insanlı Ay üssü kurmak için Güneş Sistemi'ndeki en uygun bölgedir.",
-                    "NASA Space Apps 2026 Permanent Moon Base Locations kaynağının temel odak noktası olan bu bölgede, krater kenarlarındaki 'Ebedi Işık Tepeleri' yılın %80 ila %90'ında kesintisiz güneş enerjisi sağlayarak üssün elektrik ve ısıl enerji ihtiyacını karşılar. Hemen yanı başındaki güneş ışığı hiç görmeyen krater tabanlarında ise sıcaklık -230°C'nin altına düşer ve milyarlarca yıldır korunan su buzu rezervleri bulunur.",
-                    "Yerinde Kaynak Kullanımı (ISRU) stratejisi kapsamında bu su buzunun çıkarılması; astronotlar için içme suyu, solunabilir oksijen ve roketler için hidrojen/oksijen yakıtı üretilmesine imkân tanıyarak Ay'ı Mars görevleri için bir sıçrama tahtasına dönüştürür."
-                ],
-                criteria: {
-                    geology: "Anortozitik ve bazaltik Ay regoliti, radyasyon kalkanı ve 3D yazıcılarla habitat inşası için hammadde sunar.",
-                    climate: "Kalıcı güneş ışığı alan zirveler enerji sürekliliği sağlarken, gölge kraterler su buzu depolar.",
-                    isolation: "Dünya ile doğrudan görüş hattı (Line-of-Sight) kesintisiz iletişim kurulmasına olanak tanır.",
-                    nasaFit: "Kalıcı insanlı Ay üssü (Artemis Base Camp) ve ISRU yakıt üretimi için bir numaralı hedeftir."
-                }
-            },
-            {
-                name: "Devon Adası",
-                keywords: ["devon adası", "haughton krateri", "devon island", "kanada kutup"],
-                suitable: true,
-                targetBody: "Ay & Mars Kutup Krater Analoğu",
-                paragraphs: [
-                    "Evet. Çünkü Kanada Arktik Takımadaları'nda yer alan Devon Adası ve üzerindeki 23 kilometre çapındaki Haughton Çarpma Krateri; kutup çölü iklimi, sürekli donmuş toprak (permafrost) yapısı ve meteorit çarpma jeolojisi ile hem Ay hem de Mars üs simülasyonları için dünyadaki en kapsamlı analog merkezlerden biridir.",
-                    "Yılın büyük bölümünde dondurucu soğuklara sahne olan, ağaç ve yüksek bitki örtüsünden tamamen yoksun bu ıssız ada, NASA Haughton-Mars Projesi'ne (HMP) ev sahipliği yapmaktadır. Çarpma kraterinin oluşturduğu breş kayaları ve buzlu toprak katmanları, Ay kutuplarındaki ve Mars'ın orta-yüksek enlemlerindeki yeraltı buz tabakalarını birebir taklit eder.",
-                    "Ayrıca adanın dünyanın en büyük ıssız adası olması, astronot adaylarının aylarca dış dünyadan izole kalarak psikolojik dayanıklılık, uzay elbisesi ergonomisi ve uzaktan tele-robotik operasyonları test etmesine olanak sağlar."
-                ],
-                criteria: {
-                    geology: "23 km çapındaki meteorit çarpma krateri ve permafrost katmanları Ay/Mars krater jeolojisiyle örtüşür.",
-                    climate: "Soğuk kutup çölü iklimi, düşük yağış ve dondurucu rüzgârlar yüksek enlem gezegen koşullarını yansıtır.",
-                    isolation: "Dünyanın en büyük yerleşimsiz adası olması nedeniyle mutlak lojistik ve psikolojik izolasyon sağlar.",
-                    nasaFit: "NASA Haughton-Mars Projesi kapsamında EVA kıyafetleri, roverlar ve habitat sistemleri için idealdir."
-                }
-            },
-            {
-                name: "Mauna Loa",
-                keywords: ["mauna loa", "hawaii", "hi-seas", "mauna kea"],
-                suitable: true,
-                targetBody: "Mars & Ay Volkanik Habitat Analoğu",
-                paragraphs: [
-                    "Evet. Çünkü Hawaii'deki Mauna Loa yanardağının 2.500 metre rakımlı kuzey yamacı; genç bazaltik lav akıntıları, demir açısından zengin kırmızımsı volkanik cürufları ve bitki örtüsünden arınmış yapısıyla Mars yüzey jeolojisine çarpıcı düzeyde benzediği için uzay araştırmalarına son derece uygundur.",
-                    "NASA'nın uzun süreli insanlı Mars simülasyonu olan HI-SEAS (Hawai'i Space Exploration Analog and Simulation) habitatına ev sahipliği yapan bu bölge, lav tüpleri ve volkanik mağaralar bakımından da zengindir. Ay ve Mars'taki lav tüpleri, gelecekteki astronotları kozmik radyasyondan ve mikrometeorit çarpmalarından koruyacak doğal yeraltı sığınakları olarak planlanmaktadır.",
-                    "Yüksek irtifa, ince atmosfer ve çevrede hiçbir bitki veya hayvan yaşamının bulunmaması, mürettebatın kubbe şeklindeki kapalı habitatta 8 ila 12 ay boyunca gerçekçi Mars iletişim gecikmesi (20 dakika) altında görev yapabilmesini sağlar."
-                ],
-                criteria: {
-                    geology: "Demir oksitçe zengin bazaltik lav alanları ve lav tüpleri Mars ve Ay volkanik arazileriyle özdeştir.",
-                    climate: "Yüksek rakımlı kurak volkanik mikro-iklim, bitki gelişimini engelleyerek çorak bir yüzey sunar.",
-                    isolation: "Lav tarlalarının ortasındaki izole konum, uzun süreli mürettebat psikolojisi deneyleri için uygundur.",
-                    nasaFit: "HI-SEAS uzun süreli habitat görevleri ve lav tüpü keşif robotları için mükemmel bir sahadır."
-                }
-            },
-            {
-                name: "Rio Tinto",
-                keywords: ["rio tinto", "ispanya", "asidik nehir"],
-                suitable: true,
-                targetBody: "Erken Dönem Mars Hidroloji & Astrobiyoloji Analoğu",
-                paragraphs: [
-                    "Evet. Çünkü İspanya'nın güneybatısında yer alan Rio Tinto bölgesi; demir ve sülfat mineralleri açısından aşırı zengin, yüksek asidik (pH ~2) nehir sistemi ve kemolitotrofik mikroorganizma ekosistemi ile Mars'ın milyarlarca yıl önceki sulu dönemine (Noachian/Hesperian çağları) benzediği için uzay araştırmalarına uygundur.",
-                    "Mars yörünge araçları ve yüzey gezginleri tarafından tespit edilen jarosit ve hematit gibi demir-sülfat mineralleri, Rio Tinto havzasında doğal olarak oluşmaktadır. Bu nedenle NASA ve ESA bilim insanları, Mars'ta geçmişte yaşam olup olmadığını araştıracak spektrometre ve biyolojik analiz cihazlarını önce bu bölgede test etmektedir.",
-                    "Bölgedeki ekstrem koşullara uyum sağlamış yeraltı mikrobiyal yaşam formları, Mars yüzeyinin altındaki tuzlu ve asidik su ceplerinde yaşamın nasıl var olabileceğine dair doğrudan bilimsel kanıtlar sunmaktadır."
-                ],
-                criteria: {
-                    geology: "Jarosit, hematit ve sülfatça zengin mineraloji Mars'ın antik göl ve nehir yataklarıyla eşleşir.",
-                    climate: "Yüksek asidite ve ağır metal yoğunluğu yüzeyde yalnızca ekstremofil yaşam formlarına izin verir.",
-                    isolation: "Maden havzası çevresindeki steril ve kızıl arazi gezegen yüzeyi hissi ve test ortamı sunar.",
-                    nasaFit: "Astrobiyolojik yaşam izi tespiti ve yeraltı delme/spektroskopi cihazlarının kalibrasyonu için uygundur."
-                }
-            },
-            {
-                name: "Antarktika",
-                keywords: ["antarktika", "mcmurdo", "kuru vadiler", "concordia", "güney kutbu"],
-                suitable: true,
-                targetBody: "Ay & Mars Ekstrem İzolasyon ve Astrobiyoloji Analoğu",
-                paragraphs: [
-                    "Evet. Çünkü Antarktika (özellikle McMurdo Kuru Vadileri ve Concordia Araştırma İstasyonu); dünyadaki en soğuk, en rüzgârlı ve en kurak koşullara sahip olması, milyonlarca yıldır yağış almayan buzsuz vadileri ve mutlak izolasyonu ile hem Ay hem de Mars insanlı üs araştırmaları için eşsiz bir analog sahadır.",
-                    "McMurdo Kuru Vadileri'ndeki aşırı düşük sıcaklık ve sıfıra yakın nem oranı, Mars'ın soğuk çöl ortamına dünyadaki en yakın karasal karşılıktır. Concordia Üssü'nde ise kış aylarında güneş aylarca doğmaz ve sıcaklık -80°C'ye kadar düşer; bu durum ESA ve NASA'nın uzun süreli uzay yolculuklarında astronotlarda görülen uyku bozuklukları, bağışıklık sistemi değişimleri ve ekip içi psikolojik dinamikleri incelemesi için kullanılır.",
-                    "Ayrıca buzul altı göller ve donmuş toprak katmanları, Ay'ın kalıcı gölge kraterlerindeki ve Mars kutuplarındaki su buzu sondaj teknolojilerinin geliştirilmesinde doğrudan referans alınmaktadır."
-                ],
-                criteria: {
-                    geology: "Buzsuz kuru vadiler, granit/bazalt kayalar ve permafrost tabakaları Mars yüzey yapısını taklit eder.",
-                    climate: "Aşırı düşük sıcaklık (-80°C'ye varan) ve sıfıra yakın nem Mars'ın soğuk çöl iklimiyle örtüşür.",
-                    isolation: "Kış aylarında tahliyenin imkânsız olduğu mutlak izolasyon, gerçek derin uzay görevleriyle aynıdır.",
-                    nasaFit: "İnsan fizyolojisi/psikolojisi, yaşam destek sistemleri ve buz sondaj teknolojileri için kritik sahadır."
-                }
-            },
-            {
-                name: "Mars Jezero Krateri",
-                keywords: ["jezero", "jezero krateri", "mars jezero", "perseverance"],
-                suitable: true,
-                targetBody: "Mars Doğrudan Keşif ve Gelecek Üs Sahası",
-                paragraphs: [
-                    "Evet. Çünkü Mars üzerindeki 45 kilometre çapındaki Jezero Krateri; yaklaşık 3.5 milyar yıl önce dev bir göle ve akarsu deltasına ev sahipliği yapmış olması, kil ve karbonat mineralleri barındırması nedeniyle hem geçmiş mikrobiyal yaşam izlerini araştırmak hem de gelecekteki insanlı Mars üssü altyapısını planlamak için son derece uygundur.",
-                    "NASA Space Apps 2026 Mars üs konumlandırma kriterlerinde vurgulandığı üzere; kil mineralleri su moleküllerini yapısında hapsedebildiği için gelecekteki astronotların Yerinde Kaynak Kullanımı (ISRU) yöntemleriyle su elde etmesine olanak tanır. Ayrıca görece düz krater tabanı, iniş araçlarının güvenli şekilde konması ve habitat modüllerinin kurulması için elverişlidir.",
-                    "Şu anda NASA'nın Perseverance gezgini tarafından aktif olarak incelenen Jezero Krateri, Dünya'ya getirilecek ilk Mars kaya örneklerinin toplandığı stratejik bir araştırma merkezidir."
-                ],
-                criteria: {
-                    geology: "Antik nehir deltası tortulları, karbonatlar ve su tutucu kil mineralleri açısından çok zengindir.",
-                    climate: "İnce CO2 atmosferi, yüksek radyasyon ve toz fırtınaları doğrudan gezegen yüzeyi test ortamıdır.",
-                    isolation: "Dünya'dan milyonlarca kilometre uzakta gerçek gezegen yüzeyi operasyon alanıdır.",
-                    nasaFit: "Biyolojik iz araştırmaları, ISRU su çıkarımı ve ilk insanlı Mars iniş sahası adaylarındandır."
-                }
-            },
-            {
-                name: "İstanbul",
-                keywords: ["istanbul", "boğaziçi", "marmara"],
-                suitable: false,
-                targetBody: "Yoğun Metropol & Denizel Bölge",
-                paragraphs: [
-                    "Hayır. Çünkü İstanbul; 16 milyonu aşan nüfusu, kesintisiz kentsel dokusu, yüksek nemli denizel iklimi, yoğun ışık ve elektromanyetik kirliliği nedeniyle Ay veya Mars yüzey koşullarını simüle etmeye kesinlikle uygun değildir.",
-                    "NASA Space Apps 2026 kriterlerine göre bir bölgenin uzay araştırmaları ve gezegen analog testleri için uygun olabilmesi için aşırı kuraklık, kutup soğuğu, volkanik regolit yapısı ve insan etkisinden arınmış izolasyon sunması gerekir. İstanbul'un nemli atmosferi, yoğun bitki örtüsü ve altyapı yoğunluğu bu bilimsel gereksinimlerin tamamıyla çelişmektedir."
-                ],
-                criteria: {
-                    geology: "Yoğun betonlaşma ve verimli toprak örtüsü gezegen regoliti ile hiçbir benzerlik taşımaz.",
-                    climate: "Yüksek nem ve yağışlı ılıman iklim uzay ortamının ekstrem koşullarına uygun değildir.",
-                    isolation: "Yüksek nüfus ve elektromanyetik gürültü saha simülasyonlarını tamamen engeller.",
-                    nasaFit: "Gezegen analog saha görevleri için uygun değildir."
-                }
-            }
+            { name: "Atacama Çölü", suitable: true, targetBody: "Mars Yüzey & Astrobiyoloji Analoğu", summary: "Hiper-kurak iklim, perklorat tuzları ve UV radyasyonu ile Mars yüzeyi için birinci sınıf analog sahadır." },
+            { name: "İzmir", suitable: false, targetBody: "Kentsel & Ilıman Akdeniz Bölgesi", summary: "Yoğun nüfus, nem ve bitki örtüsü nedeniyle uzay simülasyonuna uygun değildir." },
+            { name: "Ay Güney Kutbu", suitable: true, targetBody: "Kalıcı Ay Üssü Konumu (Artemis Hedefi)", summary: "Ebedi ışık tepeleri ve kalıcı gölge kraterlerindeki su buzu rezervleriyle ideal üs bölgesidir." },
+            { name: "Devon Adası", suitable: true, targetBody: "Ay & Mars Kutup Krater Analoğu", summary: "Haughton çarpma krateri ve permafrost katmanlarıyla kutup kraterlerini taklit eder." },
+            { name: "Mauna Loa", suitable: true, targetBody: "Mars & Ay Volkanik Habitat Analoğu", summary: "Bazaltik lav akıntıları ve lav tüpleri ile volkanik arazileri simüle eder." },
+            { name: "Rio Tinto", suitable: true, targetBody: "Erken Dönem Mars Hidroloji & Astrobiyoloji Analoğu", summary: "Asidik nehir sistemi ve demir-sülfat mineralleriyle antik Mars hidrodinamiğini yansıtır." },
+            { name: "Antarktika", suitable: true, targetBody: "Ay & Mars Ekstrem İzolasyon ve Astrobiyoloji Analoğu", summary: "Kuru vadileri ve mutlak izolasyonu ile derin uzay koşullarını sağlar." },
+            { name: "Mars Jezero Krateri", suitable: true, targetBody: "Mars Doğrudan Keşif ve Gelecek Üs Sahası", summary: "Antik nehir deltası ve kil mineralleriyle astrobiyolojik keşif merkezidir." },
+            { name: "İstanbul", suitable: false, targetBody: "Yoğun Metropol & Denizel Bölge", summary: "Kentsel doku ve yüksek nem uzay şartlarıyla çelişir." }
         ];
 
         // =========================================================================
@@ -535,151 +344,45 @@
                 const saved = localStorage.getItem(STORAGE_KEY);
                 if (saved) {
                     const parsed = JSON.parse(saved);
-                    if (Array.isArray(parsed) && parsed.length > 0) {
-                        return parsed;
-                    }
+                    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
                 }
             } catch (e) {
-                console.warn("Yerel veritabanı okunamadı, varsayılanlara dönülüyor:", e);
+                console.warn("Yerel veritabanı okunamadı:", e);
             }
             localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_DATABASE));
             return [...DEFAULT_DATABASE];
         }
 
         function saveDatabase(db) {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
-            } catch (e) {
-                console.error("Veritabanı tarayıcıya kaydedilemedi:", e);
-            }
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(db)); } catch (e) { console.error(e); }
         }
 
         let DATABASE = loadDatabase();
 
         // =========================================================================
-        // 4. NORMALİZASYON, DOĞRULAMA VE YEREL ALGORİTMA MOTORU (YAPAY ZEKÂSIZ)
+        // 4. CLOUDFLARE WORKER ÜZERİNDEN YAPAY ZEKÂ ANALİZ MOTORU
         // =========================================================================
-        function normalizeText(str) {
-            if (!str) return "";
-            return str
-                .toLocaleLowerCase('tr-TR')
-                .trim()
-                .replace(/\s+/g, ' ')
-                .replace(/uzay araştırmalarına uygun mu\??/gi, '')
-                .trim();
-        }
+        const CHAT_ENDPOINT = "https://nsa-ai.dincermertozer.workers.dev/";
 
-        const placeCache = new Map();
-        const OFFWORLD = ["mars", "moon", "ay", "venüs", "merkür", "jüpiter", "satürn", "europa", "titan", "phobos", "deimos", "olympus"];
+        async function analyzeLocationWithAI(locationQuery) {
+            // Veritabanındaki kayıtları yapay zekâya bağlam olarak gönderiyoruz ki kıyas yapabilsin
+            const contextPayload = {
+                message: locationQuery,
+                databaseContext: DATABASE
+            };
 
-        function isOffWorld(q) {
-            return q.split(/[\s,.'’\-]+/).filter(Boolean).some(t => OFFWORLD.includes(t));
-        }
-
-        async function placeExists(query) {
-            const key = query.toLocaleLowerCase('tr-TR');
-            if (placeCache.has(key)) return placeCache.get(key);
-            const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=tr&q='
-                      + encodeURIComponent(query);
-            const res = await fetch(url);
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            const data = await res.json();
-            const exists = Array.isArray(data) && data.length > 0;
-            placeCache.set(key, exists);
-            return exists;
-        }
-
-        async function analyzeLocation(rawInput) {
-            const cleanedQuery = normalizeText(rawInput);
-
-            // 1. Adım: Kalıcı DATABASE içinde tam veya anahtar kelime eşleşmesi ara
-            let exactMatch = DATABASE.find(item => {
-                const normName = normalizeText(item.name);
-                if (normName === cleanedQuery) return true;
-                if (item.keywords && item.keywords.some(kw => normalizeText(kw) === cleanedQuery)) return true;
-                return false;
+            const response = await fetch(CHAT_ENDPOINT, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(contextPayload)
             });
 
-            if (!exactMatch) {
-                exactMatch = DATABASE.find(item => {
-                    const normName = normalizeText(item.name);
-                    if (normName.includes(cleanedQuery) || cleanedQuery.includes(normName)) return true;
-                    if (item.keywords && item.keywords.some(kw => {
-                        const nKw = normalizeText(kw);
-                        return nKw.length > 2 && (cleanedQuery.includes(nKw) || nKw.includes(cleanedQuery));
-                    })) return true;
-                    return false;
-                });
+            if (!response.ok) {
+                throw new Error("Yapay zekâ sunucusuna ulaşılamadı. (HTTP " + response.status + ")");
             }
 
-            if (exactMatch) {
-                return {
-                    source: exactMatch.userAdded ? "KALICI KULLANICI VERİTABANI KAYDI" : "VERİTABANI KAYDI (NASA SPACE APPS KAYNAKÇASI)",
-                    locationName: exactMatch.name,
-                    suitable: exactMatch.suitable,
-                    targetBody: exactMatch.targetBody || "Ay & Mars Araştırmaları",
-                    paragraphs: exactMatch.paragraphs,
-                    criteria: exactMatch.criteria
-                };
-            }
-
-            // 2. Adım: Dünya üzerinde böyle bir yer var mı?
-            if (!isOffWorld(cleanedQuery)) {
-                try {
-                    if (!(await placeExists(rawInput.trim()))) {
-                        return { notFound: true, locationName: rawInput.trim() };
-                    }
-                } catch (err) {
-                    console.warn("Yer doğrulaması yapılamadı:", err);
-                }
-            }
-
-            // 3. Adım: Kriter tabanlı yerel çıkarım algoritması
-            return runHeuristicAnalysis(rawInput.trim(), cleanedQuery);
-        }
-
-        function runHeuristicAnalysis(displayLocation, q) {
-            const positiveSignals = ["çöl", "krater", "volkan", "lav", "kutup", "buzul", "tundra", "permafrost", "ay ", "mars", "kanyon", "plato", "tuz gölü", "obruk", "bazalt", "salar"];
-            const negativeSignals = ["şehir", "metropol", "orman", "sahil", "belediye", "ilçe", "mahalle", "merkez", "liman", "ovası", "boğaz"];
-
-            const hasPositive = positiveSignals.some(sig => q.includes(sig));
-            const hasNegative = negativeSignals.some(sig => q.includes(sig));
-
-            if (hasPositive && !hasNegative) {
-                return {
-                    source: "ALGORİTMİK KRİTER ÇIKARIMI",
-                    locationName: displayLocation,
-                    suitable: true,
-                    targetBody: "Potansiyel Gezegen Analog Sahası",
-                    paragraphs: [
-                        `Evet. "${displayLocation}" bölgesi, barındırdığı ekstrem jeomorfolojik ve çevresel karakteristikler nedeniyle uzay araştırmaları ve gezegen yüzeyi analog simülasyonları için yüksek potansiyel taşımaktadır.`,
-                        `NASA Earthdata, Copernicus Sentinel-1 SAR ve NASA PDS veri setleri üzerinden yapılacak uzaktan algılama doğrulamaları ile bölgenin regolit ve yüzey pürüzlülüğü detaylı olarak haritalanabilir. Dilerseniz üst menüdeki Veritabanı panelinden bu konumu kalıcı olarak ekleyerek özel bilimsel notlarınızı kaydedebilirsiniz.`
-                    ],
-                    criteria: {
-                        geology: "Yüksek Potansiyel — Volkanik, krater veya kurak mineral yapılar Ay/Mars regoliti ile yapısal benzerlik gösterir.",
-                        climate: "Ekstrem / Düşük Nem — Biyolojik girişimin düşük olması astrobiyolojik sensör kalibrasyonunu kolaylaştırır.",
-                        isolation: "Uygun Saha Koşulları — Kentsel altyapıdan uzaklık, gerçekçi iletişim gecikmesi ve izolasyon testlerine izin verir.",
-                        nasaFit: "Rover mobilite testleri, SAR yüzey analizi ve habitat simülasyonları için önerilir."
-                    }
-                };
-            }
-
-            return {
-                source: "ALGORİTMİK KRİTER ÇIKARIMI",
-                locationName: displayLocation,
-                suitable: false,
-                targetBody: "Standart Karasal / Kentsel Bölge",
-                paragraphs: [
-                    `Hayır. Çünkü "${displayLocation}" bölgesi, NASA Space Apps 2026 Ay ve Mars Üssü Konumlandırma kriterleri açısından değerlendirildiğinde uzay araştırmaları ve gezegen yüzeyi analog görevleri için uygun koşulları karşılamamaktadır.`,
-                    `Eğer bu bölgeye ait özel bir saha veriniz varsa üst menüdeki Veritabanı panelinden kalıcı olarak ekleyerek sistemin bu konumu kendi verilerinizle tanımasını sağlayabilirsiniz.`
-                ],
-                criteria: {
-                    geology: "Uygun Değil — Kentsel zemin, tarım toprağı veya bitki örtüsü gezegen regoliti simülasyonunu engeller.",
-                    climate: "Ilıman / Nemli Biyosfer — Yüksek nem ve atmosferik koşullar Mars/Ay ekstremitesinden çok uzaktır.",
-                    isolation: "Düşük İzolasyon — Yoğun nüfus, radyo frekans gürültüsü ve ışık kirliliği bilimsel ölçümleri bozar.",
-                    nasaFit: "Analog saha görevleri yerine yalnızca kapalı laboratuvar veya veri merkezi çalışmaları için kullanılabilir."
-                }
-            };
+            const data = await response.json();
+            return data; // Cloudflare Worker'dan gelen JSON verisi
         }
 
         // =========================================================================
@@ -695,6 +398,8 @@
             const resultLocationTitle = document.getElementById('resultLocationTitle');
             const verdictBadge = document.getElementById('verdictBadge');
             const resultDetailedExplanation = document.getElementById('resultDetailedExplanation');
+            const risksSection = document.getElementById('risksSection');
+            const resultRisksText = document.getElementById('resultRisksText');
             const criteriaGrid = document.getElementById('criteriaGrid');
             const toastMessage = document.getElementById('toastMessage');
 
@@ -711,9 +416,7 @@
             function showToast(msg) {
                 toastMessage.textContent = msg;
                 toastMessage.classList.remove('hidden');
-                setTimeout(() => {
-                    toastMessage.classList.add('hidden');
-                }, 4000);
+                setTimeout(() => { toastMessage.classList.add('hidden'); }, 4000);
             }
 
             function renderPortals() {
@@ -731,9 +434,7 @@
                 footerPortalsGrid.innerHTML = SCIENTIFIC_PORTALS.map(p => `
                     <div class="truncate">
                         <span class="text-slate-500 font-mono">[${p.agency}]</span>
-                        <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="text-sky-400/90 hover:text-sky-300 hover:underline ml-1">
-                            ${p.title}
-                        </a>
+                        <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="text-sky-400/90 hover:text-sky-300 hover:underline ml-1">${p.title}</a>
                     </div>
                 `).join('');
             }
@@ -755,7 +456,6 @@
                         </div>
                         <div class="flex items-center justify-between gap-2 w-full">
                             <span class="text-[11px] text-slate-400 truncate">${item.targetBody}</span>
-                            ${item.userAdded ? '<span class="text-[10px] font-mono text-sky-400 shrink-0">ÖZEL KAYIT</span>' : ''}
                         </div>
                     `;
                     card.addEventListener('click', () => {
@@ -775,60 +475,56 @@
                 learnBtn.disabled = on;
                 learnBtn.classList.toggle('opacity-60', on);
                 learnBtn.classList.toggle('cursor-wait', on);
-                learnBtnLabel.textContent = on ? 'Analiz Ediliyor...' : 'Öğren';
+                learnBtnLabel.textContent = on ? 'Yapay Zekâ Analiz Ediyor...' : 'Öğren';
             }
 
-            function showNotFound(name) {
-                resultCard.className = "rounded-3xl border border-amber-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl shadow-amber-950/30";
-                verdictBadge.className = "self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg bg-amber-500/20 text-amber-200 border border-amber-500/40";
-                verdictBadge.innerHTML = `
-                    <svg class="w-6 h-6 text-amber-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.3 3.9L2.4 17.5a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path>
-                    </svg>
-                    <span>YER BULUNAMADI</span>
-                `;
-                resultSourceTag.textContent = "YER DOĞRULAMA";
-                resultTargetBody.textContent = "DÜNYA ÜZERİNDE EŞLEŞME YOK";
-                resultLocationTitle.textContent = `“${name}”`;
-
-                const p = document.createElement('p');
-                p.className = "text-slate-200/95 leading-relaxed";
-                p.textContent = `Böyle bir yer yok. “${name}” adıyla Dünya üzerinde kayıtlı bir konum bulamadım. Yazımı kontrol edip tekrar deneyebilir ya da yukarıdaki hızlı test örneklerinden birini seçebilirsin.`;
-                resultDetailedExplanation.innerHTML = '';
-                resultDetailedExplanation.appendChild(p);
-
+            function showAIError(errorMsg) {
+                resultCard.className = "rounded-3xl border border-rose-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl";
+                verdictBadge.className = "self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg text-rose-300 bg-rose-500/20 border border-rose-500/40";
+                verdictBadge.innerHTML = `<span>HATA OLUŞTU</span>`;
+                resultSourceTag.textContent = "GROQ AI BAĞLANTI";
+                resultTargetBody.textContent = "SİSTEM HATASI";
+                resultLocationTitle.textContent = "Analiz Gerçekleştirilemedi";
+                resultDetailedExplanation.innerHTML = `<p class="text-rose-200">Yapay zekâ yanıt üretirken bir sorunla karşılaştı: ${errorMsg}</p>`;
+                risksSection.classList.add('hidden');
                 criteriaGrid.parentElement.classList.add('hidden');
-
                 resultContainer.classList.remove('hidden');
-                resultContainer.classList.remove('animate-result');
-                void resultContainer.offsetWidth;
-                resultContainer.classList.add('animate-result');
             }
 
             async function executeAnalysis(query) {
                 if (!query || !query.trim()) {
-                    showToast("Lütfen öğrenmek istediğiniz yerin adını yukarıdaki boşluğa yazın (Örn: Atacama Çölü veya İzmir).");
+                    showToast("Lütfen analiz edilmesini istediğiniz yerin adını yazın (Örn: Salar de Uyuni, Atacama Çölü).");
                     locationInput.focus();
                     return;
                 }
 
                 const mySeq = ++analysisSeq;
                 setLoading(true);
-                let analysis;
-                try {
-                    analysis = await analyzeLocation(query);
-                } finally {
-                    if (mySeq === analysisSeq) setLoading(false);
-                }
-                if (mySeq !== analysisSeq) return;
+                let resultData;
 
-                if (analysis.notFound) {
-                    showNotFound(analysis.locationName);
+                try {
+                    resultData = await analyzeLocationWithAI(query.trim());
+                } catch (err) {
+                    if (mySeq === analysisSeq) {
+                        setLoading(false);
+                        showAIError(err.message);
+                    }
                     return;
                 }
+
+                if (mySeq !== analysisSeq) return;
+                setLoading(false);
+
+                // Eğer model metin hata mesajı döndürdüyse
+                if (resultData.reply && typeof resultData.reply === 'string' && !resultData.locationName) {
+                    showAIError(resultData.reply);
+                    return;
+                }
+
+                // AI Sonuç Kartı Tasarımı
                 criteriaGrid.parentElement.classList.remove('hidden');
 
-                if (analysis.suitable) {
+                if (resultData.suitable) {
                     resultCard.className = "rounded-3xl border border-emerald-500/40 bg-space-900/95 backdrop-blur-xl p-6 sm:p-10 shadow-2xl shadow-emerald-950/30";
                     verdictBadge.className = "self-start sm:self-center px-5 py-2.5 rounded-2xl font-extrabold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 shadow-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
                     verdictBadge.innerHTML = `
@@ -848,19 +544,26 @@
                     `;
                 }
 
-                resultSourceTag.textContent = analysis.source;
-                resultTargetBody.textContent = analysis.targetBody;
-                resultLocationTitle.textContent = `${analysis.locationName} — Uzay Araştırmaları Analizi`;
+                resultSourceTag.textContent = "GROQ AI (LLAMA MODEL) ANALİZİ";
+                resultTargetBody.textContent = resultData.targetBody || "Mars & Ay Analog Değerlendirmesi";
+                resultLocationTitle.textContent = `${resultData.locationName || query} — Uzay Araştırmaları Analizi`;
 
-                resultDetailedExplanation.innerHTML = analysis.paragraphs
-                    .map(p => `<p class="text-slate-200/95 leading-relaxed">${p}</p>`)
-                    .join('');
+                resultDetailedExplanation.innerHTML = `<p class="text-slate-200/95 leading-relaxed">${resultData.summary || "Açıklama üretilemedi."}</p>`;
 
+                // Görev Riskleri / Eksiklikler
+                if (resultData.missionRisks || resultData.deficiencies) {
+                    risksSection.classList.remove('hidden');
+                    resultRisksText.textContent = `${resultData.deficiencies ? 'Eksiklikler: ' + resultData.deficiencies + ' \n\n' : ''}${resultData.missionRisks ? 'Görev Riskleri: ' + resultData.missionRisks : ''}`;
+                } else {
+                    risksSection.classList.add('hidden');
+                }
+
+                const criteria = resultData.criteria || {};
                 const criteriaItems = [
-                    { label: "Jeoloji & Regolit Benzerliği", text: analysis.criteria.geology },
-                    { label: "İklim, Atmosfer & Su Buzu", text: analysis.criteria.climate },
-                    { label: "İzolasyon & Çevresel Kirlilik", text: analysis.criteria.isolation },
-                    { label: "NASA Space Apps Görev Uygunluğu", text: analysis.criteria.nasaFit }
+                    { label: "Jeoloji & Regolit Benzerliği", text: criteria.geology || "Belirtilmedi." },
+                    { label: "İklim, Atmosfer & Su Buzu", text: criteria.climate || "Belirtilmedi." },
+                    { label: "İzolasyon & Çevresel Kirlilik", text: criteria.isolation || "Belirtilmedi." },
+                    { label: "NASA Space Apps Görev Uygunluğu", text: criteria.nasaFit || "Belirtilmedi." }
                 ];
 
                 criteriaGrid.innerHTML = criteriaItems.map(c => `
@@ -874,6 +577,7 @@
                 resultContainer.classList.remove('animate-result');
                 void resultContainer.offsetWidth;
                 resultContainer.classList.add('animate-result');
+                resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
 
             evaluateForm.addEventListener('submit', (e) => {
@@ -896,64 +600,35 @@
                 }
             });
 
-            closeDbDrawerBtn.addEventListener('click', () => {
-                databaseDrawer.classList.add('hidden');
-            });
+            closeDbDrawerBtn.addEventListener('click', () => { databaseDrawer.classList.add('hidden'); });
 
             resetDbBtn.addEventListener('click', () => {
                 DATABASE = [...DEFAULT_DATABASE];
                 saveDatabase(DATABASE);
                 renderDatabaseList();
-                showToast("Veritabanı başlangıçtaki 9 temel kayda sıfırlandı.");
+                showToast("Veritabanı varsayılan 9 kayda sıfırlandı.");
             });
 
-            // Arayüzden kalıcı yeni veritabanı kaydı ekleme
             addRecordForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const name = document.getElementById('newLocName').value.trim();
                 const suitable = document.getElementById('newLocSuitable').value === 'true';
                 const targetBody = document.getElementById('newLocTarget').value.trim() || "Özel Veritabanı Kaydı";
-                const rawKeywords = document.getElementById('newLocKeywords').value;
                 const summary = document.getElementById('newLocSummary').value.trim();
 
                 if (!name || !summary) return;
 
-                const keywords = rawKeywords
-                    .split(',')
-                    .map(k => k.trim())
-                    .filter(Boolean);
-
-                const newEntry = {
-                    name: name,
-                    keywords: keywords.length ? keywords : [name.toLowerCase()],
-                    suitable: suitable,
-                    targetBody: targetBody,
-                    userAdded: true,
-                    paragraphs: [
-                        `${suitable ? 'Evet.' : 'Hayır.'} ${summary}`,
-                        `Bu değerlendirme, kullanıcı tarafından kalıcı veritabanına eklenen özel saha verileri ve NASA/CSA/ESA/JAXA açık veri portalları referans alınarak oluşturulmuştur.`
-                    ],
-                    criteria: {
-                        geology: suitable ? "Kalıcı veritabanı kaydına göre gezegen yüzeyi testlerine uygun jeolojik yapı." : "Gezegen yüzeyi analog standartlarını karşılamayan zemin yapısı.",
-                        climate: suitable ? "Hedef görev profili için elverişli atmosferik ve çevresel koşullar." : "Uzay araştırması simülasyonları için uygun olmayan iklim koşulları.",
-                        isolation: suitable ? "Saha testleri için yeterli izolasyon seviyesi." : "Dış etkenlere ve çevresel girişime açık bölge.",
-                        nasaFit: `${targetBody} kapsamında tanımlanmış kalıcı özel kayıt.`
-                    }
-                };
-
-                const existingIdx = DATABASE.findIndex(item => normalizeText(item.name) === normalizeText(name));
-                if (existingIdx > -1) {
-                    DATABASE[existingIdx] = newEntry;
-                } else {
-                    DATABASE.push(newEntry);
-                }
+                const newEntry = { name, suitable, targetBody, summary };
+                const existingIdx = DATABASE.findIndex(item => item.name.toLocaleLowerCase('tr-TR') === name.toLocaleLowerCase('tr-TR'));
+                if (existingIdx > -1) DATABASE[existingIdx] = newEntry;
+                else DATABASE.push(newEntry);
 
                 saveDatabase(DATABASE);
                 renderDatabaseList();
                 addRecordForm.reset();
                 locationInput.value = name;
                 executeAnalysis(name);
-                showToast(`"${name}" kalıcı olarak kaydedildi.`);
+                showToast(`"${name}" kalıcı veritabanına eklendi ve yapay zekâ bağlamına işlendi.`);
             });
 
             renderPortals();
