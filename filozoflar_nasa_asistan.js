@@ -7,10 +7,8 @@
 (() => {
   "use strict";
 
-  // Cloudflare Worker Adresiniz (Groq API Köprüsü)
   const CHAT_ENDPOINT = "https://nsa-ai.dincermertozer.workers.dev/";
 
-  // 1. YAPAY ZEKÂ BAĞLANTI FONKSİYONU (GROQ)
   async function cevapVer(soru) {
     try {
       const res = await fetch(CHAT_ENDPOINT, {
@@ -29,7 +27,6 @@
     }
   }
 
-  // 2. ARAYÜZ VE STİL YÖNETİMİ
   function baslat() {
     const root = document.createElement("div");
     root.id = "filozoflar-nasa-asistan-root";
@@ -61,9 +58,7 @@
         letter-spacing: 1px;
       }
 
-      .nasa-buton:hover {
-        background: #1a75ec;
-      }
+      .nasa-buton:hover { background: #1a75ec; }
 
       .nasa-panel {
         position: fixed;
@@ -123,15 +118,8 @@
         overflow-wrap: anywhere;
       }
 
-      .nasa-bot {
-        background: #173553;
-        align-self: flex-start;
-      }
-
-      .nasa-kullanici {
-        background: #1263c7;
-        align-self: flex-end;
-      }
+      .nasa-bot { background: #173553; align-self: flex-start; }
+      .nasa-kullanici { background: #1263c7; align-self: flex-end; }
 
       .nasa-form {
         display: flex;
@@ -176,7 +164,7 @@
 
     const button = document.createElement("button");
     button.className = "nasa-buton";
-    button.innerHTML = "◀";
+    button.innerHTML = "◀ NASA Asistan";
     button.setAttribute("aria-label", "NASA Asistanını Aç/Kapat");
 
     const panel = document.createElement("section");
@@ -184,15 +172,12 @@
 
     panel.innerHTML = `
       <div class="nasa-baslik">
-        <span>NASA Analog Asistan (AI)</span> 
+        <span>🚀 NASA Analog Asistan (AI)</span>
         <button class="nasa-kapat" aria-label="Kapat">×</button>
       </div>
       <div class="nasa-mesajlar" aria-live="polite"></div>
       <form class="nasa-form">
-        <input class="nasa-input"
-          type="text"
-          placeholder="Atacama veya Ay üssü hakkında sor..."
-          aria-label="Mesajınız">
+        <input class="nasa-input" type="text" placeholder="Atacama veya Ay üssü hakkında sor..." aria-label="Mesajınız">
         <button class="nasa-gonder" type="submit">Gönder</button>
       </form>
       <div class="nasa-alt">
@@ -208,19 +193,14 @@
 
     function mesajEkle(metin, kim) {
       const mesaj = document.createElement("div");
-      mesaj.className =
-        "nasa-mesaj " +
-        (kim === "bot" ? "nasa-bot" : "nasa-kullanici");
+      mesaj.className = "nasa-mesaj " + (kim === "bot" ? "nasa-bot" : "nasa-kullanici");
       mesaj.textContent = metin;
       mesajlar.appendChild(mesaj);
       mesajlar.scrollTop = mesajlar.scrollHeight;
       return mesaj;
     }
 
-    mesajEkle(
-      "Merhaba! 🚀\n\nBen Filozofların Takımı'nın yapay zekâ destekli NASA Analog Asistanıyım. Ay ve Mars analog sahaları hakkında bana dilediğin soruyu sorabilirsin.",
-      "bot"
-    );
+    mesajEkle("Merhaba! 🚀\n\nBen Filozofların Takımı'nın yapay zekâ destekli NASA Analog Asistanıyım. Ay ve Mars analog sahaları hakkında bana dilediğin soruyu sorabilirsin.", "bot");
 
     button.addEventListener("click", () => {
       const acik = panel.classList.toggle("acik");
@@ -235,7 +215,6 @@
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-
       const soru = input.value.trim();
       if (!soru) return;
 
@@ -243,9 +222,7 @@
       input.value = "";
 
       const yukleniyorMesaji = mesajEkle("Düşünüyor...", "bot");
-      
       const yanıt = await cevapVer(soru);
-      
       yukleniyorMesaji.textContent = yanıt;
     });
   }
